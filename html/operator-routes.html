@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Operator Routes — Biyahero</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.2.0/remixicon.min.css" />
+  <link rel="stylesheet" href="../css/shared.css" />
+  <link rel="stylesheet" href="../css/operator.css" />
+  <link rel="stylesheet" href="../css/commuter.css" />
+  <link rel="stylesheet" href="../css/static-inline.css">
+</head>
+<body>
+  <div class="app-shell" id="app-shell">
+    <aside class="sidebar" role="navigation" aria-label="Operator navigation">
+      <a class="sidebar-brand" href="operator-dashboard.html">
+        <span class="sidebar-brand-mark" aria-hidden="true"><i class="ri-bus-line"></i></span>
+        Biyahero
+      </a>
+      <nav class="sidebar-nav">
+        <a href="operator-dashboard.html"><i class="ri-dashboard-line"></i> Dashboard</a>
+        <a href="operator-driver-approval.html"><i class="ri-user-check-line"></i> Driver Approval</a>
+        <a href="operator-drivers.html"><i class="ri-steering-2-line"></i> Driver Management</a>
+        <a href="operator-route-monitoring.html"><i class="ri-traffic-light-line"></i> Route Monitoring</a>
+        <a href="operator-route-reports.html"><i class="ri-flag-line"></i> Route Reports</a>
+        <a href="operator-routes.html" class="active"><i class="ri-map-2-line"></i> Routes</a>
+        <a href="operator-dashboard.html#activity-heading"><i class="ri-history-line"></i> Activity Log</a>
+        <a href="operator-profile.html"><i class="ri-user-line"></i> Profile</a>
+      </nav>
+      <div class="sidebar-footer">
+        <a class="btn-logout" href="login.html">
+          <i class="ri-logout-box-r-line"></i> Log Out
+        </a>
+      </div>
+    </aside>
+
+    <div class="main-content">
+      <header class="page-header">
+        <div class="page-header-left">
+          <span class="breadcrumb-current">Route Catalog</span>
+        </div>
+        <div class="page-header-right">
+          <div class="user-chip">
+            <div class="user-avatar">AR</div>
+            <span class="user-name">Alicia Reyes</span>
+          </div>
+        </div>
+      </header>
+
+      <main class="page-body">
+        <div class="route-catalog-note">
+          <i class="ri-information-line"></i>
+          Operator route list for fleet assignment and monitoring.
+        </div>
+
+        <div class="count-badge" id="count-badge">
+          <i class="ri-route-line"></i> 5 operator routes
+        </div>
+
+        <div class="card-grid" id="routes-grid">
+          <article class="route-card">
+            <div class="route-card__header">
+              <div>
+                <span class="route-card__route-code">01K</span>
+                <div class="route-card__name">Colon – SM City Cebu</div>
+              </div>
+              <span class="badge badge-success">Active</span>
+            </div>
+            <div class="route-card__direction"><i class="ri-map-pin-2-line"></i>Colon Street <i class="ri-arrow-right-line"></i> <i class="ri-map-pin-line"></i>SM City Cebu</div>
+            <div class="route-card__meta">
+              <span class="route-card__meta-item badge badge-teal">Jeepney</span>
+              <span class="route-card__meta-item">₱15.00 fare</span>
+              <span class="route-card__meta-item">~25 min</span>
+            </div>
+            <div class="route-card__details open">
+              <div class="route-card__detail-section">
+                <div class="route-card__detail-label">Stops</div>
+                <ol class="route-card__stops">
+                  <li>Colon Street</li>
+                  <li>Carbon Market</li>
+                  <li>Fuente Osmeña</li>
+                  <li>Ayala Center</li>
+                  <li>SM City Cebu</li>
+                </ol>
+              </div>
+            </div>
+          </article>
+
+          <article class="route-card">
+            <div class="route-card__header">
+              <div>
+                <span class="route-card__route-code">13C</span>
+                <div class="route-card__name">Parkmall – IT Park</div>
+              </div>
+              <span class="badge badge-success">Active</span>
+            </div>
+            <div class="route-card__direction"><i class="ri-map-pin-2-line"></i>Parkmall <i class="ri-arrow-right-line"></i> <i class="ri-map-pin-line"></i>IT Park</div>
+            <div class="route-card__meta">
+              <span class="route-card__meta-item badge badge-teal">Jeepney</span>
+              <span class="route-card__meta-item">₱15.00 fare</span>
+              <span class="route-card__meta-item">~30 min</span>
+            </div>
+            <div class="route-card__details open">
+              <div class="route-card__detail-section">
+                <div class="route-card__detail-label">Stops</div>
+                <ol class="route-card__stops">
+                  <li>Parkmall</li>
+                  <li>North Reclamation</li>
+                  <li>Ayala Center</li>
+                  <li>IT Park</li>
+                </ol>
+              </div>
+            </div>
+          </article>
+
+          <article class="route-card">
+            <div class="route-card__header">
+              <div>
+                <span class="route-card__route-code">BUS-02</span>
+                <div class="route-card__name">Tabunok – South Bus Terminal</div>
+              </div>
+              <span class="badge badge-success">Active</span>
+            </div>
+            <div class="route-card__direction"><i class="ri-map-pin-2-line"></i>Tabunok <i class="ri-arrow-right-line"></i> <i class="ri-map-pin-line"></i>Cebu South Bus Terminal</div>
+            <div class="route-card__meta">
+              <span class="route-card__meta-item badge badge-info">Bus</span>
+              <span class="route-card__meta-item">₱18.00 fare</span>
+              <span class="route-card__meta-item">~35 min</span>
+            </div>
+            <div class="route-card__details open">
+              <div class="route-card__detail-section">
+                <div class="route-card__detail-label">Stops</div>
+                <ol class="route-card__stops">
+                  <li>Tabunok Market</li>
+                  <li>Lawaan</li>
+                  <li>Bulacao</li>
+                  <li>South Bus Terminal</li>
+                </ol>
+              </div>
+            </div>
+          </article>
+
+          <article class="route-card">
+            <div class="route-card__header">
+              <div>
+                <span class="route-card__route-code">AIR-01</span>
+                <div class="route-card__name">Basak – Mactan Airport</div>
+              </div>
+              <span class="badge badge-success">Active</span>
+            </div>
+            <div class="route-card__direction"><i class="ri-map-pin-2-line"></i>Basak <i class="ri-arrow-right-line"></i> <i class="ri-map-pin-line"></i>Airport</div>
+            <div class="route-card__meta">
+              <span class="route-card__meta-item badge badge-teal">Modern Jeepney</span>
+              <span class="route-card__meta-item">₱20.00 fare</span>
+              <span class="route-card__meta-item">~20 min</span>
+            </div>
+            <div class="route-card__details open">
+              <div class="route-card__detail-section">
+                <div class="route-card__detail-label">Stops</div>
+                <ol class="route-card__stops">
+                  <li>Basak</li>
+                  <li>Marigondon Road</li>
+                  <li>Airport Access Road</li>
+                  <li>Mactan Airport</li>
+                </ol>
+              </div>
+            </div>
+          </article>
+
+          <article class="route-card">
+            <div class="route-card__header">
+              <div>
+                <span class="route-card__route-code">12B</span>
+                <div class="route-card__name">Talisay – Minglanilla</div>
+              </div>
+              <span class="badge badge-warning">Monitoring</span>
+            </div>
+            <div class="route-card__direction"><i class="ri-map-pin-2-line"></i>Talisay City <i class="ri-arrow-right-line"></i> <i class="ri-map-pin-line"></i>Minglanilla</div>
+            <div class="route-card__meta">
+              <span class="route-card__meta-item badge badge-navy">Bus</span>
+              <span class="route-card__meta-item">₱18.00 fare</span>
+              <span class="route-card__meta-item">~40 min</span>
+            </div>
+            <div class="route-card__details open">
+              <div class="route-card__detail-section">
+                <div class="route-card__detail-label">Stops</div>
+                <ol class="route-card__stops">
+                  <li>City Proper</li>
+                  <li>Tabunok</li>
+                  <li>Lutong Bahay</li>
+                  <li>Minglanilla</li>
+                </ol>
+              </div>
+            </div>
+          </article>
+        </div>
+      </main>
+    </div>
+  </div>
+</body>
+</html>

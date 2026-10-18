@@ -12,8 +12,6 @@
   <link rel="stylesheet" href="../css/static-inline.css">
 </head>
 <body>
-
-
   <header class="site-header">
     <div class="header-inner">
       <a class="brand" href="../index.html" aria-label="Biyahero home">
@@ -33,135 +31,51 @@
       </nav>
 
       <a class="button button-primary header-cta" href="signup.html">Sign Up</a>
-
-      <details class="mobile-menu">
-        <summary aria-label="Open navigation menu">
-          <span></span>
-          <span></span>
-          <span></span>
-        </summary>
-        <nav aria-label="Mobile navigation">
-          <a href="../index.html">Home</a>
-          <a href="login.html">Routes</a>
-          <a href="fare-guide.html">Fare Guide</a>
-          <a href="signup.html">Sign Up</a>
-        </nav>
-      </details>
     </div>
   </header>
 
-
   <main class="auth-page">
-    <div class="auth-grid auth-grid--registration">
-
-
+    <div class="auth-grid">
       <div class="auth-left">
-        <p class="auth-label">Operators</p>
+        <p class="auth-label">Account access</p>
 
         <h1 class="auth-headline">
-          <span class="navy">Manage your</span><br>
-          <span class="green">transport group.</span>
+          <span class="navy">Operator sign-up</span><br>
+          <span class="green">is unavailable.</span>
         </h1>
 
         <p class="auth-desc">
-          Register your transport group on Biyahero to manage driver applications,
-          monitor routes, and review route reports across your fleet.
+          The operator registration form has been removed. Please sign up as a commuter or driver instead.
         </p>
-
-        <ul class="checklist">
-          <li>
-            <i class="ri-check-line check-icon" aria-hidden="true"></i>
-            Approve or decline driver applications
-          </li>
-          <li>
-            <i class="ri-check-line check-icon" aria-hidden="true"></i>
-            Monitor route status and driver reports
-          </li>
-          <li>
-            <i class="ri-check-line check-icon" aria-hidden="true"></i>
-            Review commuter feedback and reports
-          </li>
-        </ul>
       </div>
 
+      <div class="auth-card">
+        <h2 class="auth-card__title">Choose Another Role</h2>
+        <p class="auth-card__sub">Select an available sign-up option to continue.</p>
 
-      <div class="auth-card auth-form-card">
-        <h2 class="auth-card__title">Operator Sign Up</h2>
-        <p class="auth-card__sub">Enter your details to try the signup demo.</p>
-
-        <form id="operator-form" class="commuter-form signup-form-grid" data-signup-form>
-
-          <div class="form-group form-group--wide">
-            <label for="fullname">Full Name</label>
-            <input type="text" id="fullname" name="fullname"
-                   placeholder="e.g. Ana Reyes" autocomplete="name" required />
-            <span class="field-error" id="fullname-error"></span>
-          </div>
-
-          <div class="form-group">
-            <label for="contact">Mobile Number</label>
-            <input type="text" id="contact" name="contact"
-                   placeholder="e.g. +63 917 123 4567" autocomplete="tel" required />
-            <span class="field-error" id="contact-error"></span>
-          </div>
-
-          <div class="form-group">
-            <label for="email">Email Address</label>
-            <input type="email" id="email" name="email"
-                   placeholder="you@example.com" autocomplete="email" required />
-            <span class="field-error" id="email-error"></span>
-          </div>
-
-          <div class="form-group form-group--wide">
-            <label for="password">Password</label>
-            <div class="input-wrap">
-              <input type="password" id="password" name="password"
-                     placeholder="Create a password (min 8 chars)" autocomplete="new-password" minlength="8" pattern="(?=.*[A-Za-z])(?=.*[0-9]).{8,}" title="Use at least 8 characters, including a letter and a number." required />
-              <button class="eye-btn" id="toggle-pw" type="button" aria-label="Show password" aria-controls="password">
-                <i class="ri-eye-off-line" id="eye-icon"></i>
-              </button>
+        <div class="role-card-grid">
+          <div class="role-card role-card--commuter">
+            <div class="role-card__icon" aria-hidden="true">
+              <i class="ri-user-line"></i>
             </div>
-            <small class="form-hint">Use at least 8 characters, including a letter and a number.</small>
-            <span class="field-error" id="password-error"></span>
-          </div>
-
-          <div class="form-group form-group--wide">
-            <label for="confirm">Confirm Password</label>
-            <div class="input-wrap">
-              <input type="password" id="confirm" name="confirm"
-                     placeholder="Repeat your password" autocomplete="new-password" required />
-              <button class="eye-btn" id="toggle-confirm" type="button" aria-label="Show confirm password" aria-controls="confirm">
-                <i class="ri-eye-off-line" id="eye-icon-confirm"></i>
-              </button>
+            <div class="role-card__body">
+              <p class="role-card__title">Commuter</p>
+              <p class="role-card__desc">Plan trips, check routes, report issues</p>
             </div>
-            <span class="field-error" id="confirm-error"></span>
+            <a href="commuter-signup.html" class="btn btn-primary btn-full">Sign up as Commuter</a>
           </div>
 
-          <div class="form-group form-group--wide">
-            <label for="operator-group">Operator / Transport Group Name</label>
-            <input type="text" id="operator-group" name="operatorGroup"
-                   placeholder="e.g. Cebu South Transport Cooperative" required />
-            <span class="field-error" id="operator-group-error"></span>
+          <div class="role-card role-card--driver">
+            <div class="role-card__icon" aria-hidden="true">
+              <i class="ri-steering-2-line"></i>
+            </div>
+            <div class="role-card__body">
+              <p class="role-card__title">Driver</p>
+              <p class="role-card__desc">Manage your assigned route, submit status reports</p>
+            </div>
+            <a href="driver-signup.html" class="btn btn-primary btn-full">Sign up as Driver</a>
           </div>
-
-          <div class="form-group form-group--wide">
-            <label for="municipality">Municipality</label>
-            <select id="municipality" name="municipality" required>
-              <option value="" selected disabled>Select a municipality</option>
-              <option>Cebu City</option>
-              <option>Mandaue City</option>
-              <option>Lapu-Lapu City</option>
-              <option>Talisay City</option>
-              <option>Minglanilla</option>
-            </select>
-          </div>
-
-          <div class="signup-step-footer">
-            <span>Single-step application</span>
-            <button class="btn btn-primary signup-next" type="submit">Submit application</button>
-          </div>
-          <p class="signup-feedback" role="status" aria-live="polite"></p>
-        </form>
+        </div>
 
         <p class="auth-card__footer">
           Already have an account? <a href="login.html">Log in</a>
@@ -169,6 +83,6 @@
       </div>
     </div>
   </main>
-  <script src="../js/signup-interactions.js"></script>
 </body>
 </html>
+
