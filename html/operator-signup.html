@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Operator Sign Up — Biyahero</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+  <link rel="stylesheet" href="../css/signup.css" />
+  <link rel="stylesheet" href="../css/static-inline.css">
+</head>
+<body>
+
+
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="../index.html" aria-label="Biyahero home">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none">
+            <path d="M5 17.5V9.25C5 7.45 6.45 6 8.25 6h7.5C17.55 6 19 7.45 19 9.25v8.25H5Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+            <path d="M8 6V4.75h8V6M5.5 12h13M8 17.5v2m8-2v2M8.25 14.75h.01m7.49 0h.01" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+          </svg>
+        </span>
+        <span>Biyahero</span>
+      </a>
+
+      <nav class="desktop-nav" aria-label="Main navigation">
+        <a class="nav-link" href="../index.html">Home</a>
+        <a class="nav-link" href="login.html">Routes</a>
+        <a class="nav-link" href="fare-guide.html">Fare Guide</a>
+      </nav>
+
+      <a class="button button-primary header-cta" href="signup.html">Sign Up</a>
+
+      <details class="mobile-menu">
+        <summary aria-label="Open navigation menu">
+          <span></span>
+          <span></span>
+          <span></span>
+        </summary>
+        <nav aria-label="Mobile navigation">
+          <a href="../index.html">Home</a>
+          <a href="login.html">Routes</a>
+          <a href="fare-guide.html">Fare Guide</a>
+          <a href="signup.html">Sign Up</a>
+        </nav>
+      </details>
+    </div>
+  </header>
+
+
+  <main class="auth-page">
+    <div class="auth-grid auth-grid--registration">
+
+
+      <div class="auth-left">
+        <p class="auth-label">Operators</p>
+
+        <h1 class="auth-headline">
+          <span class="navy">Manage your</span><br>
+          <span class="green">transport group.</span>
+        </h1>
+
+        <p class="auth-desc">
+          Register your transport group on Biyahero to manage driver applications,
+          monitor routes, and review route reports across your fleet.
+        </p>
+
+        <ul class="checklist">
+          <li>
+            <i class="ri-check-line check-icon" aria-hidden="true"></i>
+            Approve or decline driver applications
+          </li>
+          <li>
+            <i class="ri-check-line check-icon" aria-hidden="true"></i>
+            Monitor route status and driver reports
+          </li>
+          <li>
+            <i class="ri-check-line check-icon" aria-hidden="true"></i>
+            Review commuter feedback and reports
+          </li>
+        </ul>
+      </div>
+
+
+      <div class="auth-card auth-form-card">
+        <h2 class="auth-card__title">Operator Sign Up</h2>
+        <p class="auth-card__sub">Enter your details to try the signup demo.</p>
+
+        <form id="operator-form" class="commuter-form signup-form-grid" data-signup-form>
+
+          <div class="form-group form-group--wide">
+            <label for="fullname">Full Name</label>
+            <input type="text" id="fullname" name="fullname"
+                   placeholder="e.g. Ana Reyes" autocomplete="name" required />
+            <span class="field-error" id="fullname-error"></span>
+          </div>
+
+          <div class="form-group">
+            <label for="contact">Mobile Number</label>
+            <input type="text" id="contact" name="contact"
+                   placeholder="e.g. +63 917 123 4567" autocomplete="tel" required />
+            <span class="field-error" id="contact-error"></span>
+          </div>
+
+          <div class="form-group">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" name="email"
+                   placeholder="you@example.com" autocomplete="email" required />
+            <span class="field-error" id="email-error"></span>
+          </div>
+
+          <div class="form-group form-group--wide">
+            <label for="password">Password</label>
+            <div class="input-wrap">
+              <input type="password" id="password" name="password"
+                     placeholder="Create a password (min 8 chars)" autocomplete="new-password" minlength="8" pattern="(?=.*[A-Za-z])(?=.*[0-9]).{8,}" title="Use at least 8 characters, including a letter and a number." required />
+              <button class="eye-btn" id="toggle-pw" type="button" aria-label="Show password" aria-controls="password">
+                <i class="ri-eye-off-line" id="eye-icon"></i>
+              </button>
+            </div>
+            <small class="form-hint">Use at least 8 characters, including a letter and a number.</small>
+            <span class="field-error" id="password-error"></span>
+          </div>
+
+          <div class="form-group form-group--wide">
+            <label for="confirm">Confirm Password</label>
+            <div class="input-wrap">
+              <input type="password" id="confirm" name="confirm"
+                     placeholder="Repeat your password" autocomplete="new-password" required />
+              <button class="eye-btn" id="toggle-confirm" type="button" aria-label="Show confirm password" aria-controls="confirm">
+                <i class="ri-eye-off-line" id="eye-icon-confirm"></i>
+              </button>
+            </div>
+            <span class="field-error" id="confirm-error"></span>
+          </div>
+
+          <div class="form-group form-group--wide">
+            <label for="operator-group">Operator / Transport Group Name</label>
+            <input type="text" id="operator-group" name="operatorGroup"
+                   placeholder="e.g. Cebu South Transport Cooperative" required />
+            <span class="field-error" id="operator-group-error"></span>
+          </div>
+
+          <div class="form-group form-group--wide">
+            <label for="municipality">Municipality</label>
+            <select id="municipality" name="municipality" required>
+              <option value="" selected disabled>Select a municipality</option>
+              <option>Cebu City</option>
+              <option>Mandaue City</option>
+              <option>Lapu-Lapu City</option>
+              <option>Talisay City</option>
+              <option>Minglanilla</option>
+            </select>
+          </div>
+
+          <div class="signup-step-footer">
+            <span>Single-step application</span>
+            <button class="btn btn-primary signup-next" type="submit">Submit application</button>
+          </div>
+          <p class="signup-feedback" role="status" aria-live="polite"></p>
+        </form>
+
+        <p class="auth-card__footer">
+          Already have an account? <a href="login.html">Log in</a>
+        </p>
+      </div>
+    </div>
+  </main>
+  <script src="../js/signup-interactions.js"></script>
+</body>
+</html>

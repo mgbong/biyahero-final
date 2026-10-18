@@ -1,0 +1,202 @@
+.fare-page {
+  max-width: 1120px;
+  margin: 0 auto;
+}
+
+.fare-page__intro {
+  margin: 10px 0 24px;
+}
+
+.fare-page__eyebrow {
+  display: block;
+  margin-bottom: 12px;
+  color: var(--teal);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+}
+
+.fare-page__intro h1 {
+  margin: 0 0 12px;
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: clamp(26px, 3vw, 34px);
+  font-weight: 800;
+  line-height: 1.2;
+}
+
+.fare-page__intro p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.fare-layout {
+  display: grid;
+  grid-template-columns: minmax(280px, .95fr) minmax(320px, 1fr);
+  align-items: start;
+  gap: 32px;
+  padding: 0 10px;
+}
+
+.fare-card {
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--white);
+  box-shadow: var(--shadow-card);
+}
+
+.fare-estimator {
+  padding: 20px 24px 24px;
+}
+
+.fare-card h2 {
+  margin: 0 0 14px;
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.fare-field {
+  display: grid;
+  gap: 5px;
+  margin-bottom: 10px;
+}
+
+.fare-field label {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.fare-field select {
+  width: 100%;
+  min-height: 44px;
+  padding: 10px 12px;
+  border: 1px solid #d2cbc9;
+  border-radius: 7px;
+  background: #fff;
+  color: var(--ink);
+  font: inherit;
+  font-size: 13px;
+}
+
+.fare-field select:focus-visible {
+  border-color: var(--teal);
+  outline: 3px solid rgb(14 124 111 / 16%);
+}
+
+.fare-calculate {
+  width: 100%;
+  min-height: 42px;
+  margin-top: 2px;
+  border: 0;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.fare-form-error {
+  display: none;
+  margin: 0 0 8px;
+  color: #b91c1c;
+  font-size: 12px;
+}
+
+.fare-form-error.is-visible {
+  display: block;
+}
+
+.fare-results {
+  display: grid;
+  gap: 20px;
+}
+
+.fare-total-card {
+  display: grid;
+  min-height: 96px;
+  align-content: center;
+  gap: 3px;
+  padding: 18px;
+  border: 1px solid #168777;
+  border-radius: 10px;
+  background: #0d7667;
+  color: #fff;
+}
+
+.fare-total-card__label {
+  font-size: 12px;
+  opacity: .85;
+}
+
+.fare-total-card__amount {
+  font-family: var(--font-display);
+  font-size: clamp(25px, 3vw, 36px);
+  font-weight: 800;
+  line-height: 1.1;
+}
+
+.fare-total-card__route {
+  font-size: 11px;
+  opacity: .82;
+}
+
+.fare-comparison {
+  padding: 18px 20px 14px;
+}
+
+.fare-comparison dl {
+  display: grid;
+  gap: 9px;
+  margin: 0;
+}
+
+.fare-comparison dl > div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  color: var(--ink);
+  font-size: 12px;
+}
+
+.fare-comparison dt {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.fare-comparison dt i {
+  color: var(--teal);
+  font-size: 15px;
+}
+
+.fare-comparison dd {
+  margin: 0;
+  font-weight: 600;
+}
+
+.fare-comparison > p {
+  margin: 10px 0 0;
+  color: var(--muted);
+  font-size: 11px;
+}
+
+@media (max-width: 760px) {
+  .fare-layout {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 18px;
+    padding: 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .fare-page {
+    padding: 22px 16px;
+  }
+
+  .fare-estimator {
+    padding: 18px;
+  }
+}

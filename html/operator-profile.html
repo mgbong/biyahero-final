@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Operator Profile — Biyahero</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.2.0/remixicon.min.css" />
+  <link rel="stylesheet" href="../css/shared.css" />
+  <link rel="stylesheet" href="../css/operator.css" />
+  <link rel="stylesheet" href="../css/static-inline.css">
+</head>
+<body>
+  <div class="app-shell" id="app-shell">
+    <aside class="sidebar" role="navigation" aria-label="Operator navigation">
+      <a class="sidebar-brand" href="operator-dashboard.html">
+        <span class="sidebar-brand-mark" aria-hidden="true"><i class="ri-bus-line"></i></span>
+        Biyahero
+      </a>
+      <nav class="sidebar-nav">
+        <a href="operator-dashboard.html"><i class="ri-dashboard-line"></i> Dashboard</a>
+        <a href="operator-driver-approval.html"><i class="ri-user-check-line"></i> Driver Approval</a>
+        <a href="operator-drivers.html"><i class="ri-steering-2-line"></i> Driver Management</a>
+        <a href="operator-route-monitoring.html"><i class="ri-traffic-light-line"></i> Route Monitoring</a>
+        <a href="operator-route-monitoring.html"><i class="ri-flag-line"></i> Route Reports</a>
+        <a href="routes.html"><i class="ri-map-2-line"></i> Routes</a>
+        <a href="operator-dashboard.html#activity-heading"><i class="ri-history-line"></i> Activity Log</a>
+        <a href="operator-profile.html" class="active" aria-current="page"><i class="ri-user-line"></i> Profile</a>
+      </nav>
+      <div class="sidebar-footer">
+        <a class="btn-logout" href="login.html">
+          <i class="ri-logout-box-r-line"></i> Log Out
+        </a>
+      </div>
+    </aside>
+
+    <div class="main-content">
+      <header class="page-header">
+        <div class="page-header-left">
+          <span class="breadcrumb-current">Operator Profile</span>
+        </div>
+        <div class="page-header-right">
+          <div class="user-chip">
+            <div class="user-avatar">AR</div>
+            <span class="user-name">Alicia Reyes</span>
+          </div>
+        </div>
+      </header>
+
+      <main class="page-body">
+        <section aria-labelledby="operator-profile-heading">
+          <h1 class="section-title" id="operator-profile-heading">Operator Profile</h1>
+          <p class="section-subtitle">Account and transport group information.</p>
+
+          <div class="operator-profile-card">
+            <div class="operator-avatar" aria-hidden="true">AR</div>
+            <div>
+              <h2 class="operator-profile-name">Alicia Reyes</h2>
+              <p class="operator-profile-role">Fleet Operations Coordinator</p>
+              <span class="badge badge-teal"><i class="ri-shield-user-line"></i> Operator</span>
+            </div>
+          </div>
+
+          <div class="operator-profile-details">
+            <section class="card" aria-labelledby="account-details-heading">
+              <h2 class="section-title" id="account-details-heading">Account Details</h2>
+              <dl class="operator-profile-list">
+                <div class="operator-profile-detail">
+                  <dt>Email Address</dt>
+                  <dd>operator@biyahero.com</dd>
+                </div>
+                <div class="operator-profile-detail">
+                  <dt>Account Role</dt>
+                  <dd>Transport Operator</dd>
+                </div>
+              </dl>
+            </section>
+
+            <section class="card" aria-labelledby="transport-group-heading">
+              <h2 class="section-title" id="transport-group-heading">Transport Group</h2>
+              <dl class="operator-profile-list">
+                <div class="operator-profile-detail">
+                  <dt>Organization</dt>
+                  <dd>Cebu City Transit Cooperative</dd>
+                </div>
+                <div class="operator-profile-detail">
+                  <dt>Position</dt>
+                  <dd>Fleet Operations Coordinator</dd>
+                </div>
+              </dl>
+            </section>
+          </div>
+
+          <div class="card operator-profile-note">
+            <i class="ri-information-line" aria-hidden="true"></i>
+          </div>
+        </section>
+      </main>
+    </div>
+  </div>
+</body>
+</html>

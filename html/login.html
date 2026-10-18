@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Log In — Biyahero</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+  <link rel="stylesheet" href="../css/login.css" />
+  <link rel="stylesheet" href="../css/static-inline.css">
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="../index.html" aria-label="Biyahero home">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none">
+            <path d="M5 17.5V9.25C5 7.45 6.45 6 8.25 6h7.5C17.55 6 19 7.45 19 9.25v8.25H5Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+            <path d="M8 6V4.75h8V6M5.5 12h13M8 17.5v2m8-2v2M8.25 14.75h.01m7.49 0h.01" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+          </svg>
+        </span>
+        <span>Biyahero</span>
+      </a>
+
+      <a class="button button-primary header-cta" href="signup.html">Sign Up</a>
+    </div>
+  </header>
+
+  <main class="auth-page">
+    <div class="auth-grid">
+
+      <div class="auth-left">
+        <h1 class="auth-headline login-headline">
+          <span class="navy">Your Journey</span><br>
+          <span class="green">Starts Here</span>
+        </h1>
+
+        <p class="auth-desc">
+          Plan your routes, check schedules, and take public transport
+          with ease. Biyahero helps you get to your destination,
+          smarter and faster.
+        </p>
+
+        <ul class="checklist">
+          <li>
+            <i class="ri-check-line check-icon" aria-hidden="true"></i>
+            Find routes for jeepneys and buses
+          </li>
+          <li>
+            <i class="ri-check-line check-icon" aria-hidden="true"></i>
+            Check fares before you ride
+          </li>
+          <li>
+            <i class="ri-check-line check-icon" aria-hidden="true"></i>
+            Report issues and help fellow commuters
+          </li>
+        </ul>
+
+      </div>
+
+      <div class="auth-card auth-form-card">
+        <h2 class="auth-card__title">Log In</h2>
+        <p class="auth-card__sub">Welcome back! Please enter your details.</p>
+
+        <form class="login-form" id="login-form" novalidate>
+          <div class="form-group">
+            <label for="login-email">Email Address</label>
+            <div class="input-wrap">
+              <input type="email" id="login-email" name="email"
+                     placeholder="name@example.com" autocomplete="username" required />
+              <span class="eye-toggle" aria-hidden="true">
+                <i class="ri-user-line"></i>
+              </span>
+            </div>
+            <span class="field-error" id="email-error"></span>
+          </div>
+
+          <div class="form-group form-group--password">
+            <label for="login-password">Password</label>
+            <div class="input-wrap">
+              <input type="password" id="login-password" name="password"
+                     placeholder="Enter your password" autocomplete="current-password" required />
+              <span class="eye-btn" aria-hidden="true">
+                <i class="ri-eye-off-line" id="eye-icon"></i>
+              </span>
+            </div>
+            <span class="field-error" id="pw-error"></span>
+          </div>
+
+          <p class="input-error-msg" id="login-error" role="alert" aria-live="polite"></p>
+          <button type="submit" class="btn btn-primary btn-full btn-lg login-submit">Log In</button>
+        </form>
+
+        <div class="auth-card__divider"></div>
+        <p class="auth-card__footer">
+          Don’t have an account? <a href="signup.html">Register</a>
+        </p>
+      </div>
+    </div>
+  </main>
+  <script src="../js/login-auth.js" defer></script>
+</body>
+</html>

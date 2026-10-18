@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Report an Issue — Biyahero</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.2.0/remixicon.min.css" />
+  <link rel="stylesheet" href="../css/shared.css" />
+  <link rel="stylesheet" href="../css/commuter.css" />
+  <link rel="stylesheet" href="../css/static-inline.css">
+</head>
+<body>
+
+
+
+  <div class="app-shell" id="app-shell">
+
+
+    <aside class="sidebar" role="navigation" aria-label="Commuter navigation">
+      <a class="sidebar-brand" href="dashboard.html">
+        <span class="sidebar-brand-mark" aria-hidden="true"><i class="ri-bus-line"></i></span>
+        Biyahero
+      </a>
+      <nav class="sidebar-nav">
+        <a href="dashboard.html"><i class="ri-dashboard-line"></i> Dashboard</a>
+        <a href="plan-trip.html"><i class="ri-route-line"></i> Plan Trip</a>
+        <a href="fare-guide.html"><i class="ri-wallet-3-line"></i> Fare Guide</a>
+        <a href="routes.html"><i class="ri-map-2-line"></i> Routes</a>
+        <a href="updates.html"><i class="ri-traffic-light-line"></i> Traffic Updates</a>
+        <a href="report.html" class="active"><i class="ri-flag-line"></i> Report Issue</a>
+        <a href="feedback.html"><i class="ri-feedback-line"></i> Feedback</a>
+        <a href="commuter-profile.html"><i class="ri-user-line"></i> Profile</a>
+      </nav>
+      <div class="sidebar-footer">
+        <a class="btn-logout" href="login.html"><i class="ri-logout-box-line"></i> Log Out</a>
+      </div>
+    </aside>
+
+    <div class="main-content">
+      <header class="page-header">
+        <div class="page-header-left">
+          <span class="breadcrumb-current">Report an Issue</span>
+        </div>
+        <div class="page-header-right">
+          <div class="user-chip">
+            <div class="user-avatar">MC</div>
+            <span class="user-name">Maya Cruz</span>
+          </div>
+        </div>
+      </header>
+
+      <main class="page-body">
+
+
+        <div id="form-section">
+          <div class="card static-inline-021">
+            <h2 class="section-title static-inline-011">Submit a Report</h2>
+
+            <div id="form-error" class="input-error-msg"></div>
+
+            <div class="static-inline-030">
+              <div class="form-group">
+                <label for="report-type">Report Type *</label>
+                <select id="report-type" disabled>
+                  <option value="" disabled selected>Select report type</option>
+                  <option value="Overcrowding">Overcrowding</option>
+                  <option value="Route Deviation">Route Deviation</option>
+                  <option value="Vehicle Breakdown">Vehicle Breakdown</option>
+                  <option value="Unsafe Driving">Unsafe Driving</option>
+                  <option value="Fare Overcharge">Fare Overcharge</option>
+                  <option value="Missing Trip">Missing Trip</option>
+                  <option value="Other">Other</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="location">Location/City *</label>
+                <select id="location" disabled>
+                  <option value="" disabled selected>Select city</option>
+                  <option value="Cebu City">Cebu City</option>
+                  <option value="Mandaue City">Mandaue City</option>
+                  <option value="Lapu-Lapu City">Lapu-Lapu City</option>
+                  <option value="Talisay City">Talisay City</option>
+                  <option value="Minglanilla">Minglanilla</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="related-route">Related Route</label>
+                <select id="related-route" disabled>
+                  <option value="Not route-specific">Not route-specific</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="transport-mode">Transportation Mode</label>
+                <select id="transport-mode" disabled>
+                  <option value="Not specified">Not specified</option>
+                  <option value="Traditional Jeepney">Traditional Jeepney</option>
+                  <option value="Modern Jeepney">Modern Jeepney</option>
+                  <option value="Bus">Bus</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="incident-datetime">Date &amp; Time *</label>
+                <input type="datetime-local" id="incident-datetime" readonly />
+              </div>
+            </div>
+
+            <div class="form-group static-inline-013">
+              <label for="description">Description * <span class="static-inline-025">(min. 20 characters)</span></label>
+              <textarea id="description" rows="4" placeholder="Describe the issue in detail…" minlength="20" readonly></textarea>
+            </div>
+
+            <span class="btn btn-primary static-inline-031">
+              <i class="ri-send-plane-line"></i> Submit Report
+            </span>
+          </div>
+        </div>
+
+
+        <section class="section" aria-labelledby="my-reports-heading">
+          <div class="section-head">
+            <h2 class="section-title" id="my-reports-heading">My Reports</h2>
+          </div>
+          <div id="my-reports-container">
+            <div class="table-wrap"><table class="data-table"><thead><tr><th scope="col">Date</th><th scope="col">Report Type</th><th scope="col">Location</th><th scope="col">Description</th><th scope="col">Status</th></tr></thead><tbody>
+              <tr><td>October 14, 2026</td><td>Traffic Congestion</td><td>Osmeña Boulevard, Cebu City</td><td>Slow traffic near Fuente Osmeña Circle during the morning commute.</td><td><span class="badge badge-warning">Under Review</span></td></tr>
+              <tr><td>October 10, 2026</td><td>Road Condition</td><td>Tabunok, Talisay City</td><td>Temporary road works near the market approach.</td><td><span class="badge badge-success">Acknowledged</span></td></tr>
+            </tbody></table></div>
+          </div>
+        </section>
+
+      </main>
+    </div>
+  </div>
+</body>
+</html>

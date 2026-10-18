@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Plan a Trip — Biyahero</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.2.0/remixicon.min.css" />
+  <link rel="stylesheet" href="../css/shared.css" />
+  <link rel="stylesheet" href="../css/commuter.css" />
+  <link rel="stylesheet" href="../css/static-inline.css">
+</head>
+<body>
+
+
+
+
+  <div class="app-shell" id="app-shell">
+
+
+
+
+
+    <aside class="sidebar" role="navigation" aria-label="Commuter navigation">
+      <a class="sidebar-brand" href="dashboard.html">
+        <span class="sidebar-brand-mark" aria-hidden="true"><i class="ri-bus-line"></i></span>
+        Biyahero
+      </a>
+
+      <nav class="sidebar-nav">
+        <a href="dashboard.html">
+          <i class="ri-dashboard-line"></i> Dashboard
+        </a>
+        <a href="plan-trip.html" class="active">
+          <i class="ri-route-line"></i> Plan Trip
+        </a>
+        <a href="fare-guide.html">
+          <i class="ri-wallet-3-line"></i> Fare Guide
+        </a>
+        <a href="routes.html">
+          <i class="ri-map-2-line"></i> Routes
+        </a>
+        <a href="updates.html">
+          <i class="ri-traffic-light-line"></i> Traffic Updates
+        </a>
+        <a href="report.html">
+          <i class="ri-flag-line"></i> Report Issue
+        </a>
+        <a href="feedback.html">
+          <i class="ri-feedback-line"></i> Feedback
+        </a>
+        <a href="commuter-profile.html">
+          <i class="ri-user-line"></i> Profile
+        </a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <a class="btn-logout" href="login.html">
+          <i class="ri-logout-box-line"></i> Log Out
+        </a>
+      </div>
+    </aside>
+
+
+    <div class="main-content">
+
+
+      <header class="page-header">
+        <div class="page-header-left">
+          <span class="breadcrumb-current">Plan a Trip</span>
+        </div>
+        <div class="page-header-right">
+          <div class="user-chip">
+            <div class="user-avatar">MC</div>
+            <span class="user-name">Maya Cruz</span>
+          </div>
+        </div>
+      </header>
+
+
+      <main class="page-body plan-commute-only">
+        <section class="trip-commute-panel" aria-labelledby="trip-commute-title">
+          <h2 class="trip-commute-panel__title" id="trip-commute-title">Plan Your Commute</h2>
+
+          <div class="trip-commute-panel__form">
+            <div class="trip-commute-field">
+              <label for="starting-point">Starting Point</label>
+              <div class="trip-select-wrap">
+                <select id="starting-point" aria-label="Starting point">
+                  <option selected>Colon</option>
+                  <option>Carbon</option>
+                  <option>Fuente Osmeña</option>
+                  <option>Parkmall</option>
+                </select>
+                <i class="ri-arrow-down-s-line" aria-hidden="true"></i>
+              </div>
+            </div>
+
+            <div class="trip-commute-field">
+              <label for="destination">Destination</label>
+              <div class="trip-select-wrap trip-select-wrap--active">
+                <select id="destination" aria-label="Destination">
+                  <option selected>Mactan Airport</option>
+                  <option>SM City Cebu</option>
+                  <option>IT Park</option>
+                  <option>Ayala Center Cebu</option>
+                </select>
+                <i class="ri-arrow-down-s-line" aria-hidden="true"></i>
+              </div>
+            </div>
+
+            <button class="trip-commute-btn" type="button">Find Routes</button>
+          </div>
+
+        </section>
+
+        <section class="results-area" id="results-area" aria-labelledby="results-heading">
+          <h2 class="section-title" id="results-heading"> Trip Plans</h2>
+
+          <article class="plan-route-card">
+            <div class="plan-route-card__header"><div><div class="plan-route-card__title"><i class="ri-route-line"></i> 01K · Colon Street → SM City Cebu</div><p class="section-subtitle">Traditional jeepney · direct ride</p></div><span class="badge badge-cheapest">Lowest fare</span></div>
+            <div class="plan-route-card__summary">
+              <div class="plan-meta-item"><span class="plan-meta-label">Estimated Fare</span><span class="plan-meta-value">₱15.00</span></div>
+              <div class="plan-meta-item"><span class="plan-meta-label">Travel Time</span><span class="plan-meta-value">~25 min</span></div>
+              <div class="plan-meta-item"><span class="plan-meta-label">Walking</span><span class="plan-meta-value">~150 m</span></div>
+              <div class="plan-meta-item"><span class="plan-meta-label">Transfers</span><span class="plan-meta-value">0</span></div>
+            </div>
+            <div class="legs-timeline">
+              <div class="tleg"><span class="tleg__dot tleg__dot--walk"></span><span class="tleg__icon tleg__icon--walk" aria-hidden="true">🚶</span><div class="tleg__body"><div class="tleg__action">Walk about 150 m to the 01K stop on Colon Street.</div><div class="tleg__detail">Use the marked loading area near Colon Market · approximately 2 minutes.</div></div></div>
+              <div class="tleg"><span class="tleg__dot"></span><span class="tleg__icon" aria-hidden="true">🚌</span><div class="tleg__body"><div class="tleg__action">Ride Jeepney 01K toward SM City Cebu.</div><div class="tleg__detail">Passes Carbon Market, Fuente Osmeña Circle, and Ayala Center Cebu · approximately 20 minutes.</div></div></div>
+              <div class="tleg"><span class="tleg__dot"></span><span class="tleg__icon" aria-hidden="true">📍</span><div class="tleg__body"><div class="tleg__action">Alight at the SM City Cebu terminal stop.</div><div class="tleg__detail">Final stop at North Reclamation Area, Cebu City.</div></div></div>
+            </div>
+          </article>
+
+          <article class="plan-route-card">
+            <div class="plan-route-card__header"><div><div class="plan-route-card__title"><i class="ri-route-line"></i> 01K-M · Colon Street → SM City Cebu</div><p class="section-subtitle">Modern jeepney · direct ride</p></div><span class="badge badge-fastest">Faster option</span></div>
+            <div class="plan-route-card__summary">
+              <div class="plan-meta-item"><span class="plan-meta-label">Estimated Fare</span><span class="plan-meta-value">₱18.00</span></div>
+              <div class="plan-meta-item"><span class="plan-meta-label">Travel Time</span><span class="plan-meta-value">~18 min</span></div>
+              <div class="plan-meta-item"><span class="plan-meta-label">Walking</span><span class="plan-meta-value">~200 m</span></div>
+              <div class="plan-meta-item"><span class="plan-meta-label">Transfers</span><span class="plan-meta-value">0</span></div>
+            </div>
+            <div class="legs-timeline">
+              <div class="tleg"><span class="tleg__dot tleg__dot--walk"></span><span class="tleg__icon tleg__icon--walk" aria-hidden="true">🚶</span><div class="tleg__body"><div class="tleg__action">Walk approximately 200 m to the modern jeepney bay.</div><div class="tleg__detail">Follow the Colon Street pedestrian route toward the main stop.</div></div></div>
+              <div class="tleg"><span class="tleg__dot"></span><span class="tleg__icon" aria-hidden="true">🚌</span><div class="tleg__body"><div class="tleg__action">Board the modern jeepney marked 01K-M.</div><div class="tleg__detail">Direct service to SM City Cebu · approximately 16 minutes.</div></div></div>
+              <div class="tleg"><span class="tleg__dot"></span><span class="tleg__icon" aria-hidden="true">📍</span><div class="tleg__body"><div class="tleg__action">Alight at SM City Cebu.</div><div class="tleg__detail">Sample final stop at the main terminal entrance.</div></div></div>
+            </div>
+          </article>
+
+          <div class="report-link">
+            Experiencing a problem? <a href="report.html"><i class="ri-flag-line"></i> Report an Issue</a>
+          </div>
+        </section>
+      </main>
+    </div>
+  </div>
+</body>
+</html>

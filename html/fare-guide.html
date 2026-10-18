@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fare Guide — Biyahero</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.2.0/remixicon.min.css" />
+  <link rel="stylesheet" href="../css/shared.css" />
+  <link rel="stylesheet" href="../css/commuter.css" />
+  <link rel="stylesheet" href="../css/fare-guide.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" role="navigation" aria-label="Commuter navigation">
+      <a class="sidebar-brand" href="dashboard.html">
+        <span class="sidebar-brand-mark" aria-hidden="true"><i class="ri-bus-line"></i></span>
+        Biyahero
+      </a>
+      <nav class="sidebar-nav">
+        <a href="dashboard.html"><i class="ri-dashboard-line"></i> Dashboard</a>
+        <a href="plan-trip.html"><i class="ri-route-line"></i> Plan Trip</a>
+        <a href="fare-guide.html" class="active" aria-current="page"><i class="ri-wallet-3-line"></i> Fare Guide</a>
+        <a href="routes.html"><i class="ri-map-2-line"></i> Routes</a>
+        <a href="updates.html"><i class="ri-traffic-light-line"></i> Traffic Updates</a>
+        <a href="report.html"><i class="ri-flag-line"></i> Report Issue</a>
+        <a href="feedback.html"><i class="ri-feedback-line"></i> Feedback</a>
+        <a href="commuter-profile.html"><i class="ri-user-line"></i> Profile</a>
+      </nav>
+      <div class="sidebar-footer">
+        <a class="btn-logout" href="login.html"><i class="ri-logout-box-line"></i> Log Out</a>
+      </div>
+    </aside>
+
+    <div class="main-content">
+      <header class="page-header">
+        <div class="page-header-left">
+          <span class="breadcrumb-current">Fare Guide</span>
+        </div>
+        <div class="page-header-right">
+          <div class="user-chip">
+            <div class="user-avatar">MC</div>
+            <span class="user-name">Maya Cruz</span>
+          </div>
+        </div>
+      </header>
+
+      <main class="page-body fare-page">
+        <div class="fare-page__intro">
+          <span class="fare-page__eyebrow">Fare Guide</span>
+          <h1>Know your fare before you ride.</h1>
+          <p>Estimate costs by route and passenger type.</p>
+        </div>
+
+        <div class="fare-layout">
+          <section class="fare-card fare-estimator" aria-labelledby="fare-estimator-heading">
+            <h2 id="fare-estimator-heading">Estimate a fare</h2>
+            <form id="fare-form">
+              <div class="fare-field">
+                <label for="fare-from">From</label>
+                <select id="fare-from" name="from" required>
+                  <option value="lahug" selected>Lahug</option>
+                  <option value="colon">Colon</option>
+                  <option value="parkmall">Parkmall</option>
+                  <option value="tabunok">Tabunok</option>
+                  <option value="basak">Basak</option>
+                </select>
+              </div>
+              <div class="fare-field">
+                <label for="fare-to">To</label>
+                <select id="fare-to" name="to" required>
+                  <option value="colon" selected>Colon</option>
+                  <option value="sm-city">SM City Cebu</option>
+                  <option value="it-park">IT Park</option>
+                  <option value="south-terminal">Cebu South Bus Terminal</option>
+                  <option value="airport">Mactan-Cebu International Airport</option>
+                </select>
+              </div>
+              <div class="fare-field">
+                <label for="passenger-type">Passenger Type</label>
+                <select id="passenger-type" name="passengerType">
+                  <option value="regular" selected>Regular</option>
+                  <option value="student">Student</option>
+                  <option value="senior">Senior Citizen</option>
+                  <option value="pwd">Person with Disability</option>
+                </select>
+              </div>
+              <p class="fare-form-error" id="fare-error" role="alert" aria-live="polite"></p>
+              <button class="btn btn-primary fare-calculate" type="submit">Calculate Fare</button>
+            </form>
+          </section>
+
+          <div class="fare-results">
+            <section class="fare-total-card" aria-labelledby="fare-total-heading">
+              <span class="fare-total-card__label" id="fare-total-heading">Estimated total</span>
+              <output class="fare-total-card__amount" id="fare-total" aria-live="polite">₱13 - ₱20</output>
+              <span class="fare-total-card__route" id="fare-route-label">Lahug to Colon · Regular passenger</span>
+            </section>
+
+            <section class="fare-card fare-comparison" aria-labelledby="fare-comparison-heading">
+              <h2 id="fare-comparison-heading">Compare modes</h2>
+              <dl>
+                <div><dt><i class="ri-bus-line" aria-hidden="true"></i> Jeepney</dt><dd id="jeepney-fare">₱13 - ₱20</dd></div>
+                <div><dt><i class="ri-motorbike-line" aria-hidden="true"></i> Habal-habal</dt><dd id="habal-fare">₱25 - ₱40</dd></div>
+                <div><dt><i class="ri-taxi-line" aria-hidden="true"></i> Taxi</dt><dd id="taxi-fare">₱120 - ₱200</dd></div>
+              </dl>
+              <p>Sample estimates only. Actual fares may vary.</p>
+            </section>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+  <script src="../js/fare-guide.js" defer></script>
+</body>
+</html>

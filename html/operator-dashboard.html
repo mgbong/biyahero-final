@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Operator Dashboard — Biyahero</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.2.0/remixicon.min.css" />
+  <link rel="stylesheet" href="../css/shared.css" />
+  <link rel="stylesheet" href="../css/operator.css" />
+  <link rel="stylesheet" href="../css/static-inline.css">
+</head>
+<body>
+
+
+
+  <div class="app-shell" id="app-shell">
+
+
+
+
+    <aside class="sidebar" role="navigation" aria-label="Operator navigation">
+      <a class="sidebar-brand" href="operator-dashboard.html">
+        <span class="sidebar-brand-mark" aria-hidden="true"><i class="ri-bus-line"></i></span>
+        Biyahero
+      </a>
+      <nav class="sidebar-nav">
+        <a href="operator-dashboard.html" class="active"><i class="ri-dashboard-line"></i> Dashboard</a>
+        <a href="operator-driver-approval.html"><i class="ri-user-check-line"></i> Driver Approval</a>
+        <a href="operator-drivers.html"><i class="ri-steering-2-line"></i> Driver Management</a>
+        <a href="operator-route-monitoring.html"><i class="ri-traffic-light-line"></i> Route Monitoring</a>
+        <a href="operator-route-monitoring.html"><i class="ri-flag-line"></i> Route Reports</a>
+        <a href="routes.html"><i class="ri-map-2-line"></i> Route Catalog</a>
+        <a href="#activity-heading"><i class="ri-history-line"></i> Activity Summary</a>
+        <a href="operator-profile.html"><i class="ri-user-line"></i> Profile</a>
+      </nav>
+      <div class="sidebar-footer">
+        <a class="btn-logout" href="login.html">
+          <i class="ri-logout-box-r-line"></i> Log Out
+        </a>
+      </div>
+    </aside>
+
+
+    <div class="main-content">
+
+      <header class="page-header">
+        <div class="page-header-left">
+          <span class="breadcrumb-current">Operator Dashboard</span>
+        </div>
+        <div class="page-header-right">
+          <div class="user-chip">
+            <div class="user-avatar">AR</div>
+            <span class="user-name">Alicia Reyes</span>
+          </div>
+        </div>
+      </header>
+
+      <main class="page-body">
+
+
+        <div class="operator-greeting-card">
+          <div>
+            <div class="operator-greeting-card__name">Welcome, Alicia Reyes</div>
+            <div class="operator-greeting-card__sub">Manage your drivers, monitor routes, and review route reports.</div>
+          </div>
+          <div class="operator-greeting-card__icon" aria-hidden="true">
+            <i class="ri-shield-user-line"></i>
+          </div>
+        </div>
+
+
+        <section class="section" aria-labelledby="stats-heading">
+          <div class="section-head">
+            <div>
+              <h2 class="section-title" id="stats-heading">Overview</h2>
+              <p class="section-subtitle">Fixed demonstration totals; no live data is connected.</p>
+            </div>
+          </div>
+
+          <div class="summary-grid">
+            <a href="operator-driver-approval.html" class="summary-card summary-card--pending"><div class="summary-card__icon"><i class="ri-user-received-2-line"></i></div><div class="summary-card__value">2</div><div class="summary-card__label">Pending Approvals</div></a>
+            <a href="operator-drivers.html" class="summary-card"><div class="summary-card__icon"><i class="ri-user-follow-line"></i></div><div class="summary-card__value">8</div><div class="summary-card__label">Approved Drivers</div></a>
+            <a href="operator-drivers.html" class="summary-card summary-card--declined"><div class="summary-card__icon"><i class="ri-user-unfollow-line"></i></div><div class="summary-card__value">1</div><div class="summary-card__label">Declined Drivers</div></a>
+            <a href="operator-route-monitoring.html" class="summary-card summary-card--navy"><div class="summary-card__icon"><i class="ri-file-list-line"></i></div><div class="summary-card__value">6</div><div class="summary-card__label">Route Reports</div></a>
+            <a href="operator-route-monitoring.html" class="summary-card"><div class="summary-card__icon"><i class="ri-bus-line"></i></div><div class="summary-card__value">12</div><div class="summary-card__label">Vehicles in Fleet</div></a>
+            <a href="operator-route-monitoring.html" class="summary-card summary-card--pending"><div class="summary-card__icon"><i class="ri-route-line"></i></div><div class="summary-card__value">5</div><div class="summary-card__label">Assigned Routes</div></a>
+          </div>
+        </section>
+
+        <section class="section" aria-labelledby="fleet-heading">
+          <div class="section-head">
+            <div><h2 class="section-title" id="fleet-heading">Sample Fleet &amp; Assignments</h2><p class="section-subtitle">Static vehicle, driver, and schedule overview.</p></div>
+          </div>
+          <div class="table-wrap">
+            <table class="data-table">
+              <thead><tr><th scope="col">Vehicle</th><th scope="col">Assigned Route</th><th scope="col">Driver</th><th scope="col">Schedule</th><th scope="col">Status</th></tr></thead>
+              <tbody>
+                <tr><td><strong>Jeepney 01K-247</strong></td><td>Colon – SM City Cebu (01K)</td><td>Juan Santos</td><td>5:30 AM–1:30 PM</td><td><span class="badge badge-success">Scheduled</span></td></tr>
+                <tr><td><strong>Modern Jeepney MJ-018</strong></td><td>Basak – Mactan Airport</td><td>Maria Dizon</td><td>6:00 AM–2:00 PM</td><td><span class="badge badge-success">Scheduled</span></td></tr>
+                <tr><td><strong>Bus CEB-204</strong></td><td>Tabunok – Cebu South Bus Terminal</td><td>Ramon Flores</td><td>5:00 AM–1:00 PM</td><td><span class="badge badge-warning">Standby</span></td></tr>
+                <tr><td><strong>Jeepney 13C-112</strong></td><td>Parkmall – IT Park (13C)</td><td>Elena Garcia</td><td>7:00 AM–3:00 PM</td><td><span class="badge badge-success">Scheduled</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+
+        <section class="section" aria-labelledby="activity-heading">
+          <div class="section-head">
+            <div>
+              <h2 class="section-title" id="activity-heading">Recent Activity</h2>
+              <p class="section-subtitle">Latest operator actions.</p>
+            </div>
+            <a href="operator-dashboard.html#activity-heading" class="btn btn-outline btn-sm">View All</a>
+          </div>
+
+          <div class="card">
+            <div class="log-entry"><div class="log-entry__icon"><i class="ri-history-line"></i></div><div class="log-entry__content"><div class="log-entry__action">Reviewed driver assignment</div><div class="log-entry__target">Jeepney 01K-247 · Juan Santos</div><div class="log-entry__time"><i class="ri-time-line"></i> October 15, 2026 · 8:30 AM</div></div></div>
+            <div class="log-entry"><div class="log-entry__icon"><i class="ri-history-line"></i></div><div class="log-entry__content"><div class="log-entry__action">Confirmed route schedule</div><div class="log-entry__target">Parkmall – IT Park · 13C-112</div><div class="log-entry__time"><i class="ri-time-line"></i> October 14, 2026 · 4:15 PM</div></div></div>
+            <div class="log-entry"><div class="log-entry__icon"><i class="ri-history-line"></i></div><div class="log-entry__content"><div class="log-entry__action">Received sample route report</div><div class="log-entry__target">Colon – SM City Cebu · Traffic advisory</div><div class="log-entry__time"><i class="ri-time-line"></i> October 14, 2026 · 10:10 AM</div></div></div>
+          </div>
+        </section>
+
+        <section class="section" id="operator-profile" aria-labelledby="operator-profile-heading">
+          <h2 class="section-title" id="operator-profile-heading">Operator Profile</h2>
+          <div class="card operator-profile-card"><p><strong>Alicia Reyes</strong> · Fleet Operations Coordinator</p><p>Sample organization: Cebu City Transit Cooperative</p><p>Email: operator@biyahero.com</p></div>
+          <a href="operator-profile.html" class="btn btn-outline btn-sm">View Full Profile</a>
+        </section>
+
+
+        <section class="section" aria-labelledby="qactions-heading">
+          <h2 class="section-title" id="qactions-heading">Quick Actions</h2>
+          <div class="op-quick-actions static-inline-017">
+            <a href="operator-driver-approval.html" class="op-quick-action-btn">
+              <i class="ri-user-check-line"></i> Review Driver Approvals
+            </a>
+            <a href="operator-route-monitoring.html" class="op-quick-action-btn">
+              <i class="ri-flag-line"></i> Review Route Reports
+            </a>
+            <a href="operator-route-monitoring.html" class="op-quick-action-btn">
+              <i class="ri-traffic-light-line"></i> Route Monitoring
+            </a>
+          </div>
+        </section>
+      </main>
+    </div>
+  </div>
+</body>
+</html>

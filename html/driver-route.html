@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Route — Biyahero</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.2.0/remixicon.min.css" />
+  <link rel="stylesheet" href="../css/shared.css" />
+  <link rel="stylesheet" href="../css/driver.css" />
+  <link rel="stylesheet" href="../css/static-inline.css">
+</head>
+<body>
+
+
+
+  <div class="app-shell" id="app-shell">
+
+
+
+    <aside class="sidebar" role="navigation" aria-label="Driver navigation">
+      <a class="sidebar-brand" href="driver-dashboard.html">
+        <span class="sidebar-brand-mark" aria-hidden="true"><i class="ri-steering-2-line"></i></span>
+        Biyahero
+      </a>
+      <nav class="sidebar-nav">
+        <a href="driver-dashboard.html"><i class="ri-dashboard-line"></i> Dashboard</a>
+        <a href="driver-route.html" class="active"><i class="ri-route-line"></i> My Route</a>
+        <a href="driver-route-status.html"><i class="ri-traffic-light-line"></i> Route Status</a>
+        <a href="driver-reports.html"><i class="ri-file-list-line"></i> My Reports</a>
+        <a href="driver-profile.html"><i class="ri-user-line"></i> Profile</a>
+      </nav>
+      <div class="sidebar-footer">
+        <a class="btn-logout" href="login.html">
+          <i class="ri-logout-box-r-line"></i> Log Out
+        </a>
+      </div>
+    </aside>
+
+    <div class="main-content">
+
+      <header class="page-header">
+        <div class="page-header-left">
+          <span class="breadcrumb-current">My Assigned Route</span>
+        </div>
+        <div class="page-header-right">
+          <div class="user-chip">
+            <div class="user-avatar">JS</div>
+            <span class="user-name">Juan Santos</span>
+          </div>
+        </div>
+      </header>
+
+      <main class="page-body">
+
+
+        <div class="coverage-banner mb-16">
+          <i class="ri-map-pin-area-line"></i>
+          Coverage: Cebu City, Mandaue City, Lapu-Lapu City, Talisay City, and Minglanilla
+        </div>
+
+        <div id="route-detail-container">
+          <article class="card route-detail-card">
+            <div class="route-detail-header">
+              <div><span class="route-info-card__code">01K</span><h1 class="section-title static-inline-016">Colon Street – SM City Cebu</h1><p class="section-subtitle">Assigned to Juan Santos · Jeepney 01K-247</p></div>
+              <span class="badge badge-success">Active sample route</span>
+            </div>
+            <div class="route-info-card__meta"><span class="route-info-card__meta-item"><span class="badge badge-teal">Traditional Jeepney</span></span><span class="route-info-card__meta-item">Estimated fare: ₱15.00</span><span class="route-info-card__meta-item">Estimated travel: ~25 min</span></div>
+            <section class="route-detail-section"><h2 class="route-detail-section__title">Route stops</h2><ol class="route-card__stops"><li>Colon Street terminal</li><li>Carbon Market</li><li>Fuente Osmeña Circle</li><li>Ayala Center Cebu</li><li>SM City Cebu</li></ol></section>
+            <section class="route-detail-section"><h2 class="route-detail-section__title">Schedule</h2><p>Sample departures approximately every 10 minutes, 5:30 AM–9:00 PM daily.</p></section>
+            <section class="route-detail-section"><h2 class="route-detail-section__title">Transfer points</h2><ul class="transfer-list"><li><i class="ri-arrow-left-right-line"></i>Carbon Market</li><li><i class="ri-arrow-left-right-line"></i>Fuente Osmeña Circle</li></ul></section>
+            <section class="route-detail-section"><h2 class="route-detail-section__title">Walking directions</h2><p>From Colon Street, walk to the 01K loading point beside the Colon Market entrance. Alight at the SM City Cebu terminal stop.</p></section>
+          </article>
+        </div>
+      </main>
+    </div>
+  </div>
+</body>
+</html>

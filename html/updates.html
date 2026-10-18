@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Traffic & Road Updates — Biyahero</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.2.0/remixicon.min.css" />
+  <link rel="stylesheet" href="../css/shared.css" />
+  <link rel="stylesheet" href="../css/commuter.css" />
+  <link rel="stylesheet" href="../css/static-inline.css">
+</head>
+<body>
+
+
+
+  <div class="app-shell" id="app-shell">
+
+
+    <aside class="sidebar" role="navigation" aria-label="Commuter navigation">
+      <a class="sidebar-brand" href="dashboard.html">
+        <span class="sidebar-brand-mark" aria-hidden="true"><i class="ri-bus-line"></i></span>
+        Biyahero
+      </a>
+      <nav class="sidebar-nav">
+        <a href="dashboard.html"><i class="ri-dashboard-line"></i> Dashboard</a>
+        <a href="plan-trip.html"><i class="ri-route-line"></i> Plan Trip</a>
+        <a href="fare-guide.html"><i class="ri-wallet-3-line"></i> Fare Guide</a>
+        <a href="routes.html"><i class="ri-map-2-line"></i> Routes</a>
+        <a href="updates.html" class="active"><i class="ri-traffic-light-line"></i> Traffic Updates</a>
+        <a href="report.html"><i class="ri-flag-line"></i> Report Issue</a>
+        <a href="feedback.html"><i class="ri-feedback-line"></i> Feedback</a>
+        <a href="commuter-profile.html"><i class="ri-user-line"></i> Profile</a>
+      </nav>
+      <div class="sidebar-footer">
+        <a class="btn-logout" href="login.html"><i class="ri-logout-box-line"></i> Log Out</a>
+      </div>
+    </aside>
+
+    <div class="main-content">
+      <header class="page-header">
+        <div class="page-header-left">
+          <span class="breadcrumb-current">Traffic &amp; Road Updates</span>
+        </div>
+        <div class="page-header-right">
+          <div class="user-chip">
+            <div class="user-avatar">MC</div>
+            <span class="user-name">Maya Cruz</span>
+          </div>
+        </div>
+      </header>
+
+      <main class="page-body">
+
+        <div class="count-badge" id="count-badge">
+          <i class="ri-notification-line"></i> 4 sample updates
+        </div>
+
+        <div id="updates-list" class="static-inline-006">
+          <article class="status-card status-card--moderate"><div class="status-card__title">Colon–Ayala · Route 10C</div><div class="status-card__meta"><i class="ri-map-pin-line"></i> Cebu City <span class="badge badge-muted">Jeepney</span> <span class="badge badge-moderate">Moderate Traffic</span></div><div class="status-card__desc">Traffic is moving slowly along Osmeña Boulevard. Add extra travel time.</div><div class="status-card__footer"><i class="ri-time-line"></i> Sample update · October 15, 2026</div></article>
+          <article class="status-card status-card--obstruction"><div class="status-card__title">Tabunok–Cebu South Bus Terminal</div><div class="status-card__meta"><i class="ri-map-pin-line"></i> Talisay City <span class="badge badge-info">Bus</span> <span class="badge badge-obstruction">Road Obstruction</span></div><div class="status-card__desc">Road works near Tabunok Market may cause short delays. Affected stops remain open.</div><div class="status-card__footer"><i class="ri-time-line"></i> Sample update · October 14, 2026</div></article>
+          <article class="status-card status-card--change"><div class="status-card__title">Parkmall–IT Park · Route 13C</div><div class="status-card__meta"><i class="ri-map-pin-line"></i> Mandaue City <span class="badge badge-muted">Jeepney</span> <span class="badge badge-change">Route Change</span></div><div class="status-card__desc">Demonstration detour via A. S. Fortuna Street while scheduled road maintenance is underway.</div><div class="status-card__footer"><i class="ri-time-line"></i> Sample update · October 13, 2026</div></article>
+          <article class="status-card status-card--normal"><div class="status-card__title">Basak–Mactan Airport · Modern Jeepney</div><div class="status-card__meta"><i class="ri-map-pin-line"></i> Lapu-Lapu City <span class="badge badge-teal">Modern Jeepney</span> <span class="badge badge-normal">Normal</span></div><div class="status-card__desc">Service follows the usual route and sample schedule.</div><div class="status-card__footer"><i class="ri-time-line"></i> Sample update · October 12, 2026</div></article>
+        </div>
+
+      </main>
+    </div>
+  </div>
+</body>
+</html>

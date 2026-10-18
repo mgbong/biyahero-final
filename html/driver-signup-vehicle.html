@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vehicle and Route — Driver Sign Up | Biyahero</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+  <link rel="stylesheet" href="../css/signup.css" />
+  <link rel="stylesheet" href="../css/static-inline.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="../index.html" aria-label="Biyahero home">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none">
+            <path d="M5 17.5V9.25C5 7.45 6.45 6 8.25 6h7.5C17.55 6 19 7.45 19 9.25v8.25H5Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+            <path d="M8 6V4.75h8V6M5.5 12h13M8 17.5v2m8-2v2M8.25 14.75h.01m7.49 0h.01" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+          </svg>
+        </span>
+        <span>Biyahero</span>
+      </a>
+      <nav class="desktop-nav" aria-label="Main navigation">
+        <a class="nav-link" href="../index.html">Home</a>
+        <a class="nav-link" href="login.html">Routes</a>
+        <a class="nav-link" href="fare-guide.html">Fare Guide</a>
+      </nav>
+      <a class="button button-primary header-cta" href="signup.html">Sign Up</a>
+      <details class="mobile-menu">
+        <summary aria-label="Open navigation menu"><span></span><span></span><span></span></summary>
+        <nav aria-label="Mobile navigation">
+          <a href="../index.html">Home</a>
+          <a href="login.html">Routes</a>
+          <a href="fare-guide.html">Fare Guide</a>
+          <a href="signup.html">Sign Up</a>
+        </nav>
+      </details>
+    </div>
+  </header>
+
+  <main class="auth-page">
+    <div class="auth-grid auth-grid--registration auth-grid--wizard">
+      <section class="auth-card auth-form-card" aria-labelledby="vehicle-title">
+        <h1 class="wizard-title" id="vehicle-title">Vehicle and route</h1>
+        <p class="wizard-description">Add the vehicle you drive and where you operate.</p>
+
+        <form class="signup-form-grid" data-signup-form>
+          <div class="form-group form-group--wide">
+            <span class="signup-field-label">Vehicle type</span>
+            <div class="vehicle-type-grid" role="radiogroup" aria-label="Vehicle type">
+              <label class="vehicle-type-card vehicle-type-card--selected">
+                <input type="radio" name="vehicle-type" value="Traditional Jeepney" checked required />
+                <i class="ri-steering-2-line" aria-hidden="true"></i>
+                <span>Traditional Jeepney</span>
+              </label>
+              <label class="vehicle-type-card">
+                <input type="radio" name="vehicle-type" value="Modern Jeepney" />
+                <i class="ri-bus-line" aria-hidden="true"></i>
+                <span>Modern Jeepney</span>
+              </label>
+              <label class="vehicle-type-card">
+                <input type="radio" name="vehicle-type" value="Bus" />
+                <i class="ri-bus-2-line" aria-hidden="true"></i>
+                <span>Bus</span>
+              </label>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="plate-number">Plate number</label>
+            <input id="plate-number" name="plate-number" type="text" placeholder="e.g. GAB 1234" required />
+          </div>
+          <div class="form-group">
+            <label for="franchise-number">Franchise number (optional)</label>
+            <input id="franchise-number" name="franchise-number" type="text" placeholder="Enter franchise number" />
+          </div>
+
+          <div class="form-group form-group--wide">
+            <label for="route">Route</label>
+            <select id="route" name="route" required>
+              <option value="" selected disabled>Select a route</option>
+              <option>Minglanilla - IT Park</option>
+              <option>Talisay - Colon</option>
+              <option>Lahug - Carbon Market</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="terminal">Terminal</label>
+            <input id="terminal" name="terminal" type="text" placeholder="Enter terminal or starting point" required />
+          </div>
+          <div class="form-group">
+            <label for="seats">Seats</label>
+            <input id="seats" name="seats" type="number" min="1" max="100" placeholder="e.g. 20" required />
+          </div>
+
+          <div class="form-group form-group--wide">
+            <label>Operating hours</label>
+            <div class="schedule-time-grid">
+              <div><label for="hours-from">From</label><select id="hours-from" name="hours-from" required><option>05:00 AM</option><option>06:00 AM</option><option>07:00 AM</option><option>08:00 AM</option></select></div>
+              <div><label for="hours-to">To</label><select id="hours-to" name="hours-to" required><option>05:00 PM</option><option>06:00 PM</option><option>07:00 PM</option><option selected>09:00 PM</option><option>10:00 PM</option></select></div>
+            </div>
+          </div>
+          <div class="form-group form-group--wide">
+            <span class="signup-field-label">Operating days (select at least one)</span>
+            <div class="weekday-list" aria-label="Operating days">
+              <label class="weekday-chip weekday-chip--active"><input type="checkbox" name="days" value="Monday" checked /> Mon</label>
+              <label class="weekday-chip weekday-chip--active"><input type="checkbox" name="days" value="Tuesday" checked /> Tue</label>
+              <label class="weekday-chip weekday-chip--active"><input type="checkbox" name="days" value="Wednesday" checked /> Wed</label>
+              <label class="weekday-chip weekday-chip--active"><input type="checkbox" name="days" value="Thursday" checked /> Thu</label>
+              <label class="weekday-chip weekday-chip--active"><input type="checkbox" name="days" value="Friday" checked /> Fri</label>
+              <label class="weekday-chip weekday-chip--active"><input type="checkbox" name="days" value="Saturday" checked /> Sat</label>
+              <label class="weekday-chip"><input type="checkbox" name="days" value="Sunday" /> Sun</label>
+            </div>
+          </div>
+
+          <div class="form-group form-group--wide accessibility-row">
+            <label for="wheelchair-accessible">Wheelchair accessible</label>
+            <input id="wheelchair-accessible" name="wheelchair-accessible" type="checkbox" />
+          </div>
+
+          <div class="signup-step-footer">
+            <a class="btn btn-outline signup-back" href="driver-signup.html">Back</a>
+            <span>Step 2 of 3</span>
+            <button class="btn btn-primary signup-next" type="submit" data-next="driver-signup-documents.html">Next</button>
+          </div>
+        </form>
+      </section>
+    </div>
+  </main>
+  <script src="../js/signup-interactions.js"></script>
+</body>
+</html>

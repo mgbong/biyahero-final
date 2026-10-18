@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Route Monitoring — Biyahero</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.2.0/remixicon.min.css" />
+  <link rel="stylesheet" href="../css/shared.css" />
+  <link rel="stylesheet" href="../css/operator.css" />
+  <link rel="stylesheet" href="../css/static-inline.css">
+</head>
+<body>
+
+
+
+  <div class="app-shell" id="app-shell">
+
+
+
+    <aside class="sidebar" role="navigation" aria-label="Operator navigation">
+      <a class="sidebar-brand" href="operator-dashboard.html">
+        <span class="sidebar-brand-mark" aria-hidden="true"><i class="ri-bus-line"></i></span>
+        Biyahero
+      </a>
+      <nav class="sidebar-nav">
+        <a href="operator-dashboard.html"><i class="ri-dashboard-line"></i> Dashboard</a>
+        <a href="operator-driver-approval.html"><i class="ri-user-check-line"></i> Driver Approval</a>
+        <a href="operator-drivers.html"><i class="ri-steering-2-line"></i> Driver Management</a>
+        <a href="operator-route-monitoring.html" class="active"><i class="ri-traffic-light-line"></i> Route Monitoring</a>
+        <a href="operator-route-monitoring.html"><i class="ri-flag-line"></i> Route Reports</a>
+        <a href="routes.html"><i class="ri-map-2-line"></i> Routes</a>
+        <a href="operator-dashboard.html#activity-heading"><i class="ri-history-line"></i> Activity Log</a>
+        <a href="operator-profile.html"><i class="ri-user-line"></i> Profile</a>
+      </nav>
+      <div class="sidebar-footer">
+        <a class="btn-logout" href="login.html">
+          <i class="ri-logout-box-r-line"></i> Log Out
+        </a>
+      </div>
+    </aside>
+
+    <div class="main-content">
+
+      <header class="page-header">
+        <div class="page-header-left">
+          <span class="breadcrumb-current">Route Status Monitoring</span>
+        </div>
+        <div class="page-header-right">
+          <div class="user-chip">
+            <div class="user-avatar">AR</div>
+            <span class="user-name">Alicia Reyes</span>
+          </div>
+        </div>
+      </header>
+
+      <main class="page-body">
+
+        <section class="section" aria-labelledby="monitoring-heading">
+          <div class="section-head">
+            <div>
+              <h2 class="section-title" id="monitoring-heading">Route Status Monitoring</h2>
+              <p class="section-subtitle">Static examples of driver-submitted route status reports.</p>
+            </div>
+          </div>
+
+          <div id="monitoring-container">
+            <div class="table-wrap"><table class="data-table"><thead><tr><th scope="col">Date</th><th scope="col">Driver</th><th scope="col">Route</th><th scope="col">Status Reported</th><th scope="col">Description</th><th scope="col">Action Status</th></tr></thead><tbody>
+              <tr><td>October 15, 2026 · 8:30 AM</td><td>Juan Santos</td><td>01K · Colon–SM City Cebu</td><td><span class="badge badge-success">Operating Normally</span></td><td>Sample morning route check; stops are clear.</td><td><span class="badge badge-success">Acknowledged</span></td></tr>
+              <tr><td>October 14, 2026 · 11:15 AM</td><td>Juan Santos</td><td>01K · Colon–SM City Cebu</td><td><span class="badge badge-warning">Moderate Delays</span></td><td>Slow traffic near Fuente Osmeña Circle.</td><td><span class="badge badge-warning">Under Review</span></td></tr>
+              <tr><td>October 13, 2026 · 2:45 PM</td><td>Maria Dizon</td><td>Basak–Mactan Airport</td><td><span class="badge badge-success">Operating Normally</span></td><td>Sample service status for the afternoon shift.</td><td><span class="badge badge-success">Resolved</span></td></tr>
+            </tbody></table></div>
+            <p class="section-subtitle static-inline-017">All records and review statuses are fixed examples; no updates can be submitted.</p>
+          </div>
+        </section>
+      </main>
+    </div>
+  </div>
+</body>
+</html>

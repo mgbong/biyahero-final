@@ -1,0 +1,183 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard — Biyahero</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.2.0/remixicon.min.css" />
+  <link rel="stylesheet" href="../css/shared.css" />
+  <link rel="stylesheet" href="../css/commuter.css" />
+  <link rel="stylesheet" href="../css/static-inline.css">
+</head>
+<body>
+
+
+
+
+  <div class="app-shell" id="app-shell">
+
+
+
+
+
+    <aside class="sidebar" role="navigation" aria-label="Commuter navigation">
+      <a class="sidebar-brand" href="dashboard.html">
+        <span class="sidebar-brand-mark" aria-hidden="true"><i class="ri-bus-line"></i></span>
+        Biyahero
+      </a>
+
+      <nav class="sidebar-nav">
+        <a href="dashboard.html" class="active">
+          <i class="ri-dashboard-line"></i> Dashboard
+        </a>
+        <a href="plan-trip.html">
+          <i class="ri-route-line"></i> Plan Trip
+        </a>
+        <a href="fare-guide.html">
+          <i class="ri-wallet-3-line"></i> Fare Guide
+        </a>
+        <a href="routes.html">
+          <i class="ri-map-2-line"></i> Routes
+        </a>
+        <a href="updates.html">
+          <i class="ri-traffic-light-line"></i> Traffic Updates
+        </a>
+        <a href="report.html">
+          <i class="ri-flag-line"></i> Report Issue
+        </a>
+        <a href="feedback.html">
+          <i class="ri-feedback-line"></i> Feedback
+        </a>
+        <a href="commuter-profile.html">
+          <i class="ri-user-line"></i> Profile
+        </a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <a class="btn-logout" href="login.html">
+          <i class="ri-logout-box-line"></i> Log Out
+        </a>
+      </div>
+    </aside>
+
+
+    <div class="main-content">
+
+
+      <header class="page-header">
+        <div class="page-header-left">
+          <span class="breadcrumb-current">Dashboard</span>
+        </div>
+        <div class="page-header-right">
+          <div class="user-chip">
+            <div class="user-avatar">MC</div>
+            <span class="user-name">Maya Cruz</span>
+          </div>
+        </div>
+      </header>
+
+
+      <main class="page-body">
+
+
+        <div class="greeting-card" id="greeting-card">
+          <div class="greeting-card__left">
+            <div class="greeting-card__name">Good morning, Maya!</div>
+            <div class="greeting-card__sub">Plan your next trip with Biyahero.</div>
+          </div>
+          <div class="greeting-card__icon" aria-hidden="true">🚌</div>
+        </div>
+
+
+        <section class="section" aria-labelledby="updates-heading">
+          <div class="section-head">
+            <div>
+              <h2 class="section-title" id="updates-heading">Route and Traffic Updates</h2>
+            </div>
+            <a href="updates.html" class="btn btn-outline btn-sm">View All</a>
+          </div>
+
+          <div class="card-grid">
+            <article class="status-card status-card--moderate">
+              <div class="status-card__title">Colon–Ayala · Route 10C</div>
+              <div class="status-card__meta"><i class="ri-map-pin-line"></i> Cebu City <span class="badge badge-muted">Jeepney</span> <span class="badge badge-moderate">Moderate Traffic</span></div>
+              <div class="status-card__desc">Slow traffic reported along Osmeña Boulevard. Allow extra travel time.</div>
+              <div class="status-card__footer"><i class="ri-time-line"></i> Sample update · October 15, 2026</div>
+            </article>
+            <article class="status-card status-card--normal">
+              <div class="status-card__title">IT Park–SM City · Route 13C</div>
+              <div class="status-card__meta"><i class="ri-map-pin-line"></i> Cebu City <span class="badge badge-muted">Jeepney</span> <span class="badge badge-normal">Normal</span></div>
+              <div class="status-card__desc">No reported route changes. Usual stops and schedules apply.</div>
+              <div class="status-card__footer"><i class="ri-time-line"></i> Sample update · October 15, 2026</div>
+            </article>
+            <article class="status-card status-card--obstruction">
+              <div class="status-card__title">Tabunok–Cebu South Bus Terminal</div>
+              <div class="status-card__meta"><i class="ri-map-pin-line"></i> Talisay City <span class="badge badge-info">Bus</span> <span class="badge badge-obstruction">Road Obstruction</span></div>
+              <div class="status-card__desc">Road works near Tabunok Market may cause a short delay.</div>
+              <div class="status-card__footer"><i class="ri-time-line"></i> Sample update · October 14, 2026</div>
+            </article>
+          </div>
+        </section>
+
+
+        <section class="section" aria-labelledby="history-heading">
+          <div class="section-head">
+            <div>
+              <h2 class="section-title" id="history-heading"><i class="ri-history-line" aria-hidden="true"></i> Trip History</h2>
+            </div>
+            <a href="plan-trip.html" class="btn btn-outline btn-sm">View Trip Planner</a>
+          </div>
+
+          <div class="table-wrap">
+            <table class="data-table">
+              <thead><tr><th scope="col">Date</th><th scope="col">Origin</th><th scope="col">Destination</th><th scope="col">Jeepney Number / Route</th><th scope="col">Estimated Fare</th><th scope="col">Status</th></tr></thead>
+              <tbody>
+                <tr class="trip-row"><td><i class="ri-calendar-line" aria-hidden="true"></i> October 15, 2026</td><td><i class="ri-map-pin-line" aria-hidden="true"></i> Colon Street, Cebu City</td><td><i class="ri-map-pin-2-line" aria-hidden="true"></i> SM City Cebu</td><td><span class="badge badge-teal"><i class="ri-bus-line" aria-hidden="true"></i> 01K</span></td><td>₱15.00</td><td><span class="badge badge-success"><i class="ri-checkbox-circle-line" aria-hidden="true"></i> Completed</span></td></tr>
+                <tr class="trip-row"><td><i class="ri-calendar-line" aria-hidden="true"></i> October 14, 2026</td><td><i class="ri-map-pin-line" aria-hidden="true"></i> Basak, Lapu-Lapu City</td><td><i class="ri-map-pin-2-line" aria-hidden="true"></i> Mactan-Cebu International Airport</td><td><span class="badge badge-teal"><i class="ri-truck-line" aria-hidden="true"></i> Modern Jeepney</span></td><td>₱20.00</td><td><span class="badge badge-success"><i class="ri-checkbox-circle-line" aria-hidden="true"></i> Completed</span></td></tr>
+                <tr class="trip-row"><td><i class="ri-calendar-line" aria-hidden="true"></i> October 13, 2026</td><td><i class="ri-map-pin-line" aria-hidden="true"></i> Tabunok, Talisay City</td><td><i class="ri-map-pin-2-line" aria-hidden="true"></i> Cebu South Bus Terminal</td><td><span class="badge badge-info"><i class="ri-bus-line" aria-hidden="true"></i> Bus</span></td><td>₱18.00</td><td><span class="badge badge-success"><i class="ri-checkbox-circle-line" aria-hidden="true"></i> Completed</span></td></tr>
+                <tr class="trip-row"><td><i class="ri-calendar-line" aria-hidden="true"></i> October 12, 2026</td><td><i class="ri-map-pin-line" aria-hidden="true"></i> Parkmall, Mandaue City</td><td><i class="ri-map-pin-2-line" aria-hidden="true"></i> IT Park, Cebu City</td><td><span class="badge badge-teal"><i class="ri-bus-line" aria-hidden="true"></i> 13C</span></td><td>₱15.00</td><td><span class="badge badge-success"><i class="ri-checkbox-circle-line" aria-hidden="true"></i> Completed</span></td></tr>
+                <tr class="trip-row"><td><i class="ri-calendar-line" aria-hidden="true"></i> October 11, 2026</td><td><i class="ri-map-pin-line" aria-hidden="true"></i> Minglanilla Public Market</td><td><i class="ri-map-pin-2-line" aria-hidden="true"></i> Cebu City</td><td><span class="badge badge-info"><i class="ri-bus-line" aria-hidden="true"></i> Bus</span></td><td>₱25.00</td><td><span class="badge badge-success"><i class="ri-checkbox-circle-line" aria-hidden="true"></i> Completed</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+
+        <section class="section" aria-labelledby="popular-heading">
+          <div class="section-head">
+            <div>
+              <h2 class="section-title" id="popular-heading">Most Used Routes</h2>
+              <p class="section-subtitle">Popular routes in the coverage area.</p>
+            </div>
+            <a href="routes.html" class="btn btn-outline btn-sm">Browse All Routes</a>
+          </div>
+
+          <div class="card-grid">
+            <article class="route-card">
+              <div class="route-card__header"><div><span class="route-card__route-code">01K</span><div class="route-card__name static-inline-014">Colon – SM City Cebu</div></div><span class="badge badge-success">Active</span></div>
+              <div class="route-card__direction"><i class="ri-map-pin-2-line"></i>Colon Street <i class="ri-arrow-right-line"></i> <i class="ri-map-pin-line"></i>SM City Cebu</div>
+              <div class="route-card__meta"><span class="route-card__meta-item badge badge-teal">Jeepney</span><span class="route-card__meta-item"><i class="ri-money-peso-circle-line"></i> ₱15.00</span><span class="route-card__meta-item"><i class="ri-time-line"></i> ~25 min</span></div>
+            </article>
+            <article class="route-card">
+              <div class="route-card__header"><div><span class="route-card__route-code">13C</span><div class="route-card__name static-inline-014">Parkmall – IT Park</div></div><span class="badge badge-success">Active</span></div>
+              <div class="route-card__direction"><i class="ri-map-pin-2-line"></i>Parkmall, Mandaue <i class="ri-arrow-right-line"></i> <i class="ri-map-pin-line"></i>IT Park, Cebu City</div>
+              <div class="route-card__meta"><span class="route-card__meta-item badge badge-teal">Jeepney</span><span class="route-card__meta-item"><i class="ri-money-peso-circle-line"></i> ₱15.00</span><span class="route-card__meta-item"><i class="ri-time-line"></i> ~30 min</span></div>
+            </article>
+            <article class="route-card">
+              <div class="route-card__header"><div><span class="route-card__route-code">BUS-02</span><div class="route-card__name static-inline-014">Tabunok – Cebu South Bus Terminal</div></div><span class="badge badge-success">Active</span></div>
+              <div class="route-card__direction"><i class="ri-map-pin-2-line"></i>Tabunok, Talisay <i class="ri-arrow-right-line"></i> <i class="ri-map-pin-line"></i>Cebu South Bus Terminal</div>
+              <div class="route-card__meta"><span class="route-card__meta-item badge badge-info">Bus</span><span class="route-card__meta-item"><i class="ri-money-peso-circle-line"></i> ₱18.00</span><span class="route-card__meta-item"><i class="ri-time-line"></i> ~35 min</span></div>
+            </article>
+          </div>
+        </section>
+
+      </main>
+    </div>
+  </div>
+
+
+</body>
+</html>

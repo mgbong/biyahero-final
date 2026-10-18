@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Verify Documents — Driver Sign Up | Biyahero</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+  <link rel="stylesheet" href="../css/signup.css" />
+  <link rel="stylesheet" href="../css/static-inline.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="../index.html" aria-label="Biyahero home">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none">
+            <path d="M5 17.5V9.25C5 7.45 6.45 6 8.25 6h7.5C17.55 6 19 7.45 19 9.25v8.25H5Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+            <path d="M8 6V4.75h8V6M5.5 12h13M8 17.5v2m8-2v2M8.25 14.75h.01m7.49 0h.01" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+          </svg>
+        </span>
+        <span>Biyahero</span>
+      </a>
+      <nav class="desktop-nav" aria-label="Main navigation">
+        <a class="nav-link" href="../index.html">Home</a>
+        <a class="nav-link" href="login.html">Routes</a>
+        <a class="nav-link" href="fare-guide.html">Fare Guide</a>
+      </nav>
+      <a class="button button-primary header-cta" href="signup.html">Sign Up</a>
+      <details class="mobile-menu">
+        <summary aria-label="Open navigation menu"><span></span><span></span><span></span></summary>
+        <nav aria-label="Mobile navigation">
+          <a href="../index.html">Home</a>
+          <a href="login.html">Routes</a>
+          <a href="fare-guide.html">Fare Guide</a>
+          <a href="signup.html">Sign Up</a>
+        </nav>
+      </details>
+    </div>
+  </header>
+
+  <main class="auth-page">
+    <div class="auth-grid auth-grid--registration auth-grid--wizard">
+      <section class="auth-card auth-form-card" aria-labelledby="documents-title">
+        <h1 class="wizard-title" id="documents-title">Verify your documents</h1>
+        <p class="wizard-description">Upload clear photos with all details visible. Your documents are used only for verification.</p>
+
+        <form class="signup-form-grid" data-signup-form>
+          <div class="form-group">
+            <label for="id-type">ID type</label>
+            <select id="id-type" name="id-type" required>
+              <option value="" selected disabled>Select an ID type</option>
+              <option>Driver's License</option>
+              <option>National ID</option>
+              <option>Passport</option>
+              <option>UMID</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="id-number">ID number</label>
+            <input id="id-number" name="id-number" type="text" placeholder="Enter your ID number" required />
+            <small class="form-hint">Enter the number exactly as it appears on your selected ID.</small>
+          </div>
+
+          <div class="form-group">
+            <label class="signup-field-label" for="id-front">ID front</label>
+            <label class="upload-placeholder" for="id-front">
+              <input class="signup-file" id="id-front" name="id-front" type="file" accept=".jpg,.jpeg,.png,.pdf,image/jpeg,image/png,application/pdf" required />
+              <i class="ri-upload-2-line" aria-hidden="true"></i>
+              <strong>Click to upload</strong>
+              <span class="upload-name">JPG, PNG or PDF · up to 10 MB</span>
+            </label>
+          </div>
+          <div class="form-group">
+            <label class="signup-field-label" for="id-back">ID back</label>
+            <label class="upload-placeholder" for="id-back">
+              <input class="signup-file" id="id-back" name="id-back" type="file" accept=".jpg,.jpeg,.png,.pdf,image/jpeg,image/png,application/pdf" required />
+              <i class="ri-upload-2-line" aria-hidden="true"></i>
+              <strong>Click to upload</strong>
+              <span class="upload-name">JPG, PNG or PDF · up to 10 MB</span>
+            </label>
+          </div>
+          <div class="form-group">
+            <label class="signup-field-label" for="or-cr">OR/CR</label>
+            <label class="upload-placeholder" for="or-cr">
+              <input class="signup-file" id="or-cr" name="or-cr" type="file" accept=".jpg,.jpeg,.png,.pdf,image/jpeg,image/png,application/pdf" required />
+              <i class="ri-upload-2-line" aria-hidden="true"></i>
+              <strong>Click to upload</strong>
+              <span class="upload-name">JPG, PNG or PDF · up to 10 MB</span>
+            </label>
+          </div>
+          <div class="form-group">
+            <label class="signup-field-label" for="selfie">Selfie holding ID</label>
+            <label class="upload-placeholder" for="selfie">
+              <input class="signup-file" id="selfie" name="selfie" type="file" accept=".jpg,.jpeg,.png,.pdf,image/jpeg,image/png,application/pdf" required />
+              <i class="ri-upload-2-line" aria-hidden="true"></i>
+              <strong>Click to upload</strong>
+              <span class="upload-name">JPG, PNG or PDF · up to 10 MB</span>
+            </label>
+          </div>
+          <div class="form-group form-group--wide">
+            <label class="signup-field-label" for="vehicle-photo">Vehicle photo (optional)</label>
+            <label class="upload-placeholder" for="vehicle-photo">
+              <input class="signup-file" id="vehicle-photo" name="vehicle-photo" type="file" accept=".jpg,.jpeg,.png,.pdf,image/jpeg,image/png,application/pdf" />
+              <i class="ri-upload-2-line" aria-hidden="true"></i>
+              <strong>Click to upload</strong>
+              <span class="upload-name">JPG, PNG or PDF · up to 10 MB</span>
+            </label>
+          </div>
+
+          <div class="form-group form-group--wide consent-list">
+            <label class="consent-row"><input type="checkbox" name="truth-confirmation" required /> <span>I confirm that the information and documents I provided are true and correct.</span></label>
+            <label class="consent-row"><input type="checkbox" name="privacy-consent" required /> <span>I agree to the <span class="consent-link">Terms</span> and <span class="consent-link">Data Privacy</span> policy.</span></label>
+          </div>
+
+          <div class="review-notice">
+            <i class="ri-shield-check-line" aria-hidden="true"></i>
+            Your application will be reviewed before your verified listing goes live.
+          </div>
+
+          <div class="signup-step-footer">
+            <a class="btn btn-outline signup-back" href="driver-signup-vehicle.html">Back</a>
+            <span>Step 3 of 3</span>
+            <button class="btn btn-primary signup-next" type="submit">Submit application</button>
+          </div>
+          <p class="signup-feedback" role="status" aria-live="polite"></p>
+        </form>
+      </section>
+    </div>
+  </main>
+  <script src="../js/signup-interactions.js"></script>
+</body>
+</html>

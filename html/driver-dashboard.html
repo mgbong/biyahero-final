@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Driver Dashboard — Biyahero</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.2.0/remixicon.min.css" />
+  <link rel="stylesheet" href="../css/shared.css" />
+  <link rel="stylesheet" href="../css/driver.css" />
+  <link rel="stylesheet" href="../css/static-inline.css">
+</head>
+
+<body>
+
+
+
+
+  <div class="app-shell" id="app-shell">
+
+
+
+
+
+    <aside class="sidebar" role="navigation" aria-label="Driver navigation">
+      <a class="sidebar-brand" href="driver-dashboard.html">
+        <span class="sidebar-brand-mark" aria-hidden="true"><i class="ri-steering-2-line"></i></span>
+        Biyahero
+      </a>
+
+      <nav class="sidebar-nav">
+        <a href="driver-dashboard.html" class="active">
+          <i class="ri-dashboard-line"></i> Dashboard
+        </a>
+        <a href="driver-route.html">
+          <i class="ri-route-line"></i> My Route
+        </a>
+        <a href="driver-route-status.html">
+          <i class="ri-traffic-light-line"></i> Route Status
+        </a>
+        <a href="driver-reports.html">
+          <i class="ri-file-list-line"></i> My Reports
+        </a>
+        <a href="driver-profile.html">
+          <i class="ri-user-line"></i> Profile
+        </a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <a class="btn-logout" href="login.html">
+          <i class="ri-logout-box-r-line"></i> Log Out
+        </a>
+      </div>
+    </aside>
+
+
+    <div class="main-content">
+
+
+      <header class="page-header">
+        <div class="page-header-left">
+          <span class="breadcrumb-current">Driver Dashboard</span>
+        </div>
+        <div class="page-header-right">
+          <div class="user-chip">
+            <div class="user-avatar">JS</div>
+            <span class="user-name">Juan Santos</span>
+          </div>
+        </div>
+      </header>
+
+
+      <main class="page-body">
+
+
+        <div class="driver-greeting-card">
+          <div class="driver-greeting-card__left">
+            <div class="driver-greeting-card__name">Good morning, Juan!</div>
+            <div class="driver-greeting-card__sub">Ready to hit the road? Keep your route updated daily.</div>
+            <div class="static-inline-016"><span class="approval-badge approval-badge--approved"><i
+                  class="ri-checkbox-circle-line"></i> Approved Driver</span></div>
+          </div>
+          <div class="driver-greeting-card__icon" aria-hidden="true">
+            <i class="ri-steering-2-line"></i>
+          </div>
+        </div>
+
+
+        <section class="section" aria-labelledby="route-heading">
+          <div class="section-head">
+            <div>
+              <h2 class="section-title" id="route-heading">Assigned Route</h2>
+              <p class="section-subtitle">Your current route assignment.</p>
+            </div>
+            <a href="driver-route.html" class="btn btn-outline btn-sm"><i class="ri-map-2-line"></i> View Details</a>
+          </div>
+
+          <div class="route-info-card">
+            <div class="route-info-card__code">01K</div>
+            <div class="route-info-card__label">Assigned Jeepney · Unit 01K-247</div>
+            <div class="route-info-card__direction"><i class="ri-map-pin-2-line"></i> Colon Street, Cebu City <i
+                class="ri-arrow-right-line"></i> <i class="ri-map-pin-line"></i> SM City Cebu</div>
+            <div class="route-info-card__meta">
+              <span class="route-info-card__meta-item"><span class="badge badge-teal">Traditional Jeepney</span></span>
+              <span class="route-info-card__meta-item"><i class="ri-money-peso-circle-line"></i> ₱15.00 estimated
+                fare</span>
+              <span class="route-info-card__meta-item"><i class="ri-time-line"></i> ~25 min</span>
+              <span class="route-info-card__meta-item"><span class="badge badge-success">Active sample
+                  route</span></span>
+            </div>
+            <div class="route-detail-stops">
+              <h3>Sample route stops</h3>
+              <ol class="route-card__stops">
+                <li>Colon Street terminal</li>
+                <li>Carbon Market</li>
+                <li>Fuente Osmeña Circle</li>
+                <li>Ayala Center Cebu</li>
+                <li>SM City Cebu</li>
+              </ol>
+            </div>
+            <p class="schedule-note"><i class="ri-time-line"></i> Demonstration schedule: 5:30 AM–9:00 PM · departures
+              approximately every 10 minutes</p>
+          </div>
+        </section>
+
+
+        <section class="section" aria-labelledby="actions-heading">
+          <h2 class="section-title" id="actions-heading">Quick Actions</h2>
+          <div class="quick-actions static-inline-017">
+            <a href="driver-route-status.html" class="quick-action-btn">
+              <i class="ri-traffic-light-line"></i> Update Route Status
+            </a>
+            <a href="driver-route.html" class="quick-action-btn">
+              <i class="ri-map-2-line"></i> View My Route
+            </a>
+            <a href="driver-reports.html" class="quick-action-btn">
+              <i class="ri-file-list-line"></i> My Reports
+            </a>
+          </div>
+        </section>
+
+
+        <section class="section" aria-labelledby="notices-heading">
+          <h2 class="section-title" id="notices-heading">Driver Notices</h2>
+          <div class="driver-notices static-inline-017">
+            <div class="notice-card"><i class="ri-checkbox-circle-line"></i><span>Sample assignment: Unit 01K-247
+                operates the Colon–SM City Cebu route.</span></div>
+            <div class="notice-card"><i class="ri-alarm-warning-line"></i><span>Demonstration schedule: daily service
+                from 5:30 AM to 9:00 PM.</span></div>
+            <div class="notice-card"><i class="ri-information-line"></i><span>Displayed routes and status are static
+                sample content. No live tracking is active.</span></div>
+          </div>
+        </section>
+      </main>
+    </div>
+  </div>
+</body>
+
+</html>

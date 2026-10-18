@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Route Status — Biyahero</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.2.0/remixicon.min.css" />
+  <link rel="stylesheet" href="../css/shared.css" />
+  <link rel="stylesheet" href="../css/driver.css" />
+  <link rel="stylesheet" href="../css/static-inline.css">
+</head>
+<body>
+
+
+
+  <div class="app-shell" id="app-shell">
+
+
+
+    <aside class="sidebar" role="navigation" aria-label="Driver navigation">
+      <a class="sidebar-brand" href="driver-dashboard.html">
+        <span class="sidebar-brand-mark" aria-hidden="true"><i class="ri-steering-2-line"></i></span>
+        Biyahero
+      </a>
+      <nav class="sidebar-nav">
+        <a href="driver-dashboard.html"><i class="ri-dashboard-line"></i> Dashboard</a>
+        <a href="driver-route.html"><i class="ri-route-line"></i> My Route</a>
+        <a href="driver-route-status.html" class="active"><i class="ri-traffic-light-line"></i> Route Status</a>
+        <a href="driver-reports.html"><i class="ri-file-list-line"></i> My Reports</a>
+        <a href="driver-profile.html"><i class="ri-user-line"></i> Profile</a>
+      </nav>
+      <div class="sidebar-footer">
+        <a class="btn-logout" href="login.html">
+          <i class="ri-logout-box-r-line"></i> Log Out
+        </a>
+      </div>
+    </aside>
+
+    <div class="main-content">
+
+      <header class="page-header">
+        <div class="page-header-left">
+          <span class="breadcrumb-current">Submit Route Status</span>
+        </div>
+        <div class="page-header-right">
+          <div class="user-chip">
+            <div class="user-avatar">JS</div>
+            <span class="user-name">Juan Santos</span>
+          </div>
+        </div>
+      </header>
+
+      <main class="page-body">
+
+
+        <section class="section" aria-labelledby="form-heading">
+          <div class="section-head">
+            <div>
+              <h2 class="section-title" id="form-heading">Submit Route Status</h2>
+              <p class="section-subtitle">Report the current condition of your assigned route.</p>
+            </div>
+          </div>
+
+          <div class="status-form-card">
+            <div class="status-form-card__header">
+              <div class="status-form-card__route-label">Your Assigned Route</div>
+              <div class="status-form-card__route-name" id="form-route-name">01K · Colon Street – SM City Cebu</div>
+            </div>
+
+            <div id="status-form" >
+              <div id="form-error" class="input-error-msg" role="alert"></div>
+
+              <div class="form-group">
+                <label for="status-select">Route Status <span class="static-inline-019">*</span></label>
+                <select id="status-select" required disabled>
+                  <option value="">— Select status —</option>
+                  <option value="Operating Normally">Operating Normally</option>
+                  <option value="Moderate Delays">Moderate Delays</option>
+                  <option value="Heavy Delays">Heavy Delays</option>
+                  <option value="Road Obstruction">Road Obstruction</option>
+                  <option value="Route Deviation">Route Deviation</option>
+                  <option value="Service Suspended">Service Suspended</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="route-field">Route</label>
+                <input type="text" id="route-field" value="01K · Colon Street – SM City Cebu" readonly />
+              </div>
+
+              <div class="form-group">
+                <label for="description-field">Description <span class="static-inline-019">*</span></label>
+                <textarea id="description-field" placeholder="Describe the current route conditions, any incidents, or notable observations…" required readonly></textarea>
+              </div>
+
+              <div class="form-group">
+                <label for="datetime-field">Date &amp; Time <span class="static-inline-019">*</span></label>
+                <input type="datetime-local" id="datetime-field" value="2026-10-15T08:30" readonly />
+              </div>
+
+              <span class="btn btn-primary static-inline-013">
+                <i class="ri-send-plane-line"></i> Submit Status Report
+              </span>
+            </div>
+          </div>
+        </section>
+
+
+        <section class="section" aria-labelledby="recent-heading">
+          <div class="section-head">
+            <div>
+              <h2 class="section-title" id="recent-heading">My Recent Reports</h2>
+              <p class="section-subtitle">Your last 3 submitted status reports.</p>
+            </div>
+            <a href="driver-reports.html" class="btn btn-outline btn-sm">View All</a>
+          </div>
+
+          <div id="recent-reports-container">
+            <article class="notice-card"><i class="ri-checkbox-circle-line"></i><span><strong>October 15, 2026 · Operating Normally</strong><br>01K · Colon–SM City Cebu — sample morning status report. Operator review: Acknowledged.</span></article>
+            <article class="notice-card"><i class="ri-alert-line"></i><span><strong>October 14, 2026 · Moderate Delays</strong><br>Slow traffic near Fuente Osmeña Circle. Operator review: Under Review.</span></article>
+          </div>
+        </section>
+      </main>
+    </div>
+  </div>
+</body>
+</html>

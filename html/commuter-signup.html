@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Commuter Sign Up — Biyahero</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+  <link rel="stylesheet" href="../css/signup.css" />
+  <link rel="stylesheet" href="../css/commutersignup.css" />
+  <link rel="stylesheet" href="../css/static-inline.css">
+</head>
+
+<body>
+
+
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="../index.html" aria-label="Biyahero home">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none">
+            <path d="M5 17.5V9.25C5 7.45 6.45 6 8.25 6h7.5C17.55 6 19 7.45 19 9.25v8.25H5Z" stroke="currentColor"
+              stroke-width="1.8" stroke-linejoin="round" />
+            <path d="M8 6V4.75h8V6M5.5 12h13M8 17.5v2m8-2v2M8.25 14.75h.01m7.49 0h.01" stroke="currentColor"
+              stroke-width="1.8" stroke-linecap="round" />
+          </svg>
+        </span>
+        <span>Biyahero</span>
+      </a>
+
+      <nav class="desktop-nav" aria-label="Main navigation">
+        <a class="nav-link" href="../index.html">Home</a>
+        <a class="nav-link" href="login.html">Routes</a>
+        <a class="nav-link" href="fare-guide.html">Fare Guide</a>
+      </nav>
+
+      <a class="button button-primary header-cta" href="signup.html">Sign Up</a>
+
+      <details class="mobile-menu">
+        <summary aria-label="Open navigation menu">
+          <span></span>
+          <span></span>
+          <span></span>
+        </summary>
+        <nav aria-label="Mobile navigation">
+          <a href="../index.html">Home</a>
+          <a href="login.html">Routes</a>
+          <a href="fare-guide.html">Fare Guide</a>
+          <a href="signup.html">Sign Up</a>
+        </nav>
+      </details>
+    </div>
+  </header>
+
+
+  <main class="auth-page">
+    <div class="auth-grid">
+
+
+      <div class="auth-left">
+        <p class="auth-label">Commuters</p>
+
+        <h1 class="auth-headline">
+          <span class="navy">Your Journey</span><br>
+          <span class="green">Starts Here.</span>
+        </h1>
+
+        <p class="auth-desc">
+          Plan your routes, check fare estimates, and navigate Cebu's
+          public transport network with confidence.
+        </p>
+
+        <ul class="checklist">
+          <li>
+            <i class="ri-check-line check-icon" aria-hidden="true"></i>
+            Find the cheapest or fastest route
+          </li>
+          <li>
+            <i class="ri-check-line check-icon" aria-hidden="true"></i>
+            Compare jeepneys and buses
+          </li>
+          <li>
+            <i class="ri-check-line check-icon" aria-hidden="true"></i>
+            Know your fare before you ride
+          </li>
+        </ul>
+      </div>
+
+
+      <div class="auth-card auth-form-card">
+        <h2 class="auth-card__title">Commuter Sign Up</h2>
+        <p class="auth-card__sub">Enter your details to try the signup demo.</p>
+
+        <form id="commuter-form" class="commuter-form" data-signup-form>
+
+          <div class="form-group">
+            <label for="fullname">Full Name</label>
+            <input type="text" id="fullname" name="fullname" placeholder="e.g. Juan Dela Cruz" autocomplete="name"
+              required />
+            <span class="field-error" id="fullname-error"></span>
+          </div>
+
+          <div class="form-group">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" name="email" placeholder="you@email.com" autocomplete="email" required />
+            <span class="field-error" id="email-error"></span>
+          </div>
+
+          <div class="form-group">
+            <label for="password">Password</label>
+            <div class="input-wrap">
+              <input type="password" id="password" name="password" placeholder="Create a password (min 8 chars)"
+                autocomplete="new-password" minlength="8" pattern="(?=.*[A-Za-z])(?=.*[0-9]).{8,}" title="Use at least 8 characters, including a letter and a number." required />
+              <button class="eye-btn" id="toggle-pw" type="button" aria-label="Show password" aria-controls="password">
+                <i class="ri-eye-off-line" id="eye-icon"></i>
+              </button>
+            </div>
+            <span class="field-error" id="password-error"></span>
+          </div>
+
+          <div class="form-group form-group--confirm">
+            <label for="confirm">Confirm Password</label>
+            <div class="input-wrap">
+              <input type="password" id="confirm" name="confirm" placeholder="Repeat your password"
+                autocomplete="new-password" required />
+              <button class="eye-btn" id="toggle-confirm" type="button" aria-label="Show confirm password" aria-controls="confirm">
+                <i class="ri-eye-off-line" id="eye-icon-confirm"></i>
+              </button>
+            </div>
+            <span class="field-error" id="confirm-error"></span>
+          </div>
+
+          <div class="input-error-msg" id="form-error" role="alert" aria-live="polite"></div>
+
+          <button class="btn btn-primary btn-full btn-lg static-inline-013" type="submit">
+            Create Account
+          </button>
+          <p class="signup-feedback" role="status" aria-live="polite"></p>
+        </form>
+
+        <div class="auth-card__divider"></div>
+
+        <p class="auth-card__footer">
+          Already have an account? <a href="login.html">Log in</a>
+        </p>
+      </div>
+
+    </div>
+  </main>
+  <script src="../js/signup-interactions.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Driver Approval — Biyahero</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.2.0/remixicon.min.css" />
+  <link rel="stylesheet" href="../css/shared.css" />
+  <link rel="stylesheet" href="../css/operator.css" />
+  <link rel="stylesheet" href="../css/static-inline.css">
+</head>
+<body>
+
+
+
+  <div class="app-shell" id="app-shell">
+
+
+
+    <aside class="sidebar" role="navigation" aria-label="Operator navigation">
+      <a class="sidebar-brand" href="operator-dashboard.html">
+        <span class="sidebar-brand-mark" aria-hidden="true"><i class="ri-bus-line"></i></span>
+        Biyahero
+      </a>
+      <nav class="sidebar-nav">
+        <a href="operator-dashboard.html"><i class="ri-dashboard-line"></i> Dashboard</a>
+        <a href="operator-driver-approval.html" class="active"><i class="ri-user-check-line"></i> Driver Approval</a>
+        <a href="operator-drivers.html"><i class="ri-steering-2-line"></i> Driver Management</a>
+        <a href="operator-route-monitoring.html"><i class="ri-traffic-light-line"></i> Route Monitoring</a>
+        <a href="operator-route-monitoring.html"><i class="ri-flag-line"></i> Route Reports</a>
+        <a href="routes.html"><i class="ri-map-2-line"></i> Routes</a>
+        <a href="operator-dashboard.html#activity-heading"><i class="ri-history-line"></i> Activity Log</a>
+        <a href="operator-profile.html"><i class="ri-user-line"></i> Profile</a>
+      </nav>
+      <div class="sidebar-footer">
+        <a class="btn-logout" href="login.html">
+          <i class="ri-logout-box-r-line"></i> Log Out
+        </a>
+      </div>
+    </aside>
+
+    <div class="main-content">
+
+      <header class="page-header">
+        <div class="page-header-left">
+          <span class="breadcrumb-current">Driver Approval</span>
+        </div>
+        <div class="page-header-right">
+          <div class="user-chip">
+            <div class="user-avatar">AR</div>
+            <span class="user-name">Alicia Reyes</span>
+          </div>
+        </div>
+      </header>
+
+      <main class="page-body operator-approval-page">
+
+        <section class="section" aria-labelledby="approval-heading">
+          <div class="approval-page-heading">
+            <div>
+              <p class="approval-eyebrow"><i class="ri-shield-user-line" aria-hidden="true"></i> OPERATOR CONSOLE</p>
+              <h1 class="approval-page-title" id="approval-heading">Driver Approval</h1>
+              <p class="approval-page-subtitle">Review driver applications and their assigned vehicle and route details.</p>
+            </div>
+            <div class="approval-queue-summary" aria-label="2 applications awaiting review">
+              <span class="approval-queue-summary__icon"><i class="ri-time-line" aria-hidden="true"></i></span>
+              <span><strong>2</strong><small>Awaiting review</small></span>
+            </div>
+          </div>
+
+          <div class="approval-card">
+            <div class="approval-card__top">
+              <div>
+                <h2 class="approval-card__title">Applications</h2>
+                <p class="approval-card__subtitle" id="approval-result-count" aria-live="polite">Showing 2 pending applications</p>
+              </div>
+              <span class="approval-sample-label"><i class="ri-information-line" aria-hidden="true"></i> Sample records</span>
+            </div>
+
+            <div class="approval-tabs" role="tablist" aria-label="Filter driver applications">
+              <button class="approval-tab is-active" id="pending-tab" type="button" role="tab" aria-controls="tab-content" aria-selected="true" tabindex="0" data-filter="pending">Pending <span>2</span></button>
+              <button class="approval-tab" id="approved-tab" type="button" role="tab" aria-controls="tab-content" aria-selected="false" tabindex="-1" data-filter="approved">Approved <span>1</span></button>
+              <button class="approval-tab" id="declined-tab" type="button" role="tab" aria-controls="tab-content" aria-selected="false" tabindex="-1" data-filter="declined">Declined <span>0</span></button>
+              <button class="approval-tab" id="all-tab" type="button" role="tab" aria-controls="tab-content" aria-selected="false" tabindex="-1" data-filter="all">All <span>3</span></button>
+            </div>
+
+            <div id="tab-content" class="approval-table-wrap" role="tabpanel" aria-labelledby="pending-tab" tabindex="0">
+              <div class="table-wrap">
+                <table class="data-table approval-table">
+                  <thead><tr><th scope="col">Driver Applicant</th><th scope="col">Submitted</th><th scope="col">Requested Route</th><th scope="col">Vehicle</th><th scope="col">Status</th></tr></thead>
+                  <tbody>
+                    <tr data-status="pending">
+                      <td><span class="approval-applicant-name">Ramon Flores</span><span class="approval-applicant-email">ramon.flores@example.com</span></td>
+                      <td><time datetime="2026-10-14">October 14, 2026</time></td>
+                      <td>Tabunok – Cebu South Bus Terminal</td>
+                      <td>Bus CEB-204</td>
+                      <td><span class="badge badge-warning">Pending review</span></td>
+                    </tr>
+                    <tr data-status="pending">
+                      <td><span class="approval-applicant-name">Paolo Lim</span><span class="approval-applicant-email">paolo.lim@example.com</span></td>
+                      <td><time datetime="2026-10-12">October 12, 2026</time></td>
+                      <td>Parkmall – IT Park (13C)</td>
+                      <td>Jeepney 13C-240</td>
+                      <td><span class="badge badge-warning">Pending review</span></td>
+                    </tr>
+                    <tr data-status="approved">
+                      <td><span class="approval-applicant-name">Maria Dizon</span><span class="approval-applicant-email">maria.dizon@example.com</span></td>
+                      <td><time datetime="2026-10-08">October 8, 2026</time></td>
+                      <td>Basak – Mactan Airport</td>
+                      <td>Modern Jeepney MJ-018</td>
+                      <td><span class="badge badge-success">Approved</span></td>
+                    </tr>
+                  </tbody>
+                </table>
+                <p class="approval-empty-state" hidden>No applications in this status.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+  </div>
+  <script>
+    const approvalTabs = document.querySelectorAll(".approval-tab");
+    const approvalRows = document.querySelectorAll(".approval-table tbody tr");
+    const approvalEmptyState = document.querySelector(".approval-empty-state");
+    const approvalResultCount = document.getElementById("approval-result-count");
+
+    approvalTabs.forEach((tab) => {
+      tab.addEventListener("click", () => {
+        const filter = tab.dataset.filter;
+        let visibleCount = 0;
+
+        approvalTabs.forEach((item) => {
+          const isActive = item === tab;
+          item.classList.toggle("is-active", isActive);
+          item.setAttribute("aria-selected", String(isActive));
+          item.tabIndex = isActive ? 0 : -1;
+        });
+        document.getElementById("tab-content").setAttribute("aria-labelledby", tab.id);
+
+        approvalRows.forEach((row) => {
+          const isVisible = filter === "all" || row.dataset.status === filter;
+          row.hidden = !isVisible;
+          if (isVisible) visibleCount += 1;
+        });
+
+        approvalEmptyState.hidden = visibleCount !== 0;
+        approvalResultCount.textContent = filter === "all"
+          ? `Showing all ${visibleCount} applications`
+          : `Showing ${visibleCount} ${filter} application${visibleCount === 1 ? "" : "s"}`;
+      });
+    });
+
+    document.querySelector(".approval-tabs").addEventListener("keydown", (event) => {
+      if (event.key !== "ArrowRight" && event.key !== "ArrowLeft") return;
+      event.preventDefault();
+      const tabs = Array.from(approvalTabs);
+      const currentIndex = tabs.indexOf(document.activeElement);
+      const direction = event.key === "ArrowRight" ? 1 : -1;
+      const nextTab = tabs[(currentIndex + direction + tabs.length) % tabs.length];
+      nextTab.focus();
+      nextTab.click();
+    });
+
+    document.querySelector(".approval-tab.is-active").click();
+  </script>
+</body>
+</html>
