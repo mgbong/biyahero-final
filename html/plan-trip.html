@@ -11,6 +11,7 @@
   <link rel="stylesheet" href="../css/shared.css" />
   <link rel="stylesheet" href="../css/commuter.css" />
   <link rel="stylesheet" href="../css/static-inline.css">
+  <link rel="stylesheet" href="../api/leaflet/dist/leaflet.css" />
 </head>
 <body>
 
@@ -111,7 +112,17 @@
               </div>
             </div>
 
-            <button class="trip-commute-btn" type="button">Find Routes</button>
+            <button class="trip-commute-btn" type="button" id="find-routes-btn">Find Routes</button>
+          </div>
+
+          <div class="trip-map-wrap">
+            <div class="trip-map-wrap__header">
+              <div>
+                <h3 class="trip-map-wrap__title">Route map</h3>
+                <p class="trip-map-wrap__status" id="trip-map-status">Select a starting point and destination, then find routes.</p>
+              </div>
+            </div>
+            <div id="trip-map" class="trip-map" role="img" aria-label="Map of the planned commute route"></div>
           </div>
 
         </section>
@@ -156,5 +167,7 @@
       </main>
     </div>
   </div>
+  <script src="../api/leaflet/dist/leaflet.js"></script>
+  <script src="../js/plan-trip-map.js"></script>
 </body>
 </html>
