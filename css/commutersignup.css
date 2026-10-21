@@ -1,13 +1,13 @@
 
 
 :root {
-  --teal:        #0E7C6F;
-  --teal-dark:   #0a6058;
-  --teal-light:  #E8F5F3;
-  --teal-mid:    #d1eeea;
-  --navy:        #2B2F7A;
-  --green:       #2E9B57;
-  --green-dark:  #247a44;
+  --teal:        #111A41;
+  --teal-dark:   #111A41;
+  --teal-light:  #e8eaf0;
+  --teal-mid:    #c5c9d8;
+  --navy:        #111A41;
+  --green:       #111A41;
+  --green-dark:  #111A41;
   --white:       #ffffff;
   --gray-50:     #f8f9fa;
   --gray-100:    #f0f1f2;
@@ -27,7 +27,7 @@
   --radius-xl:   20px;
   --radius-pill: 999px;
   --shadow-card: 0 1px 4px 0 rgba(0,0,0,.07), 0 2px 12px 0 rgba(0,0,0,.05);
-  --shadow-btn:  0 2px 6px 0 rgba(14,124,111,.25);
+  --shadow-btn:  0 2px 6px 0 rgba(17,26,65,.25);
   --font: 'Inter', system-ui, -apple-system, sans-serif;
   --max-w: 1160px;
 }
@@ -69,8 +69,8 @@ svg {
 
 .site-header {
   --ink: #172b2a;
-  --teal: #087c6d;
-  --teal-dark: #076b60;
+  --teal: #111A41;
+  --teal-dark: #111A41;
   --line: #e7ece8;
   --font-body: "DM Sans", sans-serif;
   --font-display: "Manrope", sans-serif;
@@ -91,7 +91,7 @@ svg {
 
 .site-header a:focus-visible,
 .site-header summary:focus-visible {
-  outline: 3px solid #69c8b5;
+  outline: 3px solid #111A41;
   outline-offset: 4px;
 }
 
@@ -369,7 +369,7 @@ input::placeholder {
 
 input:focus {
   border-color: var(--teal);
-  box-shadow: 0 0 0 3px rgba(14,124,111,.12);
+  box-shadow: 0 0 0 3px rgba(17,26,65,.12);
 }
 
 

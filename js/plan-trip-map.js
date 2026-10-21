@@ -113,7 +113,7 @@ function drawRoute(startName, destName, start, end, latLngs, distanceKm, duratio
   routeLayer.clearLayers();
 
   const line = L.polyline(latLngs, {
-    color: "#087c6d",
+    color: "#111A41",
     weight: 6,
     opacity: 0.9,
     lineJoin: "round",
@@ -122,8 +122,8 @@ function drawRoute(startName, destName, start, end, latLngs, distanceKm, duratio
 
   L.circleMarker(start, {
     radius: 8,
-    color: "#076b60",
-    fillColor: "#087c6d",
+    color: "#111A41",
+    fillColor: "#111A41",
     fillOpacity: 1,
     weight: 2,
   })
@@ -163,8 +163,8 @@ async function showRoute() {
     routeLayer.clearLayers();
     L.circleMarker(start, {
       radius: 8,
-      color: "#076b60",
-      fillColor: "#087c6d",
+      color: "#111A41",
+      fillColor: "#111A41",
       fillOpacity: 1,
       weight: 2,
     })
@@ -188,7 +188,7 @@ async function showRoute() {
       weight: 3,
       dashArray: "8 8",
     }).addTo(routeLayer);
-    L.circleMarker(start, { radius: 8, color: "#076b60", fillColor: "#087c6d", fillOpacity: 1 }).addTo(routeLayer);
+    L.circleMarker(start, { radius: 8, color: "#111A41", fillColor: "#111A41", fillOpacity: 1 }).addTo(routeLayer);
     L.circleMarker(end, { radius: 8, color: "#9b2c2c", fillColor: "#ef4444", fillOpacity: 1 }).addTo(routeLayer);
     map.fitBounds(L.latLngBounds(start, end), { padding: [36, 36], maxZoom: 16 });
     setStatus("Could not load the road path. Showing a direct line instead.");

@@ -1,13 +1,13 @@
 
 
 :root {
-  --teal:        #0E7C6F;
-  --teal-dark:   #0a6058;
-  --teal-light:  #E8F5F3;
-  --teal-mid:    #d1eeea;
-  --navy:        #2B2F7A;
-  --green:       #2E9B57;
-  --green-dark:  #247a44;
+  --teal:        #111A41;
+  --teal-dark:   #111A41;
+  --teal-light:  #e8eaf0;
+  --teal-mid:    #c5c9d8;
+  --navy:        #111A41;
+  --green:       #111A41;
+  --green-dark:  #111A41;
   --white:       #ffffff;
   --gray-50:     #f8f9fa;
   --gray-100:    #f0f1f2;
@@ -27,7 +27,7 @@
   --radius-xl:   20px;
   --radius-pill: 999px;
   --shadow-card: 0 1px 4px 0 rgba(0,0,0,.07), 0 2px 12px 0 rgba(0,0,0,.05);
-  --shadow-btn:  0 2px 6px 0 rgba(14,124,111,.25);
+  --shadow-btn:  0 2px 6px 0 rgba(17,26,65,.25);
   --font: 'Inter', system-ui, -apple-system, sans-serif;
   --max-w: 1160px;
 }
@@ -88,8 +88,8 @@ svg {
 
 .site-header {
   --ink: #172b2a;
-  --teal: #087c6d;
-  --teal-dark: #076b60;
+  --teal: #111A41;
+  --teal-dark: #111A41;
   --line: #e7ece8;
   --font-body: "DM Sans", sans-serif;
   --font-display: "Manrope", sans-serif;
@@ -110,7 +110,7 @@ svg {
 
 .site-header a:focus-visible,
 .site-header summary:focus-visible {
-  outline: 3px solid #69c8b5;
+  outline: 3px solid #111A41;
   outline-offset: 4px;
 }
 
@@ -404,7 +404,7 @@ select {
 
 select:focus {
   border-color: var(--teal);
-  box-shadow: 0 0 0 3px rgba(14,124,111,.12);
+  box-shadow: 0 0 0 3px rgba(17,26,65,.12);
 }
 
 
@@ -563,7 +563,7 @@ select {
 }
 
 .badge-cheapest {
-  background: #dcfce7; color: #166534;
+  background: #e8eaf0; color: #111A41;
 }
 
 .badge-fastest {
@@ -666,7 +666,7 @@ select {
 .compare-table td.best {
   font-weight: 700;
   color: var(--green-dark);
-  background: #f0fdf4;
+  background: #e8eaf0;
 }
 
 .compare-table td:first-child {
@@ -679,7 +679,7 @@ select {
   font-size: 10px;
   font-weight: 700;
   color: var(--green-dark);
-  background: #dcfce7;
+  background: #e8eaf0;
   border-radius: var(--radius-pill);
   padding: 2px 7px;
   margin-left: 6px;
@@ -908,8 +908,8 @@ select {
 
 .best-cell {
   font-weight: 700;
-  color: #166534;
-  background: #f0fdf4;
+  color: #111A41;
+  background: #e8eaf0;
 }
 .route-name-cell { font-weight: 700; color: var(--gray-900); font-size: 13px; }
 .tab-badge {
@@ -921,9 +921,9 @@ select {
   margin-left: 6px;
   vertical-align: middle;
 }
-.tab-badge--cheap  { background: #dcfce7; color: #166534; }
+.tab-badge--cheap  { background: #e8eaf0; color: #111A41; }
 .tab-badge--fast   { background: #dbeafe; color: #1e40af; }
-.tab-badge--best   { background: #f0fdf4; color: #166534; }
+.tab-badge--best   { background: #e8eaf0; color: #111A41; }
 
 
 .fare-guide-section { padding-top: 48px; margin-top: 40px; border-top: 1px solid var(--gray-200); }
@@ -938,7 +938,7 @@ select {
 
 .tab-label { background:none; border:none; cursor:pointer; font-family:var(--font); }
 .tab-label--active { color:var(--teal) !important; border-bottom-color:var(--teal) !important; }
-.badge-balanced { background:#f0fdf4; color:#166534; }
+.badge-balanced { background:#e8eaf0; color:#111A41; }
 
 
 

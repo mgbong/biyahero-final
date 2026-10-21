@@ -306,8 +306,8 @@ body.static-status-pending .status-card .btn-logout:hover {
 }
 
 .trip-select-wrap--active select {
-  border-color: rgba(8, 124, 109, 0.9);
-  box-shadow: inset 0 0 0 1px rgba(8, 124, 109, 0.15);
+  border-color: rgba(17, 26, 65, 0.9);
+  box-shadow: inset 0 0 0 1px rgba(17, 26, 65, 0.15);
 }
 
 .trip-select-wrap i {
@@ -325,13 +325,13 @@ body.static-status-pending .status-card .btn-logout:hover {
   min-width: 190px;
   border: none;
   border-radius: 18px;
-  background: linear-gradient(180deg, #0b7e71 0%, #096d63 100%);
+  background: linear-gradient(180deg, #111A41 0%, #111A41 100%);
   color: #fff;
   font-family: var(--font-display);
   font-size: 1.05rem;
   font-weight: 800;
   letter-spacing: -0.04em;
-  box-shadow: 0 8px 18px rgba(8, 124, 109, 0.18);
+  box-shadow: 0 8px 18px rgba(17, 26, 65, 0.18);
   cursor: pointer;
 }
 

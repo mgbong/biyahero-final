@@ -4,7 +4,7 @@
 
 
 .greeting-card {
-  background: linear-gradient(135deg, #087c6d 0%, #0a9e8a 60%, #0bbba3 100%);
+  background: linear-gradient(135deg, #111A41 0%, #1a2758 60%, #24336a 100%);
   color: #fff;
   padding: 24px 28px;
   border-radius: 12px;
@@ -12,7 +12,7 @@
   justify-content: space-between;
   align-items: center;
   margin-bottom: 28px;
-  box-shadow: 0 4px 16px rgba(8,124,109,0.3);
+  box-shadow: 0 4px 16px rgba(17,26,65,0.3);
 }
 
 .greeting-card__left {
@@ -629,8 +629,8 @@ main.page-body .status-card__meta .badge-suspended::before {
 
 .compare-best-label {
   display: inline-block;
-  background: #dcfce7;
-  color: #15803d;
+  background: #e8eaf0;
+  color: #111A41;
   font-size: 10px;
   font-weight: 700;
   padding: 1px 6px;
@@ -685,11 +685,11 @@ main.page-body .status-card__meta .badge-suspended::before {
   margin-left: 4px;
 }
 
-.tab-badge--cheap   { background: #dcfce7; color: #15803d; }
+.tab-badge--cheap   { background: #e8eaf0; color: #111A41; }
 .tab-badge--fast    { background: #eff6ff; color: #1d4ed8; }
 .tab-badge--best    { background: var(--yellow-bg); color: #92400e; }
 
-.badge-cheapest  { background: #dcfce7; color: #15803d; }
+.badge-cheapest  { background: #e8eaf0; color: #111A41; }
 .badge-fastest   { background: #eff6ff; color: #1d4ed8; }
 .badge-balanced  { background: var(--yellow-bg); color: #92400e; }
 
@@ -1055,8 +1055,8 @@ main.page-body .status-card__meta .badge-suspended::before {
   width: 64px;
   height: 64px;
   border-radius: 50%;
-  background: #dcfce7;
-  color: #15803d;
+  background: #e8eaf0;
+  color: #111A41;
   display: grid;
   place-items: center;
   font-size: 32px;

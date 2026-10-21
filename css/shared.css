@@ -7,19 +7,19 @@
   color-scheme: light;
 
 
-  --teal:        #087c6d;
-  --teal-dark:   #076b60;
-  --teal-light:  #e5f3ef;
-  --teal-mid:    #c8e8e1;
-  --navy:        #121e47;
-  --mint:        #e5f3ef;
+  --teal:        #111A41;
+  --teal-dark:   #111A41;
+  --teal-light:  #e8eaf0;
+  --teal-mid:    #c5c9d8;
+  --navy:        #111A41;
+  --mint:        #e8eaf0;
   --paper:       #fbfcfa;
   --ink:         #172b2a;
   --muted:       #687675;
   --line:        #e7ece8;
   --white:       #ffffff;
-  --green:       #2E9B57;
-  --green-dark:  #247a44;
+  --green:       #111A41;
+  --green-dark:  #111A41;
 
 
   --gray-50:     #f8f9fa;
@@ -42,7 +42,7 @@
   --blue-light:  #eff6ff;
 
 
-  --status-normal:      #22c55e;
+  --status-normal:      #111A41;
   --status-moderate:    #fbbf24;
   --status-heavy:       #ef4444;
   --status-obstruction: #f97316;
@@ -58,7 +58,7 @@
 
 
   --shadow-card: 0 1px 4px 0 rgba(0,0,0,.07), 0 2px 12px 0 rgba(0,0,0,.05);
-  --shadow-btn:  0 2px 6px 0 rgba(8,124,109,.25);
+  --shadow-btn:  0 2px 6px 0 rgba(17,26,65,.25);
   --shadow-sidebar: 2px 0 16px 0 rgba(0,0,0,.1);
 
 
@@ -67,7 +67,7 @@
 
 
   --sidebar-width: 240px;
-  --sidebar-bg:    #087c6d;
+  --sidebar-bg:    #111A41;
 
 
   --header-height: 64px;
@@ -108,7 +108,7 @@ a:hover {
 
 a:focus-visible,
 button:focus-visible {
-  outline: 3px solid #69c8b5;
+  outline: 3px solid #111A41;
   outline-offset: 3px;
 }
 
@@ -459,8 +459,8 @@ img {
 }
 
 .badge-success {
-  background: #dcfce7;
-  color: #15803d;
+  background: #e8eaf0;
+  color: #111A41;
 }
 
 .badge-warning {
@@ -499,7 +499,7 @@ img {
 }
 
 
-.badge-normal      { background: #dcfce7; color: #15803d; }
+.badge-normal      { background: #e8eaf0; color: #111A41; }
 .badge-moderate    { background: var(--yellow-bg); color: #92400e; }
 .badge-heavy       { background: var(--red-light); color: #b91c1c; }
 .badge-obstruction { background: var(--orange-light); color: #c2410c; }
@@ -613,7 +613,7 @@ input:focus,
 select:focus,
 textarea:focus {
   border-color: var(--teal);
-  box-shadow: 0 0 0 3px rgba(8,124,109,.12);
+  box-shadow: 0 0 0 3px rgba(17,26,65,.12);
 }
 
 .input-wrap {
@@ -858,7 +858,7 @@ select:disabled {
   line-height: 1.5;
 }
 
-.toast.toast-success { background: #166534; }
+.toast.toast-success { background: #111A41; }
 .toast.toast-warning { background: #92400e; }
 .toast.toast-danger  { background: #991b1b; }
 .toast.toast-info    { background: var(--navy); }

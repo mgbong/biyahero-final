@@ -376,7 +376,7 @@
 }
 
 .approval-tab:focus-visible {
-  outline: 3px solid rgba(8, 124, 109, 0.24);
+  outline: 3px solid rgba(17, 26, 65, 0.24);
   outline-offset: 2px;
 }
 
@@ -397,7 +397,7 @@
 }
 
 .approval-tab.is-active span {
-  background: rgba(8, 124, 109, 0.12);
+  background: rgba(17, 26, 65, 0.12);
 }
 
 .approval-table-wrap {
@@ -672,7 +672,7 @@
 
 .report-status-badge--pending     { background: var(--orange-light); color: #c2410c; }
 .report-status-badge--under-review { background: var(--yellow-bg); color: #92400e; }
-.report-status-badge--resolved    { background: #dcfce7; color: #15803d; }
+.report-status-badge--resolved    { background: #e8eaf0; color: #111A41; }
 
 
 

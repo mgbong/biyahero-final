@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="theme-color" content="#f8faf8">
+    <meta name="theme-color" content="#111A41">
     <meta name="description"
         content="Find your way around Cebu with Biyahero, your smarter public transportation companion.">
     <title>Biyahero</title>
@@ -14,12 +14,26 @@
         href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap"
         rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+    <link rel="stylesheet" href="api/leaflet/dist/leaflet.css">
     <link rel="stylesheet" href="css/index.css">
   <link rel="stylesheet" href="css/static-inline.css">
 </head>
 
-<body>
+<body class="landing-intro">
     <a class="skip-link" href="#home">Skip to content</a>
+
+    <div class="landing-intro-overlay" aria-hidden="true">
+        <span class="welcome-mark">
+            <svg viewBox="0 0 24 24" fill="none">
+                <path d="M5 17.5V9.25C5 7.45 6.45 6 8.25 6h7.5C17.55 6 19 7.45 19 9.25v8.25H5Z"
+                    stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" />
+                <path d="M8 6V4.75h8V6M5.5 12h13M8 17.5v2m8-2v2M8.25 14.75h.01m7.49 0h.01" stroke="currentColor"
+                    stroke-width="1.8" stroke-linecap="round" />
+            </svg>
+        </span>
+        <p class="intro-welcome">Less guesswork.<br>More laag.</p>
+    </div>
+
     <header class="site-header">
         <div class="header-inner">
             <a class="brand" href="index.html" aria-label="Biyahero home">
@@ -39,47 +53,61 @@
     </header>
 
     <main id="home">
-        <section class="hero content-width" aria-labelledby="hero-title">
-            <div class="hero-copy">
-                <p class="eyebrow"><span class="eyebrow-dot"></span> MADE FOR CEBU COMMUTERS</p>
-                <h1 id="hero-title">Less<br>guesswork.<br>More <span>laag.</span></h1>
-                <p class="hero-description">
-                    Your Cebu commute, made a little clearer. Discover ways to get around,
-                    plan your journeys, and find a helpful travel companion in Biyahero.
-                </p>
+        <section class="landing-stage" aria-labelledby="hero-title">
+            <div class="landing-map-pane" id="landing-map-pane">
+                <div id="landing-map" class="landing-map" role="application" aria-label="Cebu route map"></div>
+                <button type="button" class="map-fullscreen-btn" id="map-fullscreen-btn" aria-pressed="false" aria-label="View map fullscreen">
+                    <i class="ri-fullscreen-line" aria-hidden="true"></i>
+                </button>
 
-                <p class="hero-note">
-                    <i class="ri-star-fill" aria-hidden="true"></i>
-                    A better way to find your way around Cebu
-                </p>
+                <form class="directions-card" id="landing-directions">
+                    <div class="directions-card__head">
+                        <i class="ri-route-line" aria-hidden="true"></i>
+                        <h2>Directions</h2>
+                    </div>
+
+                    <label class="directions-field">
+                        <span class="directions-pin directions-pin--start" aria-hidden="true"></span>
+                        <span class="visually-hidden">Starting point</span>
+                        <select id="starting-point" name="start">
+                            <option selected>Colon</option>
+                            <option>Carbon</option>
+                            <option>Fuente Osmeña</option>
+                            <option>Parkmall</option>
+                        </select>
+                    </label>
+
+                    <label class="directions-field">
+                        <span class="directions-pin directions-pin--end" aria-hidden="true"></span>
+                        <span class="visually-hidden">Destination</span>
+                        <select id="destination" name="destination">
+                            <option selected>Mactan Airport</option>
+                            <option>SM City Cebu</option>
+                            <option>IT Park</option>
+                            <option>Ayala Center Cebu</option>
+                        </select>
+                    </label>
+
+                    <button class="directions-submit" type="submit" id="find-routes-btn">Show route</button>
+                    <p class="directions-status" id="trip-map-status">Choose a start and destination.</p>
+                </form>
             </div>
 
-            <div class="hero-visual">
-                <img class="hero-image"
-                    src="img/cebu.jpg"
-                    alt="Cebu city at night" fetchpriority="high" decoding="async">
-                <div class="image-shade"></div>
-                <div class="location-pill">
-                    <span class="location-icon" aria-hidden="true">
-                        <svg viewBox="0 0 20 20">
-                            <path d="M16 8.3c0 4-6 9.2-6 9.2S4 12.3 4 8.3a6 6 0 1 1 12 0Z" fill="none"
-                                stroke="currentColor" stroke-width="1.5" />
-                            <circle cx="10" cy="8" r="2" fill="none" stroke="currentColor" stroke-width="1.5" />
-                        </svg>
-                    </span>
-                    Cebu City, Philippines
-                </div>
-                <svg class="route-decoration" viewBox="0 0 260 190" fill="none" aria-hidden="true">
-                    <path d="M31 167c39-34 26-75 77-71 44 3 39-49 93-52 19-1 32 6 42 20" stroke="white"
-                        stroke-opacity=".78" stroke-width="2" stroke-dasharray="5 7" />
-                    <circle cx="31" cy="167" r="7" fill="#fff" />
-                    <circle cx="243" cy="64" r="7" fill="#fff" />
-                </svg>
-                <div class="image-caption">
-                    <span class="caption-kicker">YOUR JOURNEY, MADE EASIER</span>
-                    <p>From your first ride<br>to your familiar stop.</p>
-                </div>
-                <div class="photo-credit">EXPLORE CEBU, YOUR WAY</div>
+            <div class="landing-welcome">
+                <span class="welcome-mark" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none">
+                        <path d="M5 17.5V9.25C5 7.45 6.45 6 8.25 6h7.5C17.55 6 19 7.45 19 9.25v8.25H5Z"
+                            stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" />
+                        <path d="M8 6V4.75h8V6M5.5 12h13M8 17.5v2m8-2v2M8.25 14.75h.01m7.49 0h.01" stroke="currentColor"
+                            stroke-width="1.8" stroke-linecap="round" />
+                    </svg>
+                </span>
+                <h1 id="hero-title">Less guesswork.<br>More <span>laag.</span></h1>
+                <p class="hero-description">
+                    Your Cebu commute, made a little clearer. Pick a start and a stop on the map
+                    to see a road path across the city.
+                </p>
+                <a class="button button-primary landing-cta" href="html/signup.html">Get started</a>
             </div>
         </section>
 
@@ -117,6 +145,8 @@
             </div>
         </section>
     </main>
+    <script src="api/leaflet/dist/leaflet.js"></script>
+    <script src="js/landing-map.js"></script>
 </body>
 
 </html>
