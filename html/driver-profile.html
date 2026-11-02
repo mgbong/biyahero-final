@@ -11,14 +11,104 @@
   <link rel="stylesheet" href="../css/shared.css" />
   <link rel="stylesheet" href="../css/driver.css" />
   <link rel="stylesheet" href="../css/static-inline.css">
+  <style>
+    .profile-grid {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 20px;
+      align-items: start;
+    }
+    @media (max-width: 768px) { .profile-grid { grid-template-columns: 1fr; } }
+
+    .profile-id-card {
+      background: var(--teal, #111A41);
+      border-radius: 14px;
+      padding: 32px 24px;
+      display: flex; flex-direction: column;
+      align-items: center; gap: 12px;
+      color: #fff; text-align: center;
+    }
+    .profile-avatar-xl {
+      width: 80px; height: 80px; border-radius: 50%;
+      background: rgba(255,255,255,0.18);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 28px; font-weight: 700; letter-spacing: 1px;
+      border: 3px solid rgba(255,255,255,0.3);
+    }
+    .profile-id-name  { font-size: 18px; font-weight: 700; margin-top: 4px; }
+    .profile-id-email { font-size: 13px; opacity: .75; word-break: break-all; }
+    .profile-id-since { font-size: 12px; opacity: .55; margin-top: 4px; }
+    .profile-id-status { margin-top: 6px; }
+
+    .profile-right { display: flex; flex-direction: column; gap: 18px; }
+
+    .profile-edit-card {
+      background: #fff; border-radius: 14px;
+      border: 1px solid #e8eaf0; padding: 28px 28px 24px;
+    }
+    .profile-edit-card__title {
+      font-size: 16px; font-weight: 700;
+      color: var(--teal, #111A41); margin-bottom: 20px;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .profile-form-group { margin-bottom: 16px; }
+    .profile-form-group label {
+      display: block; font-size: 12px; font-weight: 600;
+      color: #6b7280; text-transform: uppercase;
+      letter-spacing: .5px; margin-bottom: 6px;
+    }
+    .profile-form-group input {
+      width: 100%; box-sizing: border-box;
+      padding: 10px 12px; border: 1.5px solid #d1d5db;
+      border-radius: 8px; font-size: 14px; font-family: inherit;
+      color: #111827; background: #f9fafb; transition: border-color 150ms;
+    }
+    .profile-form-group input:focus {
+      outline: none; border-color: var(--teal, #111A41); background: #fff;
+    }
+    .profile-form-group input[readonly] {
+      background: #f3f4f6; color: #9ca3af; cursor: not-allowed;
+    }
+    .profile-form-hint { font-size: 11px; color: #9ca3af; margin-top: 4px; }
+    .profile-form-divider { border: none; border-top: 1px solid #e8eaf0; margin: 20px 0; }
+    .profile-form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    @media (max-width: 540px) { .profile-form-row { grid-template-columns: 1fr; } }
+
+    .profile-save-btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 10px 22px; background: var(--teal, #111A41);
+      color: #fff; border: none; border-radius: 8px;
+      font-size: 14px; font-weight: 600; cursor: pointer; transition: opacity 150ms;
+    }
+    .profile-save-btn:hover    { opacity: .88; }
+    .profile-save-btn:disabled { opacity: .5; cursor: not-allowed; }
+    .profile-feedback {
+      margin-top: 12px; font-size: 13px; font-weight: 500; min-height: 20px;
+    }
+    .profile-feedback--ok    { color: #16a34a; }
+    .profile-feedback--error { color: #dc2626; }
+
+    /* Vehicle info table */
+    .vehicle-info-card {
+      background: #fff; border-radius: 14px;
+      border: 1px solid #e8eaf0; padding: 24px 28px;
+    }
+    .vehicle-info-card__title {
+      font-size: 15px; font-weight: 700;
+      color: var(--teal, #111A41); margin-bottom: 16px;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .detail-row {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 10px 0; border-bottom: 1px solid #f3f4f6; gap: 12px;
+    }
+    .detail-row:last-child { border-bottom: none; }
+    .detail-row__label { font-size: 13px; color: #6b7280; font-weight: 500; flex-shrink: 0; }
+    .detail-row__value { font-size: 13px; color: #111827; font-weight: 600; text-align: right; }
+  </style>
 </head>
 <body>
-
-
-
   <div class="app-shell" id="app-shell">
-
-
 
     <aside class="sidebar" role="navigation" aria-label="Driver navigation">
       <a class="sidebar-brand" href="driver-dashboard.html">
@@ -33,83 +123,251 @@
         <a href="driver-profile.html" class="active"><i class="ri-user-line"></i> Profile</a>
       </nav>
       <div class="sidebar-footer">
-        <a class="btn-logout" href="login.html">
-          <i class="ri-logout-box-r-line"></i> Log Out
-        </a>
+        <a class="btn-logout" href="#"><i class="ri-logout-box-r-line"></i> Log Out</a>
       </div>
     </aside>
 
     <div class="main-content">
-
       <header class="page-header">
         <div class="page-header-left">
           <span class="breadcrumb-current">Driver Profile</span>
         </div>
         <div class="page-header-right">
           <div class="user-chip">
-            <div class="user-avatar">JS</div>
-            <span class="user-name">Juan Santos</span>
+            <div class="user-avatar">??</div>
+            <span class="user-name">Loading…</span>
           </div>
         </div>
       </header>
 
       <main class="page-body">
+        <div class="profile-grid">
 
+          <!-- Left: identity card -->
+          <div class="profile-id-card">
+            <div class="profile-avatar-xl" id="profile-avatar">??</div>
+            <div class="profile-id-name"   id="profile-name">Loading…</div>
+            <div class="profile-id-email"  id="profile-email"></div>
+            <span class="badge badge-teal"><i class="ri-steering-2-line"></i> Driver</span>
+            <div class="profile-id-status" id="profile-status"></div>
+            <div class="profile-id-since"  id="profile-since"></div>
+          </div>
 
-        <div class="profile-card" id="profile-card">
-          <div class="profile-avatar">JS</div>
-          <div class="profile-info">
-            <div class="profile-info__name">Juan Santos</div>
-            <div class="profile-info__email">driver@biyahero.com</div>
-            <div class="profile-info__badges"><span class="badge badge-teal">Driver</span> <span class="badge badge-success">Approved sample account</span></div>
-          </div>
-        </div>
+          <!-- Right: edit + vehicle info -->
+          <div class="profile-right">
 
+            <!-- Edit card -->
+            <div class="profile-edit-card">
+              <div class="profile-edit-card__title">
+                <i class="ri-edit-line"></i> Edit Profile
+              </div>
 
-        <div class="profile-detail-card">
-          <div class="profile-detail-card__title"><i class="ri-steering-2-line static-inline-018"></i>Driver Information</div>
+              <form id="profile-form" novalidate>
+                <div class="profile-form-row">
+                  <div class="profile-form-group">
+                    <label for="edit-fullname">Full Name</label>
+                    <input type="text" id="edit-fullname" name="fullname"
+                           placeholder="Your full name" required />
+                  </div>
+                  <div class="profile-form-group">
+                    <label for="edit-contact">Mobile Number</label>
+                    <input type="text" id="edit-contact" name="contact"
+                           placeholder="+63 9XX XXX XXXX" />
+                  </div>
+                </div>
 
-          <div class="detail-row">
-            <span class="detail-row__label">Contact Number</span>
-            <span class="detail-row__value">+63 917 555 0142</span>
-          </div>
-          <div class="detail-row">
-            <span class="detail-row__label">Transport Group</span>
-            <span class="detail-row__value">Cebu City Transit Cooperative</span>
-          </div>
-          <div class="detail-row">
-            <span class="detail-row__label">Transportation Mode</span>
-            <span class="detail-row__value">Traditional Jeepney</span>
-          </div>
-          <div class="detail-row">
-            <span class="detail-row__label">Assigned Route</span>
-            <span class="detail-row__value">01K · Colon Street – SM City Cebu</span>
-          </div>
-          <div class="detail-row">
-            <span class="detail-row__label">Account Status</span>
-            <span class="detail-row__value"><span class="badge badge-success">Approved</span></span>
-          </div>
-          <div class="detail-row">
-            <span class="detail-row__label">Member Since</span>
-            <span class="detail-row__value">October 3, 2026</span>
-          </div>
-        </div>
+                <div class="profile-form-group">
+                  <label for="edit-email">Email Address</label>
+                  <input type="email" id="edit-email" readonly />
+                  <p class="profile-form-hint">Email cannot be changed.</p>
+                </div>
 
-        <div class="profile-detail-card">
-          <div class="profile-detail-card__title"><i class="ri-information-line static-inline-018"></i>Demonstration Profile</div>
-          <div class="banner banner-info">
-            <i class="ri-information-line"></i>
-          </div>
-        </div>
+                <hr class="profile-form-divider" />
+                <div class="profile-edit-card__title" style="font-size:14px; margin-bottom:16px;">
+                  <i class="ri-lock-line"></i> Change Password
+                  <span style="font-size:12px; font-weight:400; color:#6b7280;">(leave blank to keep current)</span>
+                </div>
+
+                <div class="profile-form-group">
+                  <label for="edit-current-pw">Current Password</label>
+                  <input type="password" id="edit-current-pw" name="current_password"
+                         placeholder="Enter current password" autocomplete="current-password" />
+                </div>
+                <div class="profile-form-row">
+                  <div class="profile-form-group">
+                    <label for="edit-new-pw">New Password</label>
+                    <input type="password" id="edit-new-pw" name="new_password"
+                           placeholder="Min 8 characters" autocomplete="new-password" minlength="8" />
+                  </div>
+                  <div class="profile-form-group">
+                    <label for="edit-confirm-pw">Confirm New Password</label>
+                    <input type="password" id="edit-confirm-pw"
+                           placeholder="Repeat new password" autocomplete="new-password" />
+                  </div>
+                </div>
+
+                <button type="submit" class="profile-save-btn" id="save-btn">
+                  <i class="ri-save-line"></i> Save Changes
+                </button>
+                <p class="profile-feedback" id="profile-feedback" role="status" aria-live="polite"></p>
+              </form>
+            </div>
+
+            <!-- Vehicle & route info (read-only) -->
+            <div class="vehicle-info-card">
+              <div class="vehicle-info-card__title">
+                <i class="ri-steering-2-line"></i> Vehicle &amp; Route Information
+              </div>
+              <div class="detail-row">
+                <span class="detail-row__label">Municipality</span>
+                <span class="detail-row__value" id="info-municipality">—</span>
+              </div>
+              <div class="detail-row">
+                <span class="detail-row__label">Vehicle Type</span>
+                <span class="detail-row__value" id="info-vehicle-type">—</span>
+              </div>
+              <div class="detail-row">
+                <span class="detail-row__label">Plate Number</span>
+                <span class="detail-row__value" id="info-plate">—</span>
+              </div>
+              <div class="detail-row">
+                <span class="detail-row__label">Assigned Route</span>
+                <span class="detail-row__value" id="info-route">—</span>
+              </div>
+              <div class="detail-row">
+                <span class="detail-row__label">Terminal</span>
+                <span class="detail-row__value" id="info-terminal">—</span>
+              </div>
+              <div class="detail-row">
+                <span class="detail-row__label">Operating Hours</span>
+                <span class="detail-row__value" id="info-hours">—</span>
+              </div>
+              <div class="detail-row">
+                <span class="detail-row__label">Operating Days</span>
+                <span class="detail-row__value" id="info-days">—</span>
+              </div>
+              <div class="detail-row">
+                <span class="detail-row__label">Approval Status</span>
+                <span class="detail-row__value" id="info-status">—</span>
+              </div>
+            </div>
+
+          </div><!-- /.profile-right -->
+        </div><!-- /.profile-grid -->
       </main>
     </div>
   </div>
 
+  <script src="../js/user.js"></script>
+  <script>
+    function formatDate(iso) {
+      if (!iso) return "";
+      const d = new Date(iso.replace(" ", "T") + (iso.includes("T") ? "" : "Z"));
+      return d.toLocaleDateString("en-PH", { year: "numeric", month: "long", day: "numeric" });
+    }
 
+    function statusBadge(status) {
+      const map = {
+        approved: '<span class="badge badge-success">Approved</span>',
+        pending:  '<span class="badge badge-warning">Pending</span>',
+        declined: '<span class="badge badge-danger" style="background:#fef2f2;color:#dc2626;border:1px solid #fca5a5;">Declined</span>',
+      };
+      return map[status] || status;
+    }
 
+    function populateForm(user) {
+      document.getElementById("profile-avatar").textContent = user.initials || "??";
+      document.getElementById("profile-name").textContent   = user.fullname || "";
+      document.getElementById("profile-email").textContent  = user.email    || "";
+      document.getElementById("profile-since").textContent  =
+        user.created_at ? "Member since " + formatDate(user.created_at) : "";
+      document.getElementById("profile-status").innerHTML   =
+        user.approval_status ? statusBadge(user.approval_status) : "";
 
+      document.getElementById("edit-fullname").value = user.fullname || "";
+      document.getElementById("edit-contact").value  = user.contact  || "";
+      document.getElementById("edit-email").value    = user.email    || "";
 
+      // Vehicle info
+      document.getElementById("info-municipality").textContent  = user.municipality  || "—";
+      document.getElementById("info-vehicle-type").textContent  = user.vehicle_type  || "—";
+      document.getElementById("info-plate").textContent         = user.plate_number  || "—";
+      document.getElementById("info-route").textContent         = user.route         || "—";
+      document.getElementById("info-terminal").textContent      = user.terminal      || "—";
+      document.getElementById("info-hours").textContent         =
+        (user.operating_hours_from && user.operating_hours_to)
+          ? `${user.operating_hours_from} – ${user.operating_hours_to}`
+          : "—";
+      document.getElementById("info-days").textContent =
+        user.operating_days ? user.operating_days.replace(/,/g, ", ") : "—";
+      document.getElementById("info-status").innerHTML =
+        user.approval_status ? statusBadge(user.approval_status) : "—";
+    }
 
+    (function waitForUser(retries) {
+      const user = window.biyaheroUser;
+      if (!user && retries > 0) return setTimeout(() => waitForUser(retries - 1), 80);
+      if (user) populateForm(user);
+    })(25);
 
+    // ── Form submit ──────────────────────────────────────
+    const form     = document.getElementById("profile-form");
+    const saveBtn  = document.getElementById("save-btn");
+    const feedback = document.getElementById("profile-feedback");
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      feedback.textContent = "";
+      feedback.className = "profile-feedback";
+
+      const newPw     = document.getElementById("edit-new-pw").value;
+      const confirmPw = document.getElementById("edit-confirm-pw").value;
+
+      if (newPw && newPw !== confirmPw) {
+        feedback.textContent = "New passwords do not match.";
+        feedback.className = "profile-feedback profile-feedback--error";
+        return;
+      }
+
+      saveBtn.disabled = true;
+      saveBtn.innerHTML = '<i class="ri-loader-4-line"></i> Saving…';
+
+      try {
+        const res  = await fetch("/api/profile/update", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          credentials: "same-origin",
+          body: JSON.stringify({
+            fullname:         document.getElementById("edit-fullname").value.trim(),
+            contact:          document.getElementById("edit-contact").value.trim(),
+            current_password: document.getElementById("edit-current-pw").value,
+            new_password:     newPw,
+          }),
+        });
+        const data = await res.json();
+
+        if (data.ok) {
+          feedback.textContent = "Profile updated successfully.";
+          feedback.className = "profile-feedback profile-feedback--ok";
+          document.getElementById("profile-avatar").textContent = data.initials || "??";
+          document.getElementById("profile-name").textContent   = data.fullname || "";
+          document.querySelectorAll(".user-avatar").forEach(el => el.textContent = data.initials || "??");
+          document.querySelectorAll(".user-name").forEach(el   => el.textContent = data.fullname || "");
+          document.getElementById("edit-current-pw").value = "";
+          document.getElementById("edit-new-pw").value     = "";
+          document.getElementById("edit-confirm-pw").value = "";
+        } else {
+          feedback.textContent = data.error || "Could not save changes.";
+          feedback.className = "profile-feedback profile-feedback--error";
+        }
+      } catch (_) {
+        feedback.textContent = "Could not connect to the server.";
+        feedback.className = "profile-feedback profile-feedback--error";
+      } finally {
+        saveBtn.disabled = false;
+        saveBtn.innerHTML = '<i class="ri-save-line"></i> Save Changes';
+      }
+    });
+  </script>
 </body>
 </html>

@@ -10,116 +10,239 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.2.0/remixicon.min.css" />
   <link rel="stylesheet" href="../css/shared.css" />
   <link rel="stylesheet" href="../css/commuter.css" />
-  <link rel="stylesheet" href="../css/static-inline.css">
+  <link rel="stylesheet" href="../css/static-inline.css" />
   <link rel="stylesheet" href="../api/leaflet/dist/leaflet.css" />
+  <style>
+    /* ── Location form layout ──────────────────────────── */
+    .trip-location-row {
+      display: grid;
+      grid-template-columns: 1fr 40px 1fr;
+      gap: 10px;
+      align-items: end;
+      margin-bottom: 14px;
+    }
+    @media (max-width: 600px) {
+      .trip-location-row {
+        grid-template-columns: 1fr;
+      }
+      .swap-btn-wrap { order: 2; display: flex; justify-content: center; }
+    }
+
+    /* ── Swap button ───────────────────────────────────── */
+    .swap-btn {
+      width: 38px; height: 38px;
+      border-radius: 50%;
+      border: 2px solid #e5e7eb;
+      background: #fff;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer;
+      color: #111A41;
+      font-size: 17px;
+      transition: background 150ms, border-color 150ms, transform 150ms;
+      flex-shrink: 0;
+    }
+    .swap-btn:hover {
+      background: #f0f2f8;
+      border-color: #111A41;
+    }
+    .swap-btn--spinning {
+      animation: spin-once 0.35s ease;
+    }
+    @keyframes spin-once {
+      from { transform: rotate(0deg); }
+      to   { transform: rotate(180deg); }
+    }
+
+    /* ── Picker wrapper ────────────────────────────────── */
+    .trip-picker-wrap {
+      position: relative;
+    }
+    .trip-picker-wrap label {
+      display: block;
+      font-size: 12px; font-weight: 600;
+      color: #6b7280;
+      text-transform: uppercase;
+      letter-spacing: .5px;
+      margin-bottom: 6px;
+    }
+    .trip-picker-inner {
+      position: relative;
+    }
+    .trip-picker-icon {
+      position: absolute;
+      left: 11px; top: 50%;
+      transform: translateY(-50%);
+      font-size: 15px;
+      color: #9ca3af;
+      pointer-events: none;
+      z-index: 1;
+    }
+    .trip-picker-inner input[data-location-input] {
+      width: 100%; box-sizing: border-box;
+      padding: 10px 12px 10px 32px;
+      border: 1.5px solid #d1d5db;
+      border-radius: 8px;
+      font-size: 14px; font-family: inherit;
+      color: #111827; background: #fff;
+      transition: border-color 150ms, box-shadow 150ms;
+    }
+    .trip-picker-inner input[data-location-input]:focus {
+      outline: none;
+      border-color: #111A41;
+      box-shadow: 0 0 0 3px rgba(17,26,65,.1);
+    }
+    .trip-picker-inner input.loc-input--error {
+      border-color: #dc2626;
+      box-shadow: 0 0 0 3px rgba(220,38,38,.1);
+    }
+    .loc-field-error {
+      font-size: 12px; color: #dc2626;
+      margin-top: 4px; min-height: 16px;
+    }
+
+    /* ── Validation banner ─────────────────────────────── */
+    .trip-validation-msg {
+      display: flex; align-items: center; gap: 8px;
+      background: #fef2f2;
+      border: 1px solid #fca5a5;
+      border-radius: 8px;
+      padding: 10px 14px;
+      font-size: 13px; font-weight: 500;
+      color: #dc2626;
+      margin-bottom: 12px;
+    }
+    .trip-validation-msg[hidden] { display: none; }
+
+    /* ── Find routes button ────────────────────────────── */
+    .trip-commute-btn {
+      display: inline-flex; align-items: center; gap: 8px;
+    }
+
+    /* ── Mark highlight in dropdown ────────────────────── */
+    .loc-dropdown mark {
+      background: #fef08a;
+      color: inherit;
+      border-radius: 2px;
+      padding: 0 1px;
+    }
+  </style>
 </head>
 <body>
-
-
-
-
   <div class="app-shell" id="app-shell">
-
-
-
-
 
     <aside class="sidebar" role="navigation" aria-label="Commuter navigation">
       <a class="sidebar-brand" href="dashboard.html">
         <span class="sidebar-brand-mark" aria-hidden="true"><i class="ri-bus-line"></i></span>
         Biyahero
       </a>
-
       <nav class="sidebar-nav">
-        <a href="dashboard.html">
-          <i class="ri-dashboard-line"></i> Dashboard
-        </a>
-        <a href="plan-trip.html" class="active">
-          <i class="ri-route-line"></i> Plan Trip
-        </a>
-        <a href="fare-guide.html">
-          <i class="ri-wallet-3-line"></i> Fare Guide
-        </a>
-        <a href="routes.html">
-          <i class="ri-map-2-line"></i> Routes
-        </a>
-        <a href="updates.html">
-          <i class="ri-traffic-light-line"></i> Traffic Updates
-        </a>
-        <a href="report.html">
-          <i class="ri-flag-line"></i> Report Issue
-        </a>
-        <a href="feedback.html">
-          <i class="ri-feedback-line"></i> Feedback
-        </a>
-        <a href="commuter-profile.html">
-          <i class="ri-user-line"></i> Profile
-        </a>
+        <a href="dashboard.html"><i class="ri-dashboard-line"></i> Dashboard</a>
+        <a href="plan-trip.html" class="active"><i class="ri-route-line"></i> Plan Trip</a>
+        <a href="fare-guide.html"><i class="ri-wallet-3-line"></i> Fare Guide</a>
+        <a href="routes.html"><i class="ri-map-2-line"></i> Routes</a>
+        <a href="updates.html"><i class="ri-traffic-light-line"></i> Traffic Updates</a>
+        <a href="report.html"><i class="ri-flag-line"></i> Report Issue</a>
+        <a href="feedback.html"><i class="ri-feedback-line"></i> Feedback</a>
+        <a href="commuter-profile.html"><i class="ri-user-line"></i> Profile</a>
       </nav>
-
       <div class="sidebar-footer">
-        <a class="btn-logout" href="login.html">
-          <i class="ri-logout-box-line"></i> Log Out
-        </a>
+        <!-- href="#" so user.js can intercept and POST /api/logout -->
+        <a class="btn-logout" href="#"><i class="ri-logout-box-line"></i> Log Out</a>
       </div>
     </aside>
 
-
     <div class="main-content">
-
 
       <header class="page-header">
         <div class="page-header-left">
           <span class="breadcrumb-current">Plan a Trip</span>
         </div>
         <div class="page-header-right">
+          <!-- Populated by user.js -->
           <div class="user-chip">
-            <div class="user-avatar">MC</div>
-            <span class="user-name">Maya Cruz</span>
+            <div class="user-avatar">??</div>
+            <span class="user-name">Loading…</span>
           </div>
         </div>
       </header>
 
-
       <main class="page-body plan-commute-only">
+
         <section class="trip-commute-panel" aria-labelledby="trip-commute-title">
           <h2 class="trip-commute-panel__title" id="trip-commute-title">Plan Your Commute</h2>
 
-          <div class="trip-commute-panel__form">
-            <div class="trip-commute-field">
-              <label for="starting-point">Starting Point</label>
-              <div class="trip-select-wrap">
-                <select id="starting-point" aria-label="Starting point">
-                  <option selected>Colon</option>
-                  <option>Carbon</option>
-                  <option>Fuente Osmeña</option>
-                  <option>Parkmall</option>
-                </select>
-                <i class="ri-arrow-down-s-line" aria-hidden="true"></i>
-              </div>
-            </div>
-
-            <div class="trip-commute-field">
-              <label for="destination">Destination</label>
-              <div class="trip-select-wrap trip-select-wrap--active">
-                <select id="destination" aria-label="Destination">
-                  <option selected>Mactan Airport</option>
-                  <option>SM City Cebu</option>
-                  <option>IT Park</option>
-                  <option>Ayala Center Cebu</option>
-                </select>
-                <i class="ri-arrow-down-s-line" aria-hidden="true"></i>
-              </div>
-            </div>
-
-            <button class="trip-commute-btn" type="button" id="find-routes-btn">Find Routes</button>
+          <!-- Validation banner — hidden until needed -->
+          <div id="trip-validation-msg" class="trip-validation-msg" role="alert" aria-live="polite" hidden>
+            <i class="ri-error-warning-line" aria-hidden="true"></i>
+            <span></span>
           </div>
 
+          <!-- Location row: [Start] [⇅] [Destination] -->
+          <div class="trip-location-row">
+
+            <!-- Starting point -->
+            <div class="trip-picker-wrap">
+              <label for="starting-point">Starting Point</label>
+              <div class="trip-picker-inner" data-location-picker id="start-picker">
+                <i class="ri-map-pin-2-line trip-picker-icon" aria-hidden="true"></i>
+                <input
+                  type="text"
+                  id="starting-point"
+                  data-location-input
+                  placeholder="Search barangay, landmark or city…"
+                  autocomplete="off"
+                  aria-label="Starting point"
+                />
+                <input type="hidden" id="start-value" data-location-value />
+              </div>
+              <p class="loc-field-error" data-location-error id="start-error" hidden></p>
+            </div>
+
+            <!-- Swap button -->
+            <div class="swap-btn-wrap" style="display:flex;align-items:flex-end;padding-bottom:20px;">
+              <button
+                class="swap-btn"
+                id="swap-btn"
+                type="button"
+                title="Swap starting point and destination"
+                aria-label="Swap starting point and destination"
+              >
+                <i class="ri-arrow-left-right-line"></i>
+              </button>
+            </div>
+
+            <!-- Destination -->
+            <div class="trip-picker-wrap">
+              <label for="destination">Destination</label>
+              <div class="trip-picker-inner" data-location-picker id="dest-picker">
+                <i class="ri-map-pin-line trip-picker-icon" aria-hidden="true"></i>
+                <input
+                  type="text"
+                  id="destination"
+                  data-location-input
+                  placeholder="Search barangay, landmark or city…"
+                  autocomplete="off"
+                  aria-label="Destination"
+                />
+                <input type="hidden" id="dest-value" data-location-value />
+              </div>
+              <p class="loc-field-error" data-location-error id="dest-error" hidden></p>
+            </div>
+
+          </div><!-- /.trip-location-row -->
+
+          <button class="trip-commute-btn" type="button" id="find-routes-btn">
+            <i class="ri-search-line"></i> Find Routes
+          </button>
+
+          <!-- Map -->
           <div class="trip-map-wrap">
             <div class="trip-map-wrap__header">
               <div>
                 <h3 class="trip-map-wrap__title">Route map</h3>
-                <p class="trip-map-wrap__status" id="trip-map-status">Select a starting point and destination, then find routes.</p>
+                <p class="trip-map-wrap__status" id="trip-map-status">
+                  Search and select a starting point and destination, then click Find Routes.
+                </p>
               </div>
             </div>
             <div id="trip-map" class="trip-map" role="img" aria-label="Map of the planned commute route"></div>
@@ -127,47 +250,16 @@
 
         </section>
 
-        <section class="results-area" id="results-area" aria-labelledby="results-heading">
-          <h2 class="section-title" id="results-heading"> Trip Plans</h2>
+        <!-- Results injected here dynamically by plan-trip-map.js -->
+        <section class="results-area" id="results-area" aria-labelledby="results-heading" aria-live="polite"></section>
 
-          <article class="plan-route-card">
-            <div class="plan-route-card__header"><div><div class="plan-route-card__title"><i class="ri-route-line"></i> 01K · Colon Street → SM City Cebu</div><p class="section-subtitle">Traditional jeepney · direct ride</p></div><span class="badge badge-cheapest">Lowest fare</span></div>
-            <div class="plan-route-card__summary">
-              <div class="plan-meta-item"><span class="plan-meta-label">Estimated Fare</span><span class="plan-meta-value">₱15.00</span></div>
-              <div class="plan-meta-item"><span class="plan-meta-label">Travel Time</span><span class="plan-meta-value">~25 min</span></div>
-              <div class="plan-meta-item"><span class="plan-meta-label">Walking</span><span class="plan-meta-value">~150 m</span></div>
-              <div class="plan-meta-item"><span class="plan-meta-label">Transfers</span><span class="plan-meta-value">0</span></div>
-            </div>
-            <div class="legs-timeline">
-              <div class="tleg"><span class="tleg__dot tleg__dot--walk"></span><span class="tleg__icon tleg__icon--walk" aria-hidden="true">🚶</span><div class="tleg__body"><div class="tleg__action">Walk about 150 m to the 01K stop on Colon Street.</div><div class="tleg__detail">Use the marked loading area near Colon Market · approximately 2 minutes.</div></div></div>
-              <div class="tleg"><span class="tleg__dot"></span><span class="tleg__icon" aria-hidden="true">🚌</span><div class="tleg__body"><div class="tleg__action">Ride Jeepney 01K toward SM City Cebu.</div><div class="tleg__detail">Passes Carbon Market, Fuente Osmeña Circle, and Ayala Center Cebu · approximately 20 minutes.</div></div></div>
-              <div class="tleg"><span class="tleg__dot"></span><span class="tleg__icon" aria-hidden="true">📍</span><div class="tleg__body"><div class="tleg__action">Alight at the SM City Cebu terminal stop.</div><div class="tleg__detail">Final stop at North Reclamation Area, Cebu City.</div></div></div>
-            </div>
-          </article>
-
-          <article class="plan-route-card">
-            <div class="plan-route-card__header"><div><div class="plan-route-card__title"><i class="ri-route-line"></i> 01K-M · Colon Street → SM City Cebu</div><p class="section-subtitle">Modern jeepney · direct ride</p></div><span class="badge badge-fastest">Faster option</span></div>
-            <div class="plan-route-card__summary">
-              <div class="plan-meta-item"><span class="plan-meta-label">Estimated Fare</span><span class="plan-meta-value">₱18.00</span></div>
-              <div class="plan-meta-item"><span class="plan-meta-label">Travel Time</span><span class="plan-meta-value">~18 min</span></div>
-              <div class="plan-meta-item"><span class="plan-meta-label">Walking</span><span class="plan-meta-value">~200 m</span></div>
-              <div class="plan-meta-item"><span class="plan-meta-label">Transfers</span><span class="plan-meta-value">0</span></div>
-            </div>
-            <div class="legs-timeline">
-              <div class="tleg"><span class="tleg__dot tleg__dot--walk"></span><span class="tleg__icon tleg__icon--walk" aria-hidden="true">🚶</span><div class="tleg__body"><div class="tleg__action">Walk approximately 200 m to the modern jeepney bay.</div><div class="tleg__detail">Follow the Colon Street pedestrian route toward the main stop.</div></div></div>
-              <div class="tleg"><span class="tleg__dot"></span><span class="tleg__icon" aria-hidden="true">🚌</span><div class="tleg__body"><div class="tleg__action">Board the modern jeepney marked 01K-M.</div><div class="tleg__detail">Direct service to SM City Cebu · approximately 16 minutes.</div></div></div>
-              <div class="tleg"><span class="tleg__dot"></span><span class="tleg__icon" aria-hidden="true">📍</span><div class="tleg__body"><div class="tleg__action">Alight at SM City Cebu.</div><div class="tleg__detail">Sample final stop at the main terminal entrance.</div></div></div>
-            </div>
-          </article>
-
-          <div class="report-link">
-            Experiencing a problem? <a href="report.html"><i class="ri-flag-line"></i> Report an Issue</a>
-          </div>
-        </section>
       </main>
     </div>
   </div>
+
+  <script src="../js/user.js"></script>
   <script src="../api/leaflet/dist/leaflet.js"></script>
+  <script src="../js/location-search.js"></script>
   <script src="../js/plan-trip-map.js"></script>
 </body>
 </html>

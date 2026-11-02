@@ -13,7 +13,8 @@ CREATE TABLE IF NOT EXISTS commuters (
     -- Account
     fullname          TEXT    NOT NULL,
     email             TEXT    NOT NULL UNIQUE,
-    password_hash     TEXT    NOT NULL,       -- store hashed password, never plaintext
+    password_hash     TEXT    NOT NULL,
+    contact           TEXT,              -- optional phone number
 
     -- Metadata
     created_at        TEXT    NOT NULL DEFAULT (datetime('now')),
