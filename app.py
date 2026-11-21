@@ -35,77 +35,17 @@ app.secret_key = "biyahero-secret-change-in-production"
 app.config["MAX_CONTENT_LENGTH"] = MAX_FILE_MB * 1024 * 1024
 
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
+REPORT_UPLOADS = os.path.join(UPLOAD_FOLDER, "reports")
+os.makedirs(REPORT_UPLOADS, exist_ok=True)
+ROUTE_INFO_SCHEMA = os.path.join(BASE_DIR, "database", "route_info_schema.sql")
 
 # ---------------------------------------------------------------------------
-# Locations data  (used by /api/locations search)
-# Each entry: { name, type, city, barangay, lat, lng }
+# Transit catalog (file + DB). Live data for Plan Trip / search / fares.
 # ---------------------------------------------------------------------------
-LOCATIONS = [
-    # ── Cebu City ──────────────────────────────────────────────────────────
-    {"name": "Colon Street",            "type": "landmark",  "city": "Cebu City",      "barangay": "Parian",          "lat": 10.2978, "lng": 123.8988},
-    {"name": "Carbon Market",           "type": "landmark",  "city": "Cebu City",      "barangay": "Ermita",          "lat": 10.2927, "lng": 123.9028},
-    {"name": "Fuente Osmeña Circle",    "type": "landmark",  "city": "Cebu City",      "barangay": "Fuente Osmeña",   "lat": 10.3097, "lng": 123.8933},
-    {"name": "SM City Cebu",            "type": "landmark",  "city": "Cebu City",      "barangay": "North Reclamation","lat": 10.3116, "lng": 123.9184},
-    {"name": "Ayala Center Cebu",       "type": "landmark",  "city": "Cebu City",      "barangay": "Cebu Business Park","lat": 10.3174, "lng": 123.9054},
-    {"name": "IT Park",                 "type": "landmark",  "city": "Cebu City",      "barangay": "Apas",            "lat": 10.3275, "lng": 123.9055},
-    {"name": "Cebu South Bus Terminal", "type": "terminal",  "city": "Cebu City",      "barangay": "Punta Princesa",  "lat": 10.2851, "lng": 123.8820},
-    {"name": "Cebu North Bus Terminal", "type": "terminal",  "city": "Cebu City",      "barangay": "North Reclamation","lat": 10.3160, "lng": 123.9190},
-    {"name": "Capitol Site",            "type": "landmark",  "city": "Cebu City",      "barangay": "Capitol Site",    "lat": 10.3180, "lng": 123.8913},
-    {"name": "Lahug",                   "type": "barangay",  "city": "Cebu City",      "barangay": "Lahug",           "lat": 10.3285, "lng": 123.9003},
-    {"name": "Talamban",                "type": "barangay",  "city": "Cebu City",      "barangay": "Talamban",        "lat": 10.3620, "lng": 123.9120},
-    {"name": "Basak",                   "type": "barangay",  "city": "Cebu City",      "barangay": "Basak Pardo",     "lat": 10.2740, "lng": 123.8760},
-    {"name": "Mambaling",               "type": "barangay",  "city": "Cebu City",      "barangay": "Mambaling",       "lat": 10.2800, "lng": 123.8730},
-    {"name": "Labangon",                "type": "barangay",  "city": "Cebu City",      "barangay": "Labangon",        "lat": 10.2950, "lng": 123.8800},
-    {"name": "Banilad",                 "type": "barangay",  "city": "Cebu City",      "barangay": "Banilad",         "lat": 10.3350, "lng": 123.9010},
-    {"name": "Guadalupe",               "type": "barangay",  "city": "Cebu City",      "barangay": "Guadalupe",       "lat": 10.3060, "lng": 123.8880},
-    {"name": "Kinasang-an",             "type": "barangay",  "city": "Cebu City",      "barangay": "Kinasang-an",     "lat": 10.3420, "lng": 123.8970},
-    {"name": "Mabolo",                  "type": "barangay",  "city": "Cebu City",      "barangay": "Mabolo",          "lat": 10.3240, "lng": 123.9110},
-    {"name": "Sambag I",                "type": "barangay",  "city": "Cebu City",      "barangay": "Sambag I",        "lat": 10.3010, "lng": 123.8930},
-    {"name": "Punta Princesa",          "type": "barangay",  "city": "Cebu City",      "barangay": "Punta Princesa",  "lat": 10.2860, "lng": 123.8830},
-    {"name": "Quiot",                   "type": "barangay",  "city": "Cebu City",      "barangay": "Quiot",           "lat": 10.2680, "lng": 123.8630},
-    {"name": "Sinsin",                  "type": "barangay",  "city": "Cebu City",      "barangay": "Sinsin",          "lat": 10.2900, "lng": 123.8680},
+from services.catalog import file_locations, file_lines
 
-    # ── Mandaue City ───────────────────────────────────────────────────────
-    {"name": "Parkmall",                "type": "landmark",  "city": "Mandaue City",   "barangay": "Tipolo",          "lat": 10.3269, "lng": 123.9348},
-    {"name": "SM City Seaside",         "type": "landmark",  "city": "Mandaue City",   "barangay": "South Road Properties","lat": 10.2760, "lng": 123.8860},
-    {"name": "Mandaue City Hall",       "type": "landmark",  "city": "Mandaue City",   "barangay": "Mantuyong",       "lat": 10.3250, "lng": 123.9290},
-    {"name": "Tipolo",                  "type": "barangay",  "city": "Mandaue City",   "barangay": "Tipolo",          "lat": 10.3290, "lng": 123.9360},
-    {"name": "Subangdaku",              "type": "barangay",  "city": "Mandaue City",   "barangay": "Subangdaku",      "lat": 10.3210, "lng": 123.9270},
-    {"name": "Basak Mandaue",           "type": "barangay",  "city": "Mandaue City",   "barangay": "Basak",           "lat": 10.3180, "lng": 123.9400},
-    {"name": "Cabancalan",              "type": "barangay",  "city": "Mandaue City",   "barangay": "Cabancalan",      "lat": 10.3400, "lng": 123.9300},
-    {"name": "Tabok",                   "type": "barangay",  "city": "Mandaue City",   "barangay": "Tabok",           "lat": 10.3490, "lng": 123.9360},
-    {"name": "Umapad",                  "type": "barangay",  "city": "Mandaue City",   "barangay": "Umapad",          "lat": 10.3560, "lng": 123.9390},
-
-    # ── Lapu-Lapu City ─────────────────────────────────────────────────────
-    {"name": "Mactan-Cebu International Airport", "type": "landmark", "city": "Lapu-Lapu City", "barangay": "Pajo", "lat": 10.3074, "lng": 123.9794},
-    {"name": "Maribago",                "type": "barangay",  "city": "Lapu-Lapu City", "barangay": "Maribago",        "lat": 10.2950, "lng": 124.0110},
-    {"name": "Mactan",                  "type": "barangay",  "city": "Lapu-Lapu City", "barangay": "Mactan",          "lat": 10.3060, "lng": 123.9720},
-    {"name": "Basak Lapu-Lapu",         "type": "barangay",  "city": "Lapu-Lapu City", "barangay": "Basak",           "lat": 10.3020, "lng": 123.9870},
-    {"name": "Pajo",                    "type": "barangay",  "city": "Lapu-Lapu City", "barangay": "Pajo",            "lat": 10.3090, "lng": 123.9820},
-    {"name": "Agus",                    "type": "barangay",  "city": "Lapu-Lapu City", "barangay": "Agus",            "lat": 10.3150, "lng": 123.9960},
-    {"name": "Pusok",                   "type": "barangay",  "city": "Lapu-Lapu City", "barangay": "Pusok",           "lat": 10.3110, "lng": 123.9910},
-    {"name": "Gun-ob",                  "type": "barangay",  "city": "Lapu-Lapu City", "barangay": "Gun-ob",          "lat": 10.3010, "lng": 124.0020},
-    {"name": "Ibo",                     "type": "barangay",  "city": "Lapu-Lapu City", "barangay": "Ibo",             "lat": 10.3200, "lng": 123.9690},
-
-    # ── Talisay City ───────────────────────────────────────────────────────
-    {"name": "Tabunok",                 "type": "barangay",  "city": "Talisay City",   "barangay": "Tabunok",         "lat": 10.2420, "lng": 123.8470},
-    {"name": "Tangke",                  "type": "barangay",  "city": "Talisay City",   "barangay": "Tangke",          "lat": 10.2570, "lng": 123.8600},
-    {"name": "Biasong",                 "type": "barangay",  "city": "Talisay City",   "barangay": "Biasong",         "lat": 10.2490, "lng": 123.8530},
-    {"name": "Lawaan",                  "type": "barangay",  "city": "Talisay City",   "barangay": "Lawaan",          "lat": 10.2330, "lng": 123.8390},
-    {"name": "Pooc",                    "type": "barangay",  "city": "Talisay City",   "barangay": "Pooc",            "lat": 10.2380, "lng": 123.8430},
-    {"name": "San Isidro",              "type": "barangay",  "city": "Talisay City",   "barangay": "San Isidro",      "lat": 10.2460, "lng": 123.8510},
-    {"name": "Bulacao",                 "type": "barangay",  "city": "Talisay City",   "barangay": "Bulacao",         "lat": 10.2620, "lng": 123.8640},
-    {"name": "Maghaway",                "type": "barangay",  "city": "Talisay City",   "barangay": "Maghaway",        "lat": 10.2520, "lng": 123.8560},
-
-    # ── Minglanilla ────────────────────────────────────────────────────────
-    {"name": "Minglanilla Public Market","type": "landmark", "city": "Minglanilla",    "barangay": "Poblacion",       "lat": 10.2380, "lng": 123.8000},
-    {"name": "Poblacion Minglanilla",   "type": "barangay",  "city": "Minglanilla",    "barangay": "Poblacion",       "lat": 10.2370, "lng": 123.7990},
-    {"name": "Linao",                   "type": "barangay",  "city": "Minglanilla",    "barangay": "Linao",           "lat": 10.2440, "lng": 123.8060},
-    {"name": "Tubod",                   "type": "barangay",  "city": "Minglanilla",    "barangay": "Tubod",           "lat": 10.2280, "lng": 123.7930},
-    {"name": "Calajo-an",               "type": "barangay",  "city": "Minglanilla",    "barangay": "Calajo-an",       "lat": 10.2320, "lng": 123.7970},
-    {"name": "Pakigne",                 "type": "barangay",  "city": "Minglanilla",    "barangay": "Pakigne",         "lat": 10.2200, "lng": 123.7870},
-    {"name": "Guindaruhan",             "type": "barangay",  "city": "Minglanilla",    "barangay": "Guindaruhan",     "lat": 10.2260, "lng": 123.7920},
-]
+LOCATIONS = file_locations()
+TRANSIT_LINES = file_lines()
 
 
 # ---------------------------------------------------------------------------
@@ -598,21 +538,663 @@ def profile_update():
 # ---------------------------------------------------------------------------
 @app.route("/api/locations", methods=["GET"])
 def locations():
+    from services.catalog import locations_for_search
+
     q     = (request.args.get("q") or "").strip().lower()
     limit = min(int(request.args.get("limit", 10)), 30)
 
+    try:
+        db = get_db()
+        catalog = locations_for_search(db)
+        db.close()
+    except Exception:
+        catalog = LOCATIONS
+
+    pool = catalog or LOCATIONS
+
     if not q:
-        # Return a default set when no query — useful for showing suggestions
-        results = LOCATIONS[:limit]
+        results = pool[:limit]
     else:
         results = [
-            loc for loc in LOCATIONS
-            if q in loc["name"].lower()
-            or q in loc["barangay"].lower()
-            or q in loc["city"].lower()
+            loc for loc in pool
+            if q in (loc.get("name") or "").lower()
+            or q in (loc.get("barangay") or "").lower()
+            or q in (loc.get("city") or "").lower()
         ][:limit]
 
     return jsonify({"ok": True, "results": results})
+
+
+def _haversine_km(lat1, lng1, lat2, lng2):
+    from math import radians, sin, cos, sqrt, atan2
+    r = 6371.0
+    dlat = radians(lat2 - lat1)
+    dlng = radians(lng2 - lng1)
+    a = sin(dlat / 2) ** 2 + cos(radians(lat1)) * cos(radians(lat2)) * sin(dlng / 2) ** 2
+    return 2 * r * atan2(sqrt(a), sqrt(1 - a))
+
+
+def _nearest_location(lat, lng):
+    best, best_d = None, 1e9
+    for loc in LOCATIONS:
+        d = _haversine_km(lat, lng, loc["lat"], loc["lng"])
+        if d < best_d:
+            best, best_d = loc, d
+    return best, best_d
+
+
+# ---------------------------------------------------------------------------
+# REVERSE GEOCODE  —  GET /api/geocode/reverse?lat=&lng=
+# Proxies Nominatim so the browser never needs a map API key.
+# ---------------------------------------------------------------------------
+@app.route("/api/geocode/reverse", methods=["GET"])
+def geocode_reverse():
+    import urllib.request
+    import urllib.parse
+    import json as _json
+
+    try:
+        lat = float(request.args.get("lat", ""))
+        lng = float(request.args.get("lng", ""))
+    except ValueError:
+        return jsonify({"ok": False, "error": "Bad coordinates."}), 400
+
+    nearest, dist_km = _nearest_location(lat, lng)
+    # Prefer nearby catalog place when within ~1.2 km
+    if nearest and dist_km <= 1.2:
+        return jsonify({
+            "ok": True,
+            "place": {
+                "name": nearest["name"],
+                "type": nearest["type"],
+                "city": nearest["city"],
+                "barangay": nearest["barangay"],
+                "lat": lat,
+                "lng": lng,
+                "address": f"{nearest['barangay']}, {nearest['city']}",
+                "source": "catalog",
+            },
+        })
+
+    url = (
+        "https://nominatim.openstreetmap.org/reverse?"
+        + urllib.parse.urlencode({
+            "format": "jsonv2",
+            "lat": lat,
+            "lon": lng,
+            "zoom": 16,
+            "addressdetails": 1,
+        })
+    )
+    req = urllib.request.Request(
+        url,
+        headers={"User-Agent": "BiyaheroTransitApp/1.0 (capstone; local-dev)"},
+    )
+    try:
+        with urllib.request.urlopen(req, timeout=6) as resp:
+            data = _json.loads(resp.read().decode("utf-8"))
+    except Exception:
+        # Offline / blocked — still return a usable pin label
+        label = nearest["name"] if nearest else f"Pin ({lat:.4f}, {lng:.4f})"
+        city = nearest["city"] if nearest else "Cebu"
+        brgy = nearest["barangay"] if nearest else "Selected point"
+        return jsonify({
+            "ok": True,
+            "place": {
+                "name": label,
+                "type": "map",
+                "city": city,
+                "barangay": brgy,
+                "lat": lat,
+                "lng": lng,
+                "address": f"{brgy}, {city}",
+                "source": "fallback",
+            },
+        })
+
+    addr = data.get("address") or {}
+    name = (
+        data.get("name")
+        or addr.get("road")
+        or addr.get("neighbourhood")
+        or addr.get("suburb")
+        or data.get("display_name", "Selected place").split(",")[0]
+    )
+    city = addr.get("city") or addr.get("town") or addr.get("municipality") or "Cebu"
+    barangay = addr.get("suburb") or addr.get("neighbourhood") or addr.get("village") or city
+
+    return jsonify({
+        "ok": True,
+        "place": {
+            "name": name,
+            "type": "map",
+            "city": city,
+            "barangay": barangay,
+            "lat": lat,
+            "lng": lng,
+            "address": data.get("display_name", f"{barangay}, {city}"),
+            "source": "nominatim",
+        },
+    })
+
+
+# ---------------------------------------------------------------------------
+# ROUTE PLANNING  —  POST /api/routes/search
+# Body: {
+#   from, to,
+#   max_transfers?, max_walk_m?, passenger?, preferred_modes?,
+# }
+# Returns ranked Route alternatives with full legs (walk + transit).
+# Routing logic lives in routing/planner.py (swap-friendly).
+# ---------------------------------------------------------------------------
+@app.route("/api/routes/search", methods=["POST"])
+def routes_search():
+    from routing.planner import plan_routes
+
+    body = request.get_json(silent=True) or {}
+    frm = body.get("from") or {}
+    to = body.get("to") or {}
+
+    try:
+        flat, flng = float(frm["lat"]), float(frm["lng"])
+        tlat, tlng = float(to["lat"]), float(to["lng"])
+    except (KeyError, TypeError, ValueError):
+        return jsonify({"ok": False, "error": "Start and end places need valid map points."}), 400
+
+    if flat == tlat and flng == tlng:
+        return jsonify({"ok": False, "error": "Start and end cannot be the same place."}), 400
+
+    prefs = body.get("preferences") or {}
+    try:
+        max_transfers = int(body.get("max_transfers", prefs.get("max_transfers", 3)))
+        max_walk_m = int(body.get("max_walk_m", prefs.get("max_walk_m", 1800)))
+    except (TypeError, ValueError):
+        return jsonify({"ok": False, "error": "Bad preference values."}), 400
+
+    passenger = (body.get("passenger") or prefs.get("passenger") or "regular").lower()
+    preferred_modes = body.get("preferred_modes") or prefs.get("preferred_modes")
+
+    # Live catalog from DB (+ active reroutes). File catalog is fallback only.
+    from services.catalog import lines_for_planner, locations_for_search
+
+    db = get_db()
+    try:
+        lines_for_plan = lines_for_planner(db)
+        locs = locations_for_search(db)
+    finally:
+        db.close()
+
+    result = plan_routes(
+        {"name": frm.get("name"), "lat": flat, "lng": flng},
+        {"name": to.get("name"), "lat": tlat, "lng": tlng},
+        locs or LOCATIONS,
+        lines_for_plan or TRANSIT_LINES,
+        max_transfers=max_transfers,
+        max_walk_m=max_walk_m,
+        passenger=passenger,
+        preferred_modes=preferred_modes,
+    )
+
+    # Back-compat: also expose `options` summary cards for older clients
+    options = []
+    for route in result.get("routes", []):
+        s = route["summary"]
+        options.append({
+            "id": route["id"],
+            "title": s["mode_chain_text"],
+            "mode": next((m["mode"] for m in s["mode_chain"] if m["mode"] != "walk"), "jeepney"),
+            "line_code": next((m["label"] for m in s["mode_chain"] if m["mode"] != "walk"), "LOCAL"),
+            "transfers": s["transfers"],
+            "duration_min": s["duration_min"],
+            "fare_php": s["fare_php"],
+            "walk_meters": s["walk_meters"],
+            "departure_label": s["departure_label"],
+            "arrival_label": s["arrival_label"],
+            "is_recommended": route.get("is_recommended", False),
+            "tags": route.get("tags", []),
+            "from": route["from"],
+            "to": route["to"],
+        })
+
+    return jsonify({
+        "ok": True,
+        "disclaimer": "Times and fares are estimates — not live arrivals.",
+        "routes": result.get("routes", []),
+        "options": options,
+        "count": result.get("count", 0),
+        "suggestions": result.get("suggestions", []),
+        "assumptions": result.get("assumptions", {}),
+        "cached": result.get("cached", False),
+    })
+
+
+# ---------------------------------------------------------------------------
+# ROUTE INFORMATION + UPDATES  (public read / staff write)
+# ---------------------------------------------------------------------------
+def _init_route_info_db():
+    from services import route_info as ri
+    conn = get_db()
+    ri.ensure_schema(conn, ROUTE_INFO_SCHEMA)
+    ri.clear_demo_content(conn)
+    # One-time clean rebuild marker so old demo rows are replaced by the live catalog
+    marker = os.path.join(BASE_DIR, "database", ".catalog_v2")
+    force = not os.path.exists(marker)
+    ri.seed_from_catalog(conn, TRANSIT_LINES, LOCATIONS, force=force)
+    if force:
+        open(marker, "w", encoding="utf-8").write("ok\n")
+    conn.close()
+
+
+try:
+    _init_route_info_db()
+except Exception as _e:
+    print("Route info schema init skipped:", _e)
+
+
+@app.route("/api/fares/estimate", methods=["POST"])
+def api_fares_estimate():
+    """Live fare estimate using Route Planning + Fare Estimation (no sample matrix)."""
+    from routing.planner import plan_routes
+    from services.catalog import lines_for_planner, locations_for_search
+    from routing.estimation import estimation_meta
+
+    body = request.get_json(silent=True) or {}
+    frm = body.get("from") or {}
+    to = body.get("to") or {}
+    passenger = (body.get("passenger") or "regular").lower()
+    try:
+        flat, flng = float(frm["lat"]), float(frm["lng"])
+        tlat, tlng = float(to["lat"]), float(to["lng"])
+    except (KeyError, TypeError, ValueError):
+        return jsonify({"ok": False, "error": "Pick valid From and To places."}), 400
+
+    db = get_db()
+    try:
+        lines = lines_for_planner(db)
+        locs = locations_for_search(db)
+    finally:
+        db.close()
+
+    result = plan_routes(
+        {"name": frm.get("name"), "lat": flat, "lng": flng},
+        {"name": to.get("name"), "lat": tlat, "lng": tlng},
+        locs or LOCATIONS,
+        lines or TRANSIT_LINES,
+        max_transfers=int(body.get("max_transfers", 3)),
+        max_walk_m=int(body.get("max_walk_m", 1800)),
+        passenger=passenger,
+    )
+    routes = result.get("routes") or []
+    if not routes:
+        return jsonify({
+            "ok": True,
+            "found": False,
+            "suggestions": result.get("suggestions") or [],
+            "meta": estimation_meta(),
+        })
+
+    best = routes[0]
+    return jsonify({
+        "ok": True,
+        "found": True,
+        "route": {
+            "id": best["id"],
+            "mode_chain": best["summary"]["mode_chain_text"],
+            "fare_label": best["summary"]["fare_label"],
+            "fare_php": best["summary"]["fare_php"],
+            "fare_summary": best.get("fare_summary"),
+            "time_label": best["summary"].get("time_label"),
+            "duration_min": best["summary"]["duration_min"],
+            "time_breakdown": best["summary"].get("time_breakdown"),
+            "transfers": best["summary"]["transfers"],
+            "legs": [
+                {
+                    "type": leg.get("type"),
+                    "mode": leg.get("mode"),
+                    "line_code": leg.get("line_code"),
+                    "fare": leg.get("fare"),
+                    "duration_min": leg.get("duration_min"),
+                }
+                for leg in best.get("legs", [])
+            ],
+            "is_recommended": best.get("is_recommended"),
+        },
+        "alternatives": [
+            {
+                "id": r["id"],
+                "mode_chain": r["summary"]["mode_chain_text"],
+                "fare_label": r["summary"]["fare_label"],
+                "duration_min": r["summary"]["duration_min"],
+            }
+            for r in routes[:5]
+        ],
+        "meta": estimation_meta(),
+        "disclaimer": "Estimates only — actual fares may differ.",
+    })
+
+
+@app.route("/api/route-info", methods=["GET"])
+def api_route_info_list():
+    from services import route_info as ri
+    q = request.args.get("q")
+    stop = request.args.get("stop")
+    conn = get_db()
+    routes = ri.list_published_routes(conn, q=q, stop=stop)
+    advisories = ri.list_active_advisories(conn)
+    conn.close()
+    resp = jsonify({"ok": True, "routes": routes, "advisories": advisories, "count": len(routes)})
+    resp.headers["Cache-Control"] = "public, max-age=60"
+    return resp
+
+
+@app.route("/api/route-info/<code>", methods=["GET"])
+def api_route_info_detail(code):
+    from services import route_info as ri
+    conn = get_db()
+    item = ri.get_route(conn, code)
+    conn.close()
+    if not item:
+        return jsonify({"ok": False, "error": "Route not found."}), 404
+    resp = jsonify({"ok": True, "route": item})
+    resp.headers["Cache-Control"] = "public, max-age=60"
+    return resp
+
+
+@app.route("/api/advisories", methods=["GET"])
+def api_advisories():
+    from services import route_info as ri
+    history = request.args.get("history") == "1"
+    route_code = request.args.get("route")
+    severity = request.args.get("severity")
+    conn = get_db()
+    items = ri.list_active_advisories(conn, route_code=route_code, history=history)
+    conn.close()
+    if severity:
+        items = [a for a in items if a["severity"] == severity]
+    resp = jsonify({
+        "ok": True,
+        "advisories": items,
+        "count": len(items),
+        "meta": ri.updates_meta(),
+    })
+    resp.headers["Cache-Control"] = "public, max-age=30"
+    return resp
+
+
+@app.route("/api/reroutes", methods=["GET"])
+def api_reroutes():
+    from services import route_info as ri
+    conn = get_db()
+    items = ri.list_active_reroutes(conn)
+    conn.close()
+    resp = jsonify({
+        "ok": True,
+        "reroutes": items,
+        "count": len(items),
+        "meta": ri.updates_meta(),
+    })
+    resp.headers["Cache-Control"] = "public, max-age=30"
+    return resp
+
+
+@app.route("/api/updates", methods=["GET"])
+def api_updates_bundle():
+    """
+    Public Updates feed split into:
+      - verified route_changes
+      - general traffic_advisories
+    Includes data source labels + refresh frequency meta.
+    """
+    from services import route_info as ri
+    history = request.args.get("history") == "1"
+    severity = request.args.get("severity") or None
+    conn = get_db()
+    bundle = ri.list_updates_bundle(conn, history=history, severity=severity)
+    conn.close()
+    resp = jsonify({"ok": True, **bundle})
+    resp.headers["Cache-Control"] = f"public, max-age={ri.UPDATES_REFRESH_SECONDS}"
+    return resp
+
+
+@app.route("/api/staff/advisories", methods=["POST"])
+def api_staff_create_advisory():
+    from services import route_info as ri
+    user = current_user()
+    if not ri.is_staff(user):
+        return jsonify({"ok": False, "error": "Staff login required."}), 403
+    body = request.get_json(silent=True) or {}
+    # Default traffic advisories to a clear non-verified source unless staff sets one
+    body.setdefault("source_label", "operator")
+    conn = get_db()
+    item, err = ri.create_advisory(conn, body, user)
+    conn.close()
+    if err:
+        return jsonify({"ok": False, "error": err}), 400
+    return jsonify({"ok": True, "advisory": item})
+
+
+@app.route("/api/staff/reroutes", methods=["POST"])
+def api_staff_create_reroute():
+    """Create a verified route change (path/stop detour). Admins publish immediately."""
+    from services import route_info as ri
+    user = current_user()
+    if not ri.is_staff(user):
+        return jsonify({"ok": False, "error": "Staff login required."}), 403
+    body = request.get_json(silent=True) or {}
+    conn = get_db()
+    item, err = ri.create_reroute(conn, body, user)
+    conn.close()
+    if err:
+        return jsonify({"ok": False, "error": err}), 400
+    return jsonify({"ok": True, "reroute": item})
+
+
+@app.route("/api/staff/review", methods=["POST"])
+def api_staff_review():
+    from services import route_info as ri
+    user = current_user()
+    if not ri.is_admin(user):
+        return jsonify({"ok": False, "error": "Admin only."}), 403
+    body = request.get_json(silent=True) or {}
+    conn = get_db()
+    ok, msg = ri.review_entity(
+        conn,
+        body.get("entity_type"),
+        int(body.get("entity_id", 0)),
+        bool(body.get("approve")),
+        user,
+        body.get("note") or "",
+    )
+    conn.close()
+    if not ok:
+        return jsonify({"ok": False, "error": msg}), 400
+    return jsonify({"ok": True, "result": msg})
+
+
+@app.route("/api/staff/queue", methods=["GET"])
+def api_staff_queue():
+    from services import route_info as ri
+    user = current_user()
+    if not ri.is_staff(user):
+        return jsonify({"ok": False, "error": "Staff login required."}), 403
+    conn = get_db()
+    data = ri.staff_queue(conn)
+    conn.close()
+    return jsonify({"ok": True, **data, "is_admin": ri.is_admin(user)})
+
+
+@app.route("/api/staff/import/preview", methods=["POST"])
+def api_staff_import_preview():
+    from services import route_info as ri
+    user = current_user()
+    if not ri.is_staff(user):
+        return jsonify({"ok": False, "error": "Staff login required."}), 403
+    text = request.get_data(as_text=True) or ""
+    if request.is_json:
+        text = (request.get_json() or {}).get("csv") or text
+    rows, errors = ri.preview_csv_import(text)
+    return jsonify({"ok": len(errors) == 0, "rows": rows, "errors": errors})
+
+
+# ---------------------------------------------------------------------------
+# USER REPORTS
+# ---------------------------------------------------------------------------
+@app.route("/api/reports", methods=["POST"])
+def api_reports_create():
+    from services import reports as ur
+    user = current_user()
+    if not user:
+        return jsonify({
+            "ok": False,
+            "error": "Please log in to send a report.",
+            "login_required": True,
+            "redirect": "/html/login.html?next=/html/report.html",
+        }), 401
+
+    body = request.get_json(silent=True) or {}
+    # Also accept multipart
+    if not body and request.form:
+        body = {k: request.form.get(k) for k in request.form}
+        if body.get("lat"):
+            try:
+                body["lat"] = float(body["lat"])
+                body["lng"] = float(body["lng"])
+            except (TypeError, ValueError):
+                body["lat"] = body["lng"] = None
+        body["confirm_similar"] = body.get("confirm_similar") in ("1", "true", "True", True)
+
+    conn = get_db()
+    # Similar check pass-through
+    if body.get("confirm_similar") in (True, "true", "1"):
+        body["confirm_similar"] = True
+    item, err = ur.create_report(conn, user, body)
+    if err == "similar":
+        similar = ur.find_similar(conn, body.get("category"), body.get("route_code"), body.get("description", ""))
+        conn.close()
+        return jsonify({
+            "ok": False,
+            "error": "Similar reports exist. Check them, then confirm to send anyway.",
+            "similar": similar,
+            "needs_confirm": True,
+        }), 409
+    if err:
+        conn.close()
+        return jsonify({"ok": False, "error": err}), 400
+
+    # Save photos if multipart
+    files = request.files.getlist("photos") if request.files else []
+    for f in files[: ur.MAX_PHOTOS]:
+        if not f or not f.filename:
+            continue
+        raw = f.read()
+        if len(raw) > ur.MAX_PHOTO_BYTES:
+            continue
+        fname = secure_filename(f.filename)
+        path = os.path.join(REPORT_UPLOADS, f"{item['ref_code']}_{fname}")
+        with open(path, "wb") as out:
+            out.write(raw)
+        rel = os.path.relpath(path, BASE_DIR).replace("\\", "/")
+        ur.attach_file(conn, item["id"], rel, fname, len(raw))
+
+    conn.close()
+    return jsonify({"ok": True, "report": item})
+
+
+@app.route("/api/reports/mine", methods=["GET"])
+def api_reports_mine():
+    from services import reports as ur
+    user = current_user()
+    if not user:
+        return jsonify({"ok": False, "error": "Please log in.", "login_required": True}), 401
+    conn = get_db()
+    items = ur.list_my_reports(conn, user)
+    conn.close()
+    return jsonify({"ok": True, "reports": items})
+
+
+@app.route("/api/reports/<int:report_id>", methods=["GET"])
+def api_reports_detail(report_id):
+    from services import reports as ur
+    user = current_user()
+    if not user:
+        return jsonify({"ok": False, "error": "Please log in.", "login_required": True}), 401
+    conn = get_db()
+    item, err = ur.get_report_for_user(conn, report_id, user)
+    conn.close()
+    if err:
+        code = 403 if "own" in err else 404
+        return jsonify({"ok": False, "error": err}), code
+    return jsonify({"ok": True, "report": item})
+
+
+@app.route("/api/reports/<int:report_id>/status", methods=["POST"])
+def api_reports_status(report_id):
+    from services import reports as ur
+    user = current_user()
+    if not user:
+        return jsonify({"ok": False, "error": "Please log in."}), 401
+    body = request.get_json(silent=True) or {}
+    conn = get_db()
+    item, err = ur.transition(
+        conn, report_id, body.get("status"), user,
+        note=body.get("note") or "",
+        duplicate_of=body.get("duplicate_of"),
+    )
+    conn.close()
+    if err:
+        return jsonify({"ok": False, "error": err}), 400
+    return jsonify({"ok": True, "report": item})
+
+
+@app.route("/api/reports/<int:report_id>/note", methods=["POST"])
+def api_reports_note(report_id):
+    from services import reports as ur
+    user = current_user()
+    if not user:
+        return jsonify({"ok": False, "error": "Please log in."}), 401
+    body = request.get_json(silent=True) or {}
+    conn = get_db()
+    ok, msg = ur.add_user_note(conn, report_id, user, body.get("body") or "")
+    conn.close()
+    if not ok:
+        return jsonify({"ok": False, "error": msg}), 400
+    return jsonify({"ok": True, "message": msg})
+
+
+@app.route("/api/staff/reports", methods=["GET"])
+def api_staff_reports():
+    from services import reports as ur
+    from services import route_info as ri
+    user = current_user()
+    if not ri.is_staff(user):
+        return jsonify({"ok": False, "error": "Staff login required."}), 403
+    filters = {
+        "status": request.args.get("status"),
+        "category": request.args.get("category"),
+        "route_code": request.args.get("route"),
+        "q": request.args.get("q"),
+        "sort": request.args.get("sort"),
+    }
+    conn = get_db()
+    items = ur.list_admin_reports(conn, filters)
+    stats = ur.analytics(conn)
+    conn.close()
+    return jsonify({"ok": True, "reports": items, "analytics": stats})
+
+
+@app.route("/api/staff/reports/<int:report_id>/apply", methods=["POST"])
+def api_staff_apply_report(report_id):
+    from services import reports as ur
+    from services import route_info as ri
+    user = current_user()
+    if not ri.is_staff(user):
+        return jsonify({"ok": False, "error": "Staff login required."}), 403
+    conn = get_db()
+    item, err = ur.apply_correction_draft(conn, report_id, user)
+    conn.close()
+    if err:
+        return jsonify({"ok": False, "error": err}), 400
+    return jsonify({"ok": True, "draft": item})
 
 
 # ---------------------------------------------------------------------------

@@ -60,7 +60,20 @@ loginForm?.addEventListener("submit", async (event) => {
     const data = await res.json();
 
     if (data.ok) {
-      window.location.href = data.redirect;
+      // Honor ?next= (reports / save-route) and Plan Trip from/to/save query
+      const params = new URLSearchParams(window.location.search);
+      const next = params.get("next");
+      if (next && next.startsWith("/") && !next.startsWith("//")) {
+        window.location.href = next;
+      } else if (params.get("from") || params.get("to") || params.get("save")) {
+        const q = new URLSearchParams();
+        ["from", "to", "save"].forEach((k) => {
+          if (params.get(k)) q.set(k, params.get(k));
+        });
+        window.location.href = `/html/plan-trip.html?${q.toString()}`;
+      } else {
+        window.location.href = data.redirect;
+      }
     } else {
       loginEmail.classList.add("input-error");
       loginPassword.classList.add("input-error");

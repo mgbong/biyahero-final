@@ -1,0 +1,153 @@
+{
+  "schema_version": 1,
+  "updated_at": "2026-11-01",
+  "source_note": "Admin-maintained estimates inspired by LTFRB / city jeepney practice. Not an official legal fare matrix.",
+  "discount_rules": {
+    "regular": { "factor": 1.0, "note": null },
+    "student": { "factor": 0.8, "note": "Student discount (~20%) — verify with driver / school ID." },
+    "senior": { "factor": 0.8, "note": "Senior citizen discount (~20%) — present valid ID." },
+    "pwd": { "factor": 0.8, "note": "PWD discount (~20%) — present valid ID." }
+  },
+  "rounding": "nearest_peso",
+  "rules": [
+    {
+      "id": "jeepney-distance-default",
+      "mode": "jeepney",
+      "operator": "Cebu traditional jeepney",
+      "line_code": null,
+      "model": "distance",
+      "base_fare": 13,
+      "base_distance_km": 4,
+      "per_km_rate": 1.8,
+      "ac_surcharge": 0,
+      "peak_surcharge": 0,
+      "minimum_fare": 13,
+      "effective_from": "2024-01-01",
+      "effective_to": null,
+      "source": "ltfrb_style_admin",
+      "confidence": "medium",
+      "last_updated": "2026-11-01"
+    },
+    {
+      "id": "modern-jeepney-distance",
+      "mode": "modern_jeepney",
+      "operator": "Modern PUJ",
+      "line_code": null,
+      "model": "distance",
+      "base_fare": 15,
+      "base_distance_km": 4,
+      "per_km_rate": 1.8,
+      "ac_surcharge": 2,
+      "peak_surcharge": 0,
+      "minimum_fare": 15,
+      "effective_from": "2024-06-01",
+      "effective_to": null,
+      "source": "ltfrb_style_admin",
+      "confidence": "medium",
+      "last_updated": "2026-11-01"
+    },
+    {
+      "id": "bus-distance-default",
+      "mode": "bus",
+      "operator": "City / provincial bus",
+      "line_code": null,
+      "model": "distance",
+      "base_fare": 15,
+      "base_distance_km": 4,
+      "per_km_rate": 2.0,
+      "ac_surcharge": 3,
+      "peak_surcharge": 0,
+      "minimum_fare": 15,
+      "effective_from": "2024-01-01",
+      "effective_to": null,
+      "source": "ltfrb_style_admin",
+      "confidence": "medium",
+      "last_updated": "2026-11-01"
+    },
+    {
+      "id": "uv-fixed",
+      "mode": "uv",
+      "operator": "UV Express",
+      "line_code": null,
+      "model": "fixed",
+      "fixed_fare": 25,
+      "minimum_fare": 25,
+      "effective_from": "2024-01-01",
+      "effective_to": null,
+      "source": "community_reported",
+      "confidence": "low",
+      "last_updated": "2026-08-15"
+    },
+    {
+      "id": "tricycle-fixed",
+      "mode": "tricycle",
+      "operator": "Local tricycle",
+      "line_code": null,
+      "model": "fixed",
+      "fixed_fare": 15,
+      "minimum_fare": 15,
+      "effective_from": "2024-01-01",
+      "effective_to": null,
+      "source": "community_reported",
+      "confidence": "low",
+      "last_updated": "2026-06-01"
+    },
+    {
+      "id": "01k-matrix-sample",
+      "mode": "jeepney",
+      "operator": "01K operators",
+      "line_code": "01K",
+      "model": "matrix",
+      "matrix": {
+        "Colon Street|SM City Cebu": 15,
+        "Colon Street|Ayala Center Cebu": 13,
+        "Fuente Osmeña Circle|SM City Cebu": 13,
+        "Ayala Center Cebu|SM City Cebu": 13
+      },
+      "fallback_model": "distance",
+      "base_fare": 13,
+      "base_distance_km": 4,
+      "per_km_rate": 1.8,
+      "minimum_fare": 13,
+      "effective_from": "2025-01-01",
+      "effective_to": null,
+      "source": "admin_matrix",
+      "confidence": "high",
+      "last_updated": "2026-11-01"
+    },
+    {
+      "id": "bus02-outdated-example",
+      "mode": "bus",
+      "operator": "South corridor (archived)",
+      "line_code": "BUS-02",
+      "model": "fixed",
+      "fixed_fare": 12,
+      "minimum_fare": 12,
+      "effective_from": "2020-01-01",
+      "effective_to": "2023-12-31",
+      "source": "archived",
+      "confidence": "low",
+      "last_updated": "2023-12-01"
+    }
+  ],
+  "time_defaults": {
+    "walk_speed_kmh": 4.5,
+    "walk_speed_accessible_kmh": 3.0,
+    "urban_speeds_kmh": {
+      "jeepney": 16,
+      "modern_jeepney": 20,
+      "bus": 18,
+      "uv": 22,
+      "tricycle": 14
+    },
+    "headway_min": {
+      "jeepney": 8,
+      "modern_jeepney": 10,
+      "bus": 12,
+      "uv": 10,
+      "tricycle": 5
+    },
+    "wait_model": "half_headway",
+    "realtime": false
+  }
+}

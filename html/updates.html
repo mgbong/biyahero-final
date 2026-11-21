@@ -3,70 +3,110 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Traffic & Road Updates — Biyahero</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <title>Route &amp; Traffic Updates — Biyahero</title>
+  <link rel="preconnect" href="https://fonts.cdnfonts.com" />
+  <link href="https://fonts.cdnfonts.com/css/mona-sans" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.2.0/remixicon.min.css" />
   <link rel="stylesheet" href="../css/shared.css" />
   <link rel="stylesheet" href="../css/commuter.css" />
-  <link rel="stylesheet" href="../css/static-inline.css">
+  <link rel="stylesheet" href="../css/sm-shell.css" />
+  <link rel="stylesheet" href="../css/route-info.css" />
 </head>
-<body>
+<body class="sm-body">
+  <a class="sm-skip" href="#main">Skip to content</a>
 
-
-
-  <div class="app-shell" id="app-shell">
-
-
-    <aside class="sidebar" role="navigation" aria-label="Commuter navigation">
-      <a class="sidebar-brand" href="dashboard.html">
-        <span class="sidebar-brand-mark" aria-hidden="true"><i class="ri-bus-line"></i></span>
-        Biyahero
-      </a>
-      <nav class="sidebar-nav">
-        <a href="dashboard.html"><i class="ri-dashboard-line"></i> Dashboard</a>
-        <a href="plan-trip.html"><i class="ri-route-line"></i> Plan Trip</a>
-        <a href="fare-guide.html"><i class="ri-wallet-3-line"></i> Fare Guide</a>
-        <a href="routes.html"><i class="ri-map-2-line"></i> Routes</a>
-        <a href="updates.html" class="active"><i class="ri-traffic-light-line"></i> Traffic Updates</a>
-        <a href="report.html"><i class="ri-flag-line"></i> Report Issue</a>
-        <a href="feedback.html"><i class="ri-feedback-line"></i> Feedback</a>
-        <a href="commuter-profile.html"><i class="ri-user-line"></i> Profile</a>
+  <div class="sm-page" id="app-shell">
+    <header class="sm-header">
+      <a class="sm-logo" href="dashboard.html" aria-label="Biyahero home">Biyahero</a>
+      <nav class="sm-pillnav" aria-label="Main menu">
+        <a href="dashboard.html" class="sm-pillnav__item">Home</a>
+        <a href="plan-trip.html" class="sm-pillnav__item">Plan Trip</a>
+        <a href="routes.html" class="sm-pillnav__item">Routes</a>
+        <a href="fare-guide.html" class="sm-pillnav__item">Fares</a>
+        <a href="updates.html" class="sm-pillnav__item is-active" aria-current="page">Updates</a>
+        <a href="commuter-profile.html" class="sm-pillnav__item">Profile</a>
       </nav>
-      <div class="sidebar-footer">
-        <a class="btn-logout" href="#"><i class="ri-logout-box-line"></i> Log Out</a>
-      </div>
-    </aside>
-
-    <div class="main-content">
-      <header class="page-header">
-        <div class="page-header-left">
-          <span class="breadcrumb-current">Traffic &amp; Road Updates</span>
+      <div class="sm-header__right">
+        <div class="sm-user user-chip" title="Your account">
+          <div class="sm-user__avatar user-avatar" aria-hidden="true">??</div>
+          <span class="sm-user__name user-name">Loading…</span>
         </div>
-        <div class="page-header-right">
-          <div class="user-chip">
-            <div class="user-avatar">??</div>
-            <span class="user-name">Loading…</span>
+        <button type="button" class="sm-iconbtn btn-logout" aria-label="Log out">
+          <i class="ri-logout-box-r-line" aria-hidden="true"></i>
+        </button>
+      </div>
+    </header>
+
+    <main class="sm-main" id="main">
+      <section class="sm-page-hero" aria-labelledby="page-hero-title">
+        <div class="sm-page-hero__media" aria-hidden="true"></div>
+        <div class="sm-page-hero__copy">
+          <p class="sm-page-hero__eyebrow">Route &amp; traffic</p>
+          <h1 class="sm-page-hero__title" id="page-hero-title">Updates</h1>
+          <p class="sm-page-hero__sub">Verified route changes are separate from general traffic notes. Each post shows its source.</p>
+          <div class="sm-page-hero__actions">
+            <a class="sm-btn sm-btn--orange" href="report.html">Send realtime report <i class="ri-arrow-right-up-line" aria-hidden="true"></i></a>
+            <a class="sm-btn sm-btn--glass" href="plan-trip.html">Plan a Trip <i class="ri-arrow-right-up-line" aria-hidden="true"></i></a>
           </div>
         </div>
-      </header>
+      </section>
 
-      <main class="page-body">
+      <div class="page-body ri-body">
+        <aside class="upd-meta" id="updates-meta" aria-label="Data freshness">
+          <div class="upd-meta__row">
+            <span class="ri-badge ri-badge--ok"><i class="ri-shield-check-line" aria-hidden="true"></i> Verified route change</span>
+            <span class="ri-badge ri-badge--warn"><i class="ri-traffic-light-line" aria-hidden="true"></i> Traffic advisory</span>
+          </div>
+          <p id="upd-refresh-label" class="ri-muted">Loading refresh info…</p>
+          <p id="upd-last-data" class="ri-muted"></p>
+        </aside>
 
-        <div class="count-badge" id="count-badge">
-          <i class="ri-notification-line"></i> 4 sample updates
+        <div class="ri-toolbar" aria-label="Filters">
+          <select id="filter-view" aria-label="What to show">
+            <option value="all" selected>All updates</option>
+            <option value="route_changes">Verified route changes only</option>
+            <option value="traffic">Traffic advisories only</option>
+          </select>
+          <select id="filter-severity" aria-label="Severity">
+            <option value="">All severity</option>
+            <option value="info">Info</option>
+            <option value="warning">Warning</option>
+            <option value="critical">Critical</option>
+          </select>
+          <label><input type="checkbox" id="filter-history" /> Show expired advisories</label>
         </div>
 
-        <div id="updates-list" class="static-inline-006">
-          <article class="status-card status-card--moderate"><div class="status-card__title">Colon–Ayala · Route 10C</div><div class="status-card__meta"><i class="ri-map-pin-line"></i> Cebu City <span class="badge badge-muted">Jeepney</span> <span class="badge badge-moderate">Moderate Traffic</span></div><div class="status-card__desc">Traffic is moving slowly along Osmeña Boulevard. Add extra travel time.</div><div class="status-card__footer"><i class="ri-time-line"></i> Sample update · October 15, 2026</div></article>
-          <article class="status-card status-card--obstruction"><div class="status-card__title">Tabunok–Cebu South Bus Terminal</div><div class="status-card__meta"><i class="ri-map-pin-line"></i> Talisay City <span class="badge badge-info">Bus</span> <span class="badge badge-obstruction">Road Obstruction</span></div><div class="status-card__desc">Road works near Tabunok Market may cause short delays. Affected stops remain open.</div><div class="status-card__footer"><i class="ri-time-line"></i> Sample update · October 14, 2026</div></article>
-          <article class="status-card status-card--change"><div class="status-card__title">Parkmall–IT Park · Route 13C</div><div class="status-card__meta"><i class="ri-map-pin-line"></i> Mandaue City <span class="badge badge-muted">Jeepney</span> <span class="badge badge-change">Route Change</span></div><div class="status-card__desc">Demonstration detour via A. S. Fortuna Street while scheduled road maintenance is underway.</div><div class="status-card__footer"><i class="ri-time-line"></i> Sample update · October 13, 2026</div></article>
-          <article class="status-card status-card--normal"><div class="status-card__title">Basak–Mactan Airport · Modern Jeepney</div><div class="status-card__meta"><i class="ri-map-pin-line"></i> Lapu-Lapu City <span class="badge badge-teal">Modern Jeepney</span> <span class="badge badge-normal">Normal</span></div><div class="status-card__desc">Service follows the usual route and sample schedule.</div><div class="status-card__footer"><i class="ri-time-line"></i> Sample update · October 12, 2026</div></article>
-        </div>
+        <section class="upd-section" id="section-route-changes" aria-labelledby="route-changes-heading">
+          <div class="upd-section__head">
+            <h2 class="section-title" id="route-changes-heading">
+              <i class="ri-shield-check-line" aria-hidden="true"></i>
+              Verified route changes
+            </h2>
+            <p class="ri-muted">Staff-approved path, stop, or terminal changes. These can change Plan Trip results.</p>
+          </div>
+          <div id="route-changes-list" aria-live="polite"></div>
+        </section>
 
-      </main>
-    </div>
-  <script src="../js/user.js" defer></script>
+        <section class="upd-section" id="section-traffic" aria-labelledby="traffic-heading">
+          <div class="upd-section__head">
+            <h2 class="section-title" id="traffic-heading">
+              <i class="ri-traffic-light-line" aria-hidden="true"></i>
+              Traffic &amp; service advisories
+            </h2>
+            <p class="ri-muted">General road delays, weather, events, or service heads-up. Not a full rewrite of a line.</p>
+          </div>
+          <div class="count-badge" id="count-badge"><i class="ri-notification-line"></i> Loading…</div>
+          <div id="updates-list" aria-live="polite"></div>
+        </section>
+
+        <details class="upd-sources ri-card">
+          <summary>Data sources &amp; how often we refresh</summary>
+          <div id="upd-sources-body" class="ri-muted">Loading…</div>
+        </details>
+      </div>
+    </main>
+  </div>
+  <script src="../js/user-soft.js"></script>
+  <script src="../js/advisories.js"></script>
 </body>
 </html>

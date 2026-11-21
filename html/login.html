@@ -4,103 +4,107 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Log In — Biyahero</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.cdnfonts.com" />
+  <link href="https://fonts.cdnfonts.com/css/mona-sans" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet" />
   <link rel="stylesheet" href="../css/login.css" />
-  <link rel="stylesheet" href="../css/static-inline.css">
 </head>
-<body>
+<body class="lg-body">
+  <a class="lg-skip" href="#login-form">Skip to log in</a>
 
-  <header class="site-header">
-    <div class="header-inner">
-      <a class="brand" href="../index.html" aria-label="Biyahero home">
-        <span class="brand-mark" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none">
-            <path d="M5 17.5V9.25C5 7.45 6.45 6 8.25 6h7.5C17.55 6 19 7.45 19 9.25v8.25H5Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
-            <path d="M8 6V4.75h8V6M5.5 12h13M8 17.5v2m8-2v2M8.25 14.75h.01m7.49 0h.01" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
-          </svg>
-        </span>
-        <span>Biyahero</span>
-      </a>
-
-      <a class="button button-primary header-cta" href="signup.html">Sign Up</a>
+  <header class="lg-header">
+    <a class="lg-brand" href="../index.html" aria-label="Biyahero home">
+      <span class="lg-brand__mark" aria-hidden="true"><i class="ri-bus-line"></i></span>
+      Biyahero
+    </a>
+    <div class="lg-header__actions">
+      <a class="lg-btn lg-btn--ghost" href="plan-trip.html">Plan a Trip</a>
+      <a class="lg-btn lg-btn--orange" href="commuter-signup.html">Sign up</a>
     </div>
   </header>
 
-  <main class="auth-page">
-    <div class="auth-grid">
-
-      <div class="auth-left">
-        <h1 class="auth-headline login-headline">
-          <span class="navy">Your Journey</span><br>
-          <span class="green">Starts Here</span>
-        </h1>
-
-        <p class="auth-desc">
-          Plan your routes, check schedules, and take public transport
-          with ease. Biyahero helps you get to your destination,
-          smarter and faster.
-        </p>
-
-        <ul class="checklist">
-          <li>
-            <i class="ri-check-line check-icon" aria-hidden="true"></i>
-            Find routes for jeepneys and buses
-          </li>
-          <li>
-            <i class="ri-check-line check-icon" aria-hidden="true"></i>
-            Check fares before you ride
-          </li>
-          <li>
-            <i class="ri-check-line check-icon" aria-hidden="true"></i>
-            Report issues and help fellow commuters
-          </li>
-        </ul>
-
+  <main class="lg-main">
+    <section class="lg-hero" aria-labelledby="lg-hero-title">
+      <div class="lg-hero__media" role="img" aria-label="Jeepney and city road in Cebu at warm daylight"></div>
+      <div class="lg-hero__veil" aria-hidden="true"></div>
+      <div class="lg-hero__copy">
+        <p class="lg-eyebrow">Cebu public transit</p>
+        <h1 class="lg-hero__title" id="lg-hero-title">Biyahero</h1>
+        <p class="lg-hero__sub">Plan jeepney and bus trips free. No account needed to search routes or fares.</p>
+        <div class="lg-hero__actions">
+          <a class="lg-btn lg-btn--orange lg-btn--lg" href="plan-trip.html">
+            Continue as Guest <i class="ri-arrow-right-up-line" aria-hidden="true"></i>
+          </a>
+          <a class="lg-btn lg-btn--glass lg-btn--lg" href="#login-panel">
+            Log in for reports
+          </a>
+        </div>
       </div>
+    </section>
 
-      <div class="auth-card auth-form-card">
-        <h2 class="auth-card__title">Log In</h2>
-        <p class="auth-card__sub">Welcome back! Please enter your details.</p>
+    <section class="lg-panel" id="login-panel" aria-labelledby="login-heading">
+      <div class="lg-panel__inner">
+        <div class="lg-aside">
+          <h2 class="lg-aside__title">Why log in?</h2>
+          <p class="lg-aside__text">Browsing stays open to everyone. An account is only for realtime reports so we can follow up and cut spam.</p>
+          <ul class="lg-list">
+            <li><i class="ri-route-line" aria-hidden="true"></i> Plan trips as Guest</li>
+            <li><i class="ri-wallet-3-line" aria-hidden="true"></i> Check fare estimates free</li>
+            <li><i class="ri-flag-line" aria-hidden="true"></i> Log in to send a realtime report</li>
+          </ul>
+        </div>
 
-        <form class="login-form" id="login-form" novalidate>
-          <div class="form-group">
-            <label for="login-email">Email Address</label>
-            <div class="input-wrap">
+        <div class="lg-card">
+          <h2 class="lg-card__title" id="login-heading">Log in</h2>
+          <p class="lg-card__sub">Welcome back. Use this when you need to send a report or open staff tools.</p>
+
+          <form class="lg-form" id="login-form" novalidate>
+            <div class="lg-field">
+              <label for="login-email">Email</label>
               <input type="email" id="login-email" name="email"
                      placeholder="name@example.com" autocomplete="username" required />
-              <span class="eye-toggle" aria-hidden="true">
-                <i class="ri-user-line"></i>
-              </span>
             </div>
-            <span class="field-error" id="email-error"></span>
-          </div>
 
-          <div class="form-group form-group--password">
-            <label for="login-password">Password</label>
-            <div class="input-wrap">
-              <input type="password" id="login-password" name="password"
-                     placeholder="Enter your password" autocomplete="current-password" required />
-              <span class="eye-btn" aria-hidden="true">
-                <i class="ri-eye-off-line" id="eye-icon"></i>
-              </span>
+            <div class="lg-field">
+              <label for="login-password">Password</label>
+              <div class="lg-input-wrap">
+                <input type="password" id="login-password" name="password"
+                       placeholder="Your password" autocomplete="current-password" required />
+                <button type="button" class="lg-eye" id="toggle-password" aria-label="Show password">
+                  <i class="ri-eye-off-line" id="eye-icon" aria-hidden="true"></i>
+                </button>
+              </div>
             </div>
-            <span class="field-error" id="pw-error"></span>
-          </div>
 
-          <p class="input-error-msg" id="login-error" role="alert" aria-live="polite"></p>
-          <button type="submit" class="btn btn-primary btn-full btn-lg login-submit">Log In</button>
-        </form>
+            <p class="lg-error" id="login-error" role="alert" aria-live="polite"></p>
 
-        <div class="auth-card__divider"></div>
-        <p class="auth-card__footer">
-          Don’t have an account? <a href="signup.html">Register</a>
-        </p>
+            <button type="submit" class="lg-btn lg-btn--orange lg-btn--full">Log in</button>
+          </form>
+
+          <p class="lg-card__foot">
+            New here?
+            <a href="commuter-signup.html">Sign up</a>
+            ·
+            <a href="plan-trip.html">Keep planning as Guest</a>
+          </p>
+        </div>
       </div>
-    </div>
+    </section>
   </main>
+
   <script src="../js/login-auth.js" defer></script>
+  <script>
+    (function () {
+      const btn = document.getElementById("toggle-password");
+      const input = document.getElementById("login-password");
+      const icon = document.getElementById("eye-icon");
+      btn?.addEventListener("click", () => {
+        const show = input.type === "password";
+        input.type = show ? "text" : "password";
+        icon.className = show ? "ri-eye-line" : "ri-eye-off-line";
+        btn.setAttribute("aria-label", show ? "Hide password" : "Show password");
+      });
+    })();
+  </script>
 </body>
 </html>

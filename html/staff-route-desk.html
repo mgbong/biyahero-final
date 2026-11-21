@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Staff Route Desk — Biyahero</title>
+  <link rel="preconnect" href="https://fonts.cdnfonts.com" />
+  <link href="https://fonts.cdnfonts.com/css/mona-sans" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.2.0/remixicon.min.css" />
+  <link rel="stylesheet" href="../css/shared.css" />
+  <link rel="stylesheet" href="../css/commuter.css" />
+  <link rel="stylesheet" href="../css/sm-shell.css" />
+  <link rel="stylesheet" href="../css/route-info.css" />
+</head>
+<body class="sm-body">
+  <a class="sm-skip" href="#main">Skip to content</a>
+  <div class="sm-page" id="app-shell">
+    <header class="sm-header">
+      <a class="sm-logo" href="operator-dashboard.html">Biyahero Staff</a>
+      <nav class="sm-pillnav" aria-label="Staff menu">
+        <a href="staff-route-desk.html" class="sm-pillnav__item is-active">Route desk</a>
+        <a href="operator-dashboard.html" class="sm-pillnav__item">Operator home</a>
+      </nav>
+      <div class="sm-header__right">
+        <div class="sm-user user-chip">
+          <div class="sm-user__avatar user-avatar">??</div>
+          <span class="sm-user__name user-name">Loading…</span>
+        </div>
+      </div>
+    </header>
+
+    <main class="sm-main" id="main">
+      <div class="page-body ri-body">
+        <h1>Route Information desk</h1>
+        <p class="ri-muted">Operators draft. Admins approve. Log in as operator@biyahero.com for admin review.</p>
+        <p id="staff-status" role="status"></p>
+
+        <div class="staff-grid">
+          <section class="staff-panel" aria-labelledby="q-title">
+            <h2 id="q-title">Approval queue</h2>
+            <div id="approval-queue">Loading…</div>
+          </section>
+
+          <section class="staff-panel" aria-labelledby="rr-title">
+            <h2 id="rr-title">Verified route change</h2>
+            <p class="staff-hint">Use this when the jeep path or stops really change. Admins publish as Verified right away.</p>
+            <form id="rr-form">
+              <label>Route code <input id="rr-code" placeholder="01K" required /></label>
+              <label>Change type
+                <select id="rr-type" required>
+                  <option value="temporary">Temporary</option>
+                  <option value="permanent">Permanent</option>
+                </select>
+              </label>
+              <label>Title <input id="rr-title-in" required /></label>
+              <label>Description <textarea id="rr-desc"></textarea></label>
+              <label>Detour stops (use |) <input id="rr-detour" placeholder="Colon | Ayala | IT Park" required /></label>
+              <label>Original stops (optional |) <input id="rr-original" placeholder="Colon | Fuente | Ayala" /></label>
+              <label>Source
+                <select id="rr-source">
+                  <option value="admin">Biyahero admin</option>
+                  <option value="operator">Operator desk</option>
+                  <option value="lgu">City / LGU notice</option>
+                </select>
+              </label>
+              <label>Starts (UTC ISO) <input id="rr-start" placeholder="2026-11-21T00:00:00Z" required /></label>
+              <label>Ends (optional) <input id="rr-end" /></label>
+              <label class="staff-check"><input type="checkbox" id="rr-ufn" /> Until further notice</label>
+              <button type="submit" class="sm-btn sm-btn--orange">Save route change</button>
+            </form>
+            <p id="rr-msg" role="status"></p>
+          </section>
+
+          <section class="staff-panel" aria-labelledby="adv-title">
+            <h2 id="adv-title">Traffic advisory</h2>
+            <p class="staff-hint">General delays, closures, weather — not a verified path change.</p>
+            <form id="adv-form">
+              <label>Type
+                <select id="adv-type" required>
+                  <option value="delay">Delay</option>
+                  <option value="road_closure">Road closure</option>
+                  <option value="service_suspension">Service suspension</option>
+                  <option value="reduced_frequency">Reduced frequency</option>
+                  <option value="weather">Weather</option>
+                  <option value="special_event">Special event</option>
+                </select>
+              </label>
+              <label>Severity
+                <select id="adv-sev" required>
+                  <option value="info">Info</option>
+                  <option value="warning" selected>Warning</option>
+                  <option value="critical">Critical</option>
+                </select>
+              </label>
+              <label>Title <input id="adv-title-in" required /></label>
+              <label>Description <textarea id="adv-desc" required></textarea></label>
+              <label>Route codes (comma) <input id="adv-routes" placeholder="01K,10C" /></label>
+              <label>Source
+                <select id="adv-source">
+                  <option value="operator">Operator desk</option>
+                  <option value="lgu">City / LGU notice</option>
+                  <option value="community">Community report</option>
+                  <option value="admin">Biyahero admin</option>
+                </select>
+              </label>
+              <label>Starts (UTC ISO) <input id="adv-start" placeholder="2026-11-21T00:00:00Z" required /></label>
+              <label>Ends (optional) <input id="adv-end" /></label>
+              <button type="submit" class="sm-btn sm-btn--orange">Save advisory</button>
+            </form>
+            <p id="adv-msg" role="status"></p>
+          </section>
+
+          <section class="staff-panel" aria-labelledby="rep-title">
+            <h2 id="rep-title">Report queue</h2>
+            <div class="ri-toolbar">
+              <input id="rep-q" placeholder="Search ref / text" />
+              <select id="rep-status">
+                <option value="">All statuses</option>
+                <option value="submitted">Submitted</option>
+                <option value="under_review">Under review</option>
+                <option value="approved">Approved</option>
+                <option value="rejected">Rejected</option>
+              </select>
+              <button type="button" class="trip-mini-btn" id="rep-reload">Refresh</button>
+            </div>
+            <div id="report-queue"></div>
+            <pre id="report-analytics" class="ri-muted"></pre>
+          </section>
+
+          <section class="staff-panel">
+            <h2>CSV import preview</h2>
+            <p class="ri-muted">Columns: code,name,mode,stops (pipe-separated)</p>
+            <textarea id="csv-in" rows="5" placeholder="code,name,mode,stops&#10;99Z,Test Line,jeepney,Colon Street|Ayala Center Cebu"></textarea>
+            <button type="button" class="sm-btn sm-btn--glass" id="csv-preview">Preview</button>
+            <pre id="csv-out"></pre>
+          </section>
+        </div>
+      </div>
+    </main>
+  </div>
+  <script src="../js/user.js"></script>
+  <script src="../js/staff-desk.js"></script>
+</body>
+</html>

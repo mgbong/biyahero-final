@@ -1,0 +1,262 @@
+/* Route Information + Advisories + Reports — flex wrap, no @media */
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+
+.ri-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+  margin: 16px 0;
+  width: 100%;
+}
+
+.ri-toolbar input,
+.ri-toolbar select {
+  flex: 1 1 180px;
+  min-height: 40px;
+  border-radius: 12px;
+  border: 1px solid rgba(13, 12, 34, 0.12);
+  padding: 8px 12px;
+  font: inherit;
+}
+
+.ri-banner {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 12px 14px;
+  border-radius: 16px;
+  margin-bottom: 10px;
+  background: #fff4d6;
+  color: #0d0c22;
+}
+
+.ri-banner--critical { background: #fde8e6; }
+.ri-banner--info { background: #e8f1ff; }
+
+.ri-card {
+  background: #fff;
+  border-radius: 20px;
+  padding: 16px;
+  margin-bottom: 12px;
+  box-shadow: rgba(0, 0, 0, 0.01) 0 2px 2px 0;
+}
+
+.ri-card__top {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 8px;
+  align-items: flex-start;
+}
+
+.ri-code {
+  display: inline-block;
+  font-weight: 800;
+  color: #ff7a00;
+  margin-right: 6px;
+}
+
+.ri-name {
+  display: inline;
+  font-size: 16px;
+  margin: 0;
+}
+
+.ri-badges { display: flex; flex-wrap: wrap; gap: 6px; }
+
+.ri-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 700;
+  background: #ecebf0;
+}
+
+.ri-badge--ok { background: #e8f6ee; color: #1f7a4c; }
+.ri-badge--warn { background: #fff4d6; color: #9a6b00; }
+.ri-badge--stale { background: #fde8e6; color: #b42318; }
+
+.ri-meta-row,
+.ri-adv-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 8px;
+  font-size: 12px;
+  color: #524b63;
+}
+
+.ri-chip {
+  display: inline-flex;
+  padding: 4px 8px;
+  border-radius: 999px;
+  background: #fff1e6;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.ri-details { margin-top: 10px; }
+.ri-details ol { margin: 8px 0; padding-left: 18px; }
+.ri-source, .ri-meta, .ri-muted { font-size: 12px; color: #9e9ea7; }
+.ri-dir { margin: 6px 0; color: #524b63; }
+
+.ri-empty {
+  padding: 24px;
+  border-radius: 16px;
+  background: #ecebf0;
+  text-align: center;
+}
+
+.ri-confirm {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 14px;
+  border-radius: 16px;
+  background: #e8f6ee;
+  margin-top: 12px;
+}
+
+.ri-gate {
+  padding: 20px;
+  border-radius: 20px;
+  background: #fff;
+  margin-bottom: 16px;
+}
+
+.ri-gate__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.ri-timeline { padding-left: 18px; font-size: 13px; }
+.ri-timeline em { color: #9e9ea7; font-style: normal; }
+
+#routes-grid, #updates-list, #my-reports-list, #reroutes-list {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  gap: 4px;
+  width: 100%;
+  max-width: 920px;
+}
+
+.page-body.ri-body {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding: 0 16px 40px;
+  max-width: 960px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.staff-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.staff-panel {
+  flex: 1 1 280px;
+  background: #fff;
+  border-radius: 20px;
+  padding: 16px;
+}
+
+/* Updates — verified vs traffic */
+.upd-meta {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 14px 16px;
+  border-radius: 16px;
+  background: #fff;
+  box-shadow: rgba(0, 0, 0, 0.01) 0 2px 2px 0;
+  margin-bottom: 8px;
+}
+
+.upd-meta__row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+
+.upd-section {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 16px;
+  width: 100%;
+}
+
+.upd-section__head {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.upd-section .section-title {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  font-size: 18px;
+}
+
+.upd-card--verified {
+  border-left: 4px solid #1f7a4c;
+}
+
+.upd-card--traffic {
+  border-left: 4px solid #ff7a00;
+}
+
+.upd-sources {
+  margin-top: 20px;
+}
+
+.upd-sources summary {
+  cursor: pointer;
+  font-weight: 700;
+  color: #0d0c22;
+}
+
+.upd-sources ul {
+  margin: 10px 0 0;
+  padding-left: 18px;
+}
+
+.staff-hint {
+  margin: 0 0 12px;
+  color: rgba(13, 12, 34, 0.65);
+  font-size: 14px;
+  line-height: 1.45;
+}
+
+.staff-check {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}

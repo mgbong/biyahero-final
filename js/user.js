@@ -55,7 +55,7 @@
   // ── 3. Populate greeting card name ────────────────────────────────────
   const firstName = (user.fullname || "").split(" ")[0];
 
-  // Commuter greeting:  "Good morning, Maya!"
+  // Commuter greeting
   const commuterGreeting = document.querySelector(".greeting-card__name");
   if (commuterGreeting) {
     const hour = new Date().getHours();

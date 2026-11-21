@@ -3,141 +3,122 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Report an Issue — Biyahero</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <title>Report a Problem — Biyahero</title>
+  <link rel="preconnect" href="https://fonts.cdnfonts.com" />
+  <link href="https://fonts.cdnfonts.com/css/mona-sans" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.2.0/remixicon.min.css" />
   <link rel="stylesheet" href="../css/shared.css" />
   <link rel="stylesheet" href="../css/commuter.css" />
-  <link rel="stylesheet" href="../css/static-inline.css">
+  <link rel="stylesheet" href="../css/sm-shell.css" />
+  <link rel="stylesheet" href="../css/route-info.css" />
 </head>
-<body>
+<body class="sm-body">
+  <a class="sm-skip" href="#main">Skip to content</a>
 
-
-
-  <div class="app-shell" id="app-shell">
-
-
-    <aside class="sidebar" role="navigation" aria-label="Commuter navigation">
-      <a class="sidebar-brand" href="dashboard.html">
-        <span class="sidebar-brand-mark" aria-hidden="true"><i class="ri-bus-line"></i></span>
-        Biyahero
-      </a>
-      <nav class="sidebar-nav">
-        <a href="dashboard.html"><i class="ri-dashboard-line"></i> Dashboard</a>
-        <a href="plan-trip.html"><i class="ri-route-line"></i> Plan Trip</a>
-        <a href="fare-guide.html"><i class="ri-wallet-3-line"></i> Fare Guide</a>
-        <a href="routes.html"><i class="ri-map-2-line"></i> Routes</a>
-        <a href="updates.html"><i class="ri-traffic-light-line"></i> Traffic Updates</a>
-        <a href="report.html" class="active"><i class="ri-flag-line"></i> Report Issue</a>
-        <a href="feedback.html"><i class="ri-feedback-line"></i> Feedback</a>
-        <a href="commuter-profile.html"><i class="ri-user-line"></i> Profile</a>
+  <div class="sm-page" id="app-shell">
+    <header class="sm-header">
+      <a class="sm-logo" href="dashboard.html" aria-label="Biyahero home">Biyahero</a>
+      <nav class="sm-pillnav" aria-label="Main menu">
+        <a href="dashboard.html" class="sm-pillnav__item">Home</a>
+        <a href="plan-trip.html" class="sm-pillnav__item">Plan Trip</a>
+        <a href="routes.html" class="sm-pillnav__item">Routes</a>
+        <a href="fare-guide.html" class="sm-pillnav__item">Fares</a>
+        <a href="updates.html" class="sm-pillnav__item">Updates</a>
+        <a href="commuter-profile.html" class="sm-pillnav__item">Profile</a>
       </nav>
-      <div class="sidebar-footer">
-        <a class="btn-logout" href="#"><i class="ri-logout-box-line"></i> Log Out</a>
+      <div class="sm-header__right">
+        <div class="sm-user user-chip" title="Your account">
+          <div class="sm-user__avatar user-avatar" aria-hidden="true">??</div>
+          <span class="sm-user__name user-name">Loading…</span>
+        </div>
+        <button type="button" class="sm-iconbtn btn-logout" aria-label="Log out">
+          <i class="ri-logout-box-r-line" aria-hidden="true"></i>
+        </button>
       </div>
-    </aside>
+    </header>
 
-    <div class="main-content">
-      <header class="page-header">
-        <div class="page-header-left">
-          <span class="breadcrumb-current">Report an Issue</span>
+    <main class="sm-main" id="main">
+      <section class="sm-page-hero" aria-labelledby="page-hero-title">
+        <div class="sm-page-hero__media" aria-hidden="true"></div>
+        <div class="sm-page-hero__copy">
+          <p class="sm-page-hero__eyebrow">Help the map</p>
+          <h1 class="sm-page-hero__title" id="page-hero-title">Report a problem</h1>
+          <p class="sm-page-hero__sub">Send a realtime note about traffic, detours, or wrong info. You only need an account here.</p>
         </div>
-        <div class="page-header-right">
-          <div class="user-chip">
-            <div class="user-avatar">??</div>
-            <span class="user-name">Loading…</span>
+      </section>
+
+      <div class="page-body ri-body">
+        <div id="guest-gate" class="ri-gate" hidden>
+          <h2>Log in to send a realtime report</h2>
+          <p>Browsing and planning stay free. An account is only for reports so we can follow up and cut spam. Your draft is kept when you come back.</p>
+          <div class="ri-gate__actions">
+            <a class="sm-btn sm-btn--orange" data-login href="../html/login.html">Log in</a>
+            <a class="sm-btn sm-btn--glass" data-signup href="../html/commuter-signup.html">Sign up</a>
+            <a class="sm-btn sm-btn--glass" href="plan-trip.html">Keep planning as Guest</a>
           </div>
         </div>
-      </header>
 
-      <main class="page-body">
+        <div id="form-section" hidden>
+          <form id="report-form" class="ri-card" novalidate>
+            <div id="form-error" class="input-error-msg" role="alert" hidden></div>
+            <div id="similar-box" class="ri-banner" hidden></div>
 
-
-        <div id="form-section">
-          <div class="card static-inline-021">
-            <h2 class="section-title static-inline-011">Submit a Report</h2>
-
-            <div id="form-error" class="input-error-msg"></div>
-
-            <div class="static-inline-030">
-              <div class="form-group">
-                <label for="report-type">Report Type *</label>
-                <select id="report-type" disabled>
-                  <option value="" disabled selected>Select report type</option>
-                  <option value="Overcrowding">Overcrowding</option>
-                  <option value="Route Deviation">Route Deviation</option>
-                  <option value="Vehicle Breakdown">Vehicle Breakdown</option>
-                  <option value="Unsafe Driving">Unsafe Driving</option>
-                  <option value="Fare Overcharge">Fare Overcharge</option>
-                  <option value="Missing Trip">Missing Trip</option>
-                  <option value="Other">Other</option>
-                </select>
-              </div>
-
-              <div class="form-group">
-                <label for="location">Location/City *</label>
-                <select id="location" disabled>
-                  <option value="" disabled selected>Select city</option>
-                  <option value="Cebu City">Cebu City</option>
-                  <option value="Mandaue City">Mandaue City</option>
-                  <option value="Lapu-Lapu City">Lapu-Lapu City</option>
-                  <option value="Talisay City">Talisay City</option>
-                  <option value="Minglanilla">Minglanilla</option>
-                </select>
-              </div>
-
-              <div class="form-group">
-                <label for="related-route">Related Route</label>
-                <select id="related-route" disabled>
-                  <option value="Not route-specific">Not route-specific</option>
-                </select>
-              </div>
-
-              <div class="form-group">
-                <label for="transport-mode">Transportation Mode</label>
-                <select id="transport-mode" disabled>
-                  <option value="Not specified">Not specified</option>
-                  <option value="Traditional Jeepney">Traditional Jeepney</option>
-                  <option value="Modern Jeepney">Modern Jeepney</option>
-                  <option value="Bus">Bus</option>
-                </select>
-              </div>
-
-              <div class="form-group">
-                <label for="incident-datetime">Date &amp; Time *</label>
-                <input type="datetime-local" id="incident-datetime" readonly />
+            <div class="form-group">
+              <label for="report-category">Category *</label>
+              <select id="report-category" required>
+                <option value="">Pick one</option>
+                <option value="incorrect_stop">Incorrect stop</option>
+                <option value="missing_stop">Missing stop</option>
+                <option value="outdated_fare">Outdated fare information</option>
+                <option value="route_change">Route change or detour not shown</option>
+                <option value="service_disruption">Service disruption or road closure</option>
+                <option value="other">Other route-related concern</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="report-route">Affected route code</label>
+              <input id="report-route" type="text" placeholder="e.g. 01K" autocomplete="off" />
+            </div>
+            <div class="form-group">
+              <label for="report-stop">Affected stop</label>
+              <input id="report-stop" type="text" placeholder="Stop name" autocomplete="off" />
+            </div>
+            <div class="form-group">
+              <label for="report-desc">What happened? *</label>
+              <textarea id="report-desc" rows="4" required placeholder="Short, clear description"></textarea>
+            </div>
+            <div class="form-group">
+              <label for="report-suggest">Suggested correction</label>
+              <textarea id="report-suggest" rows="2" placeholder="e.g. correct fare or new stop name"></textarea>
+            </div>
+            <div class="form-group">
+              <label for="report-when">When did you see this?</label>
+              <input id="report-when" type="datetime-local" />
+            </div>
+            <div class="form-group">
+              <label>Map pin (optional)</label>
+              <div class="ri-toolbar">
+                <input id="report-lat" type="text" placeholder="Latitude" aria-label="Latitude" />
+                <input id="report-lng" type="text" placeholder="Longitude" aria-label="Longitude" />
+                <button type="button" class="trip-mini-btn" id="use-my-location">Use my location</button>
               </div>
             </div>
-
-            <div class="form-group static-inline-013">
-              <label for="description">Description * <span class="static-inline-025">(min. 20 characters)</span></label>
-              <textarea id="description" rows="4" placeholder="Describe the issue in detail…" minlength="20" readonly></textarea>
+            <div class="form-group">
+              <label for="report-photos">Photos (max 3, 5 MB each)</label>
+              <input id="report-photos" type="file" accept="image/*" multiple />
             </div>
-
-            <span class="btn btn-primary static-inline-031">
-              <i class="ri-send-plane-line"></i> Submit Report
-            </span>
-          </div>
+            <button type="submit" class="sm-btn sm-btn--orange">Send report</button>
+          </form>
+          <div id="report-confirm" hidden></div>
         </div>
 
-
-        <section class="section" aria-labelledby="my-reports-heading">
-          <div class="section-head">
-            <h2 class="section-title" id="my-reports-heading">My Reports</h2>
-          </div>
-          <div id="my-reports-container">
-            <div class="table-wrap"><table class="data-table"><thead><tr><th scope="col">Date</th><th scope="col">Report Type</th><th scope="col">Location</th><th scope="col">Description</th><th scope="col">Status</th></tr></thead><tbody>
-              <tr><td>October 14, 2026</td><td>Traffic Congestion</td><td>Osmeña Boulevard, Cebu City</td><td>Slow traffic near Fuente Osmeña Circle during the morning commute.</td><td><span class="badge badge-warning">Under Review</span></td></tr>
-              <tr><td>October 10, 2026</td><td>Road Condition</td><td>Tabunok, Talisay City</td><td>Temporary road works near the market approach.</td><td><span class="badge badge-success">Acknowledged</span></td></tr>
-            </tbody></table></div>
-          </div>
-        </section>
-
-      </main>
-    </div>
+        <h2 class="section-title">My reports</h2>
+        <div id="my-reports-list" aria-live="polite"></div>
+        <div id="report-detail" class="ri-card" hidden></div>
+      </div>
+    </main>
   </div>
-  <script src="../js/user.js" defer></script>
+  <script src="../js/user-soft.js"></script>
+  <script src="../js/user-reports.js"></script>
 </body>
 </html>

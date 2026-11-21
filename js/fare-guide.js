@@ -1,75 +1,113 @@
-const fareRoutes = {
-  "lahug|colon": {
-    labels: ["Lahug", "Colon"],
-    fares: { jeepney: [13, 20], habal: [25, 40], taxi: [120, 200] },
-  },
-  "colon|sm-city": {
-    labels: ["Colon", "SM City Cebu"],
-    fares: { jeepney: [15, 15], habal: [35, 55], taxi: [90, 130] },
-  },
-  "parkmall|it-park": {
-    labels: ["Parkmall", "IT Park"],
-    fares: { jeepney: [15, 15], habal: [35, 55], taxi: [120, 180] },
-  },
-  "tabunok|south-terminal": {
-    labels: ["Tabunok", "Cebu South Bus Terminal"],
-    fares: { jeepney: [15, 20], habal: [45, 70], taxi: [180, 260] },
-  },
-  "basak|airport": {
-    labels: ["Basak", "Mactan-Cebu International Airport"],
-    fares: { jeepney: [20, 20], habal: [40, 65], taxi: [100, 160] },
-  },
-};
-
+/**
+ * fare-guide.js — live fare estimates via /api/fares/estimate
+ */
 const fareForm = document.querySelector("#fare-form");
-const fareFrom = document.querySelector("#fare-from");
-const fareTo = document.querySelector("#fare-to");
-const passengerType = document.querySelector("#passenger-type");
 const fareError = document.querySelector("#fare-error");
+const passengerType = document.querySelector("#passenger-type");
+const fareTotal = document.querySelector("#fare-total");
+const fareRouteLabel = document.querySelector("#fare-route-label");
+const fareBreakdown = document.querySelector("#fare-breakdown");
+const fareMeta = document.querySelector("#fare-meta");
 
-function formatFareRange([minimum, maximum], discount) {
-  const discountedMinimum = Math.round(minimum * discount);
-  const discountedMaximum = Math.round(maximum * discount);
-  return discountedMinimum === discountedMaximum
-    ? `₱${discountedMinimum}`
-    : `₱${discountedMinimum} - ₱${discountedMaximum}`;
+function setError(msg) {
+  if (!fareError) return;
+  fareError.textContent = msg || "";
+  fareError.classList.toggle("is-visible", Boolean(msg));
 }
 
-function calculateFare() {
-  const route = fareRoutes[`${fareFrom.value}|${fareTo.value}`];
-  if (!route) {
-    document.querySelector("#fare-total").textContent = "—";
-    document.querySelector("#fare-route-label").textContent = "No sample fare available for this route";
-    document.querySelector("#jeepney-fare").textContent = "—";
-    document.querySelector("#habal-fare").textContent = "—";
-    document.querySelector("#taxi-fare").textContent = "—";
-    fareError.textContent = "No sample fare is available for this origin and destination. Choose a listed sample route.";
-    fareError.classList.add("is-visible");
+async function estimate() {
+  setError("");
+  const from = window.LocationPickers?.["fare-from-picker"]?.getSelected();
+  const to = window.LocationPickers?.["fare-to-picker"]?.getSelected();
+  if (!from?.lat || !to?.lat) {
+    setError("Please choose From and To from the search list.");
     return;
   }
 
-  const discount = passengerType.value === "regular" ? 1 : 0.8;
-  const fareRanges = {
-    jeepney: formatFareRange(route.fares.jeepney, discount),
-    habal: formatFareRange(route.fares.habal, discount),
-    taxi: formatFareRange(route.fares.taxi, discount),
-  };
+  const btn = document.querySelector("#fare-submit");
+  if (btn) {
+    btn.disabled = true;
+    btn.textContent = "Calculating…";
+  }
 
-  document.querySelector("#jeepney-fare").textContent = fareRanges.jeepney;
-  document.querySelector("#habal-fare").textContent = fareRanges.habal;
-  document.querySelector("#taxi-fare").textContent = fareRanges.taxi;
-  document.querySelector("#fare-total").textContent = fareRanges.jeepney;
-  document.querySelector("#fare-route-label").textContent =
-    `${route.labels[0]} to ${route.labels[1]} · ${passengerType.options[passengerType.selectedIndex].text} passenger`;
-  fareError.textContent = "";
-  fareError.classList.remove("is-visible");
+  try {
+    const res = await fetch("/api/fares/estimate", {
+      method: "POST",
+      credentials: "same-origin",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        from,
+        to,
+        passenger: passengerType?.value || "regular",
+      }),
+    });
+    const data = await res.json();
+    if (!data.ok) {
+      setError(data.error || "Could not estimate fare.");
+      return;
+    }
+    if (!data.found) {
+      fareTotal.textContent = "—";
+      fareRouteLabel.textContent = "No route found for this trip";
+      fareBreakdown.innerHTML = `<ul>${(data.suggestions || [])
+        .map((s) => `<li>${s}</li>`)
+        .join("")}</ul>`;
+      fareMeta.textContent = "";
+      return;
+    }
+
+    const r = data.route;
+    fareTotal.textContent = r.fare_label || "—";
+    fareTotal.setAttribute(
+      "aria-label",
+      r.fare_summary?.aria_label || `Estimated fare ${r.fare_label}`
+    );
+    fareRouteLabel.textContent = `${r.mode_chain} · About ${r.duration_min} min · ${
+      passengerType?.options[passengerType.selectedIndex]?.text || "Regular"
+    }`;
+
+    fareBreakdown.innerHTML = `
+      <p><strong>Time:</strong> ${r.time_label || "—"}
+        (ride ${r.time_breakdown?.riding_min ?? "—"} /
+         walk ${r.time_breakdown?.walking_min ?? "—"} /
+         wait ${r.time_breakdown?.waiting_min ?? "—"} min)</p>
+      <ul>
+        ${(r.legs || [])
+          .map((leg) => {
+            if (leg.type === "walk") {
+              return `<li>Walk · ${leg.fare?.label || "Est. fare ₱0"} · ~${leg.duration_min} min</li>`;
+            }
+            return `<li>${leg.line_code || leg.mode} · ${leg.fare?.label || "Fare unavailable"} · ~${leg.duration_min} min</li>`;
+          })
+          .join("")}
+      </ul>`;
+
+    const meta = data.meta || {};
+    fareMeta.textContent = `Fare data updated: ${meta.fare_updated_at || "—"}`;
+
+    if (data.alternatives?.length > 1) {
+      fareBreakdown.innerHTML += `<p class="ri-muted"><strong>Other options:</strong> ${data.alternatives
+        .slice(1)
+        .map((a) => `${a.mode_chain} (${a.fare_label})`)
+        .join(" · ")}</p>`;
+    }
+  } catch {
+    setError("No internet or server error. Try again.");
+  } finally {
+    if (btn) {
+      btn.disabled = false;
+      btn.textContent = "Calculate Fare";
+    }
+  }
 }
 
-fareForm.addEventListener("submit", (event) => {
-  event.preventDefault();
-  calculateFare();
+fareForm?.addEventListener("submit", (e) => {
+  e.preventDefault();
+  estimate();
 });
 
-fareFrom.addEventListener("change", calculateFare);
-fareTo.addEventListener("change", calculateFare);
-passengerType.addEventListener("change", calculateFare);
+passengerType?.addEventListener("change", () => {
+  const from = window.LocationPickers?.["fare-from-picker"]?.getSelected();
+  const to = window.LocationPickers?.["fare-to-picker"]?.getSelected();
+  if (from && to) estimate();
+});

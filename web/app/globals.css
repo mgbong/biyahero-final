@@ -1,0 +1,24 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-text: #0d0c22;
+  --color-muted: #524b63;
+  --color-page: #f3f2f6;
+  --color-surface: #ffffff;
+  --color-accent: #ff7a00;
+  --color-accent-soft: #fff1e6;
+  --color-border: rgba(13, 12, 34, 0.12);
+}
+
+body {
+  color: var(--color-text);
+  background: var(--color-page);
+  font-family: var(--font-sans), "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}

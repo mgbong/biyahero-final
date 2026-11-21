@@ -4,23 +4,28 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>My Profile — Biyahero</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="preconnect" href="https://fonts.cdnfonts.com" />
+  <link href="https://fonts.cdnfonts.com/css/mona-sans" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.2.0/remixicon.min.css" />
-  <link rel="stylesheet" href="../css/shared.css" />
+<link rel="stylesheet" href="../css/shared.css" />
   <link rel="stylesheet" href="../css/commuter.css" />
-  <link rel="stylesheet" href="../css/static-inline.css">
-  <style>
-    /* ── Profile layout ─────────────────────────────────── */
+  <link rel="stylesheet" href="../css/static-inline.css" />
+<style>
+    /* ── Profile layout (flex wrap, no @media) ──────────── */
     .profile-grid {
-      display: grid;
-      grid-template-columns: 280px 1fr;
+      display: flex;
+      flex-wrap: wrap;
       gap: 20px;
-      align-items: start;
+      align-items: flex-start;
+      width: 100%;
     }
-    @media (max-width: 768px) {
-      .profile-grid { grid-template-columns: 1fr; }
+    .profile-grid > .profile-id-card {
+      flex: 1 1 240px;
+      max-width: 320px;
+    }
+    .profile-grid > .profile-edit-card {
+      flex: 2 1 360px;
+      min-width: 0;
     }
 
     /* ── Identity card (left column) ────────────────────── */
@@ -101,10 +106,14 @@
       margin: 20px 0;
     }
     .profile-form-row {
-      display: grid; grid-template-columns: 1fr 1fr; gap: 14px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      width: 100%;
     }
-    @media (max-width: 540px) {
-      .profile-form-row { grid-template-columns: 1fr; }
+    .profile-form-row > .profile-form-group {
+      flex: 1 1 180px;
+      min-width: 0;
     }
     .profile-save-btn {
       display: inline-flex; align-items: center; gap: 8px;
@@ -127,45 +136,62 @@
     .profile-feedback--ok    { color: #16a34a; }
     .profile-feedback--error { color: #dc2626; }
   </style>
+  <link rel="stylesheet" href="../css/sm-shell.css" />
 </head>
-<body>
-  <div class="app-shell" id="app-shell">
+<body class="sm-body">
+  <a class="sm-skip" href="#main">Skip to content</a>
 
-    <aside class="sidebar" role="navigation" aria-label="Commuter navigation">
-      <a class="sidebar-brand" href="dashboard.html">
-        <span class="sidebar-brand-mark" aria-hidden="true"><i class="ri-bus-line"></i></span>
-        Biyahero
-      </a>
-      <nav class="sidebar-nav">
-        <a href="dashboard.html"><i class="ri-dashboard-line"></i> Dashboard</a>
-        <a href="plan-trip.html"><i class="ri-route-line"></i> Plan Trip</a>
-        <a href="fare-guide.html"><i class="ri-wallet-3-line"></i> Fare Guide</a>
-        <a href="routes.html"><i class="ri-map-2-line"></i> Routes</a>
-        <a href="updates.html"><i class="ri-traffic-light-line"></i> Traffic Updates</a>
-        <a href="report.html"><i class="ri-flag-line"></i> Report Issue</a>
-        <a href="feedback.html"><i class="ri-feedback-line"></i> Feedback</a>
-        <a href="commuter-profile.html" class="active"><i class="ri-user-line"></i> Profile</a>
+  <div class="sm-page" id="app-shell">
+    <header class="sm-header">
+      <a class="sm-logo" href="dashboard.html" aria-label="Biyahero home">Biyahero</a>
+
+      <nav class="sm-pillnav" aria-label="Main menu">
+        <a href="dashboard.html" class="sm-pillnav__item">Home</a>
+        <a href="plan-trip.html" class="sm-pillnav__item">Plan Trip</a>
+        <a href="routes.html" class="sm-pillnav__item">Routes</a>
+        <a href="fare-guide.html" class="sm-pillnav__item">Fares</a>
+        <a href="updates.html" class="sm-pillnav__item">Updates</a>
+        <a href="commuter-profile.html" class="sm-pillnav__item is-active" aria-current="page">Profile</a>
       </nav>
-      <div class="sidebar-footer">
-        <a class="btn-logout" href="#"><i class="ri-logout-box-line"></i> Log Out</a>
-      </div>
-    </aside>
 
-    <div class="main-content">
-      <header class="page-header">
-        <div class="page-header-left">
-          <span class="breadcrumb-current">My Profile</span>
+      <div class="sm-header__right">
+        <div class="sm-user user-chip" title="Your account">
+          <div class="sm-user__avatar user-avatar" aria-hidden="true">??</div>
+          <span class="sm-user__name user-name">Loading…</span>
         </div>
-        <div class="page-header-right">
-          <div class="user-chip">
-            <div class="user-avatar">??</div>
-            <span class="user-name">Loading…</span>
+        <button type="button" class="sm-iconbtn btn-logout" aria-label="Log out">
+          <i class="ri-logout-box-r-line" aria-hidden="true"></i>
+        </button>
+      </div>
+    </header>
+
+    <main class="sm-main" id="main">
+      <section class="sm-page-hero" aria-labelledby="page-hero-title">
+        <div class="sm-page-hero__media" aria-hidden="true"></div>
+        <div class="sm-page-hero__copy">
+          <p class="sm-page-hero__eyebrow">Your account</p>
+          <h1 class="sm-page-hero__title" id="page-hero-title">My Profile</h1>
+          <p class="sm-page-hero__sub">Optional account details. You can plan trips as a guest — log in mainly to send realtime reports.</p>
+          <div class="sm-page-hero__actions">
+            <a class="sm-btn sm-btn--orange" href="plan-trip.html">Plan a Trip <i class="ri-arrow-right-up-line" aria-hidden="true"></i></a>
+            <a class="sm-btn sm-btn--glass" href="dashboard.html">Back Home <i class="ri-arrow-right-up-line" aria-hidden="true"></i></a>
           </div>
         </div>
-      </header>
+      </section>
 
-      <main class="page-body">
-        <div class="profile-grid">
+<div class="page-body">
+
+        <div id="profile-guest-gate" class="ri-gate" hidden style="margin:16px;max-width:640px;">
+          <h2>You are browsing as Guest</h2>
+          <p>No account needed for Plan Trip, Routes, Fares, or Updates. Log in or Sign up when you want to send a realtime report or keep a profile.</p>
+          <div class="ri-gate__actions">
+            <a class="sm-btn sm-btn--orange" href="login.html?next=/html/commuter-profile.html">Log in</a>
+            <a class="sm-btn sm-btn--glass" href="commuter-signup.html?next=/html/commuter-profile.html">Sign up</a>
+            <a class="sm-btn sm-btn--glass" href="plan-trip.html">Keep planning</a>
+          </div>
+        </div>
+
+        <div class="profile-grid" id="profile-content">
 
           <!-- Left: identity card -->
           <div class="profile-id-card">
@@ -234,19 +260,28 @@
           </div>
 
         </div>
-      </main>
-    </div>
+      
+      </div>
+    </main>
   </div>
-
-  <script src="../js/user.js"></script>
+<script src="../js/user-soft.js"></script>
+  <link rel="stylesheet" href="../css/route-info.css" />
   <script>
-    // Wait for user.js to populate window.biyaheroUser, then fill the form
+    // Guest-friendly: no forced login redirect
     (function waitForUser(retries) {
       const user = window.biyaheroUser;
-      if (!user && retries > 0) {
+      if (user === undefined && retries > 0) {
         return setTimeout(() => waitForUser(retries - 1), 80);
       }
-      if (!user) return;
+      const gate = document.getElementById("profile-guest-gate");
+      const content = document.getElementById("profile-content");
+      if (!user) {
+        if (gate) gate.hidden = false;
+        if (content) content.hidden = true;
+        return;
+      }
+      if (gate) gate.hidden = true;
+      if (content) content.hidden = false;
       populateForm(user);
     })(25);
 

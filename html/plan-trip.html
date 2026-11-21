@@ -4,260 +4,202 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Plan a Trip — Biyahero</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="preconnect" href="https://fonts.cdnfonts.com" />
+  <link href="https://fonts.cdnfonts.com/css/mona-sans" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.2.0/remixicon.min.css" />
   <link rel="stylesheet" href="../css/shared.css" />
   <link rel="stylesheet" href="../css/commuter.css" />
-  <link rel="stylesheet" href="../css/static-inline.css" />
   <link rel="stylesheet" href="../api/leaflet/dist/leaflet.css" />
-  <style>
-    /* ── Location form layout ──────────────────────────── */
-    .trip-location-row {
-      display: grid;
-      grid-template-columns: 1fr 40px 1fr;
-      gap: 10px;
-      align-items: end;
-      margin-bottom: 14px;
-    }
-    @media (max-width: 600px) {
-      .trip-location-row {
-        grid-template-columns: 1fr;
-      }
-      .swap-btn-wrap { order: 2; display: flex; justify-content: center; }
-    }
-
-    /* ── Swap button ───────────────────────────────────── */
-    .swap-btn {
-      width: 38px; height: 38px;
-      border-radius: 50%;
-      border: 2px solid #e5e7eb;
-      background: #fff;
-      display: flex; align-items: center; justify-content: center;
-      cursor: pointer;
-      color: #111A41;
-      font-size: 17px;
-      transition: background 150ms, border-color 150ms, transform 150ms;
-      flex-shrink: 0;
-    }
-    .swap-btn:hover {
-      background: #f0f2f8;
-      border-color: #111A41;
-    }
-    .swap-btn--spinning {
-      animation: spin-once 0.35s ease;
-    }
-    @keyframes spin-once {
-      from { transform: rotate(0deg); }
-      to   { transform: rotate(180deg); }
-    }
-
-    /* ── Picker wrapper ────────────────────────────────── */
-    .trip-picker-wrap {
-      position: relative;
-    }
-    .trip-picker-wrap label {
-      display: block;
-      font-size: 12px; font-weight: 600;
-      color: #6b7280;
-      text-transform: uppercase;
-      letter-spacing: .5px;
-      margin-bottom: 6px;
-    }
-    .trip-picker-inner {
-      position: relative;
-    }
-    .trip-picker-icon {
-      position: absolute;
-      left: 11px; top: 50%;
-      transform: translateY(-50%);
-      font-size: 15px;
-      color: #9ca3af;
-      pointer-events: none;
-      z-index: 1;
-    }
-    .trip-picker-inner input[data-location-input] {
-      width: 100%; box-sizing: border-box;
-      padding: 10px 12px 10px 32px;
-      border: 1.5px solid #d1d5db;
-      border-radius: 8px;
-      font-size: 14px; font-family: inherit;
-      color: #111827; background: #fff;
-      transition: border-color 150ms, box-shadow 150ms;
-    }
-    .trip-picker-inner input[data-location-input]:focus {
-      outline: none;
-      border-color: #111A41;
-      box-shadow: 0 0 0 3px rgba(17,26,65,.1);
-    }
-    .trip-picker-inner input.loc-input--error {
-      border-color: #dc2626;
-      box-shadow: 0 0 0 3px rgba(220,38,38,.1);
-    }
-    .loc-field-error {
-      font-size: 12px; color: #dc2626;
-      margin-top: 4px; min-height: 16px;
-    }
-
-    /* ── Validation banner ─────────────────────────────── */
-    .trip-validation-msg {
-      display: flex; align-items: center; gap: 8px;
-      background: #fef2f2;
-      border: 1px solid #fca5a5;
-      border-radius: 8px;
-      padding: 10px 14px;
-      font-size: 13px; font-weight: 500;
-      color: #dc2626;
-      margin-bottom: 12px;
-    }
-    .trip-validation-msg[hidden] { display: none; }
-
-    /* ── Find routes button ────────────────────────────── */
-    .trip-commute-btn {
-      display: inline-flex; align-items: center; gap: 8px;
-    }
-
-    /* ── Mark highlight in dropdown ────────────────────── */
-    .loc-dropdown mark {
-      background: #fef08a;
-      color: inherit;
-      border-radius: 2px;
-      padding: 0 1px;
-    }
-  </style>
+  <link rel="stylesheet" href="../css/route-search.css" />
+  <link rel="stylesheet" href="../css/sm-shell.css" />
 </head>
-<body>
-  <div class="app-shell" id="app-shell">
+<body class="sm-body">
+  <a class="sm-skip" href="#main">Skip to content</a>
 
-    <aside class="sidebar" role="navigation" aria-label="Commuter navigation">
-      <a class="sidebar-brand" href="dashboard.html">
-        <span class="sidebar-brand-mark" aria-hidden="true"><i class="ri-bus-line"></i></span>
-        Biyahero
-      </a>
-      <nav class="sidebar-nav">
-        <a href="dashboard.html"><i class="ri-dashboard-line"></i> Dashboard</a>
-        <a href="plan-trip.html" class="active"><i class="ri-route-line"></i> Plan Trip</a>
-        <a href="fare-guide.html"><i class="ri-wallet-3-line"></i> Fare Guide</a>
-        <a href="routes.html"><i class="ri-map-2-line"></i> Routes</a>
-        <a href="updates.html"><i class="ri-traffic-light-line"></i> Traffic Updates</a>
-        <a href="report.html"><i class="ri-flag-line"></i> Report Issue</a>
-        <a href="feedback.html"><i class="ri-feedback-line"></i> Feedback</a>
-        <a href="commuter-profile.html"><i class="ri-user-line"></i> Profile</a>
+  <div class="sm-page" id="app-shell">
+    <header class="sm-header">
+      <a class="sm-logo" href="dashboard.html" aria-label="Biyahero home">Biyahero</a>
+
+      <nav class="sm-pillnav" aria-label="Main menu">
+        <a href="dashboard.html" class="sm-pillnav__item">Home</a>
+        <a href="plan-trip.html" class="sm-pillnav__item is-active" aria-current="page">Plan Trip</a>
+        <a href="routes.html" class="sm-pillnav__item">Routes</a>
+        <a href="fare-guide.html" class="sm-pillnav__item">Fares</a>
+        <a href="updates.html" class="sm-pillnav__item">Updates</a>
+        <a href="commuter-profile.html" class="sm-pillnav__item">Profile</a>
       </nav>
-      <div class="sidebar-footer">
-        <!-- href="#" so user.js can intercept and POST /api/logout -->
-        <a class="btn-logout" href="#"><i class="ri-logout-box-line"></i> Log Out</a>
-      </div>
-    </aside>
 
-    <div class="main-content">
-
-      <header class="page-header">
-        <div class="page-header-left">
-          <span class="breadcrumb-current">Plan a Trip</span>
+      <div class="sm-header__right">
+        <div class="sm-user user-chip" title="Your account">
+          <div class="sm-user__avatar user-avatar" aria-hidden="true">??</div>
+          <span class="sm-user__name user-name">Loading…</span>
         </div>
-        <div class="page-header-right">
-          <!-- Populated by user.js -->
-          <div class="user-chip">
-            <div class="user-avatar">??</div>
-            <span class="user-name">Loading…</span>
+        <button type="button" class="sm-iconbtn btn-logout" aria-label="Log out">
+          <i class="ri-logout-box-r-line" aria-hidden="true"></i>
+        </button>
+      </div>
+    </header>
+
+    <main class="sm-main" id="main">
+      <section class="sm-page-hero" aria-labelledby="page-hero-title">
+        <div class="sm-page-hero__media" aria-hidden="true"></div>
+        <div class="sm-page-hero__copy">
+          <p class="sm-page-hero__eyebrow">Trip planner</p>
+          <h1 class="sm-page-hero__title" id="page-hero-title">Plan a Trip</h1>
+          <p class="sm-page-hero__sub">Pick where you start and where you go. See clear route steps.</p>
+          <div class="sm-page-hero__actions">
+            <a class="sm-btn sm-btn--orange" href="#find-routes-btn">Find Routes <i class="ri-arrow-right-up-line" aria-hidden="true"></i></a>
+            <a class="sm-btn sm-btn--glass" href="routes.html">Browse Routes <i class="ri-arrow-right-up-line" aria-hidden="true"></i></a>
           </div>
         </div>
-      </header>
+      </section>
 
-      <main class="page-body plan-commute-only">
+<div class="page-body plan-commute-only">
 
         <section class="trip-commute-panel" aria-labelledby="trip-commute-title">
           <h2 class="trip-commute-panel__title" id="trip-commute-title">Plan Your Commute</h2>
+          <p class="sm-page-sub">No account needed. Plan your trip right away.</p>
 
-          <!-- Validation banner — hidden until needed -->
           <div id="trip-validation-msg" class="trip-validation-msg" role="alert" aria-live="polite" hidden>
             <i class="ri-error-warning-line" aria-hidden="true"></i>
             <span></span>
           </div>
 
-          <!-- Location row: [Start] [⇅] [Destination] -->
           <div class="trip-location-row">
-
-            <!-- Starting point -->
             <div class="trip-picker-wrap">
-              <label for="starting-point">Starting Point</label>
+              <label for="starting-point">From</label>
               <div class="trip-picker-inner" data-location-picker id="start-picker">
                 <i class="ri-map-pin-2-line trip-picker-icon" aria-hidden="true"></i>
                 <input
                   type="text"
                   id="starting-point"
                   data-location-input
-                  placeholder="Search barangay, landmark or city…"
+                  placeholder="Search a place…"
                   autocomplete="off"
-                  aria-label="Starting point"
+                  aria-label="From"
                 />
                 <input type="hidden" id="start-value" data-location-value />
               </div>
               <p class="loc-field-error" data-location-error id="start-error" hidden></p>
+              <div class="trip-field-actions">
+                <button type="button" class="trip-mini-btn" data-use-location="start-picker">
+                  <i class="ri-crosshair-2-line" aria-hidden="true"></i> Use my location
+                </button>
+                <button type="button" class="trip-mini-btn" data-map-pick="start-picker">
+                  <i class="ri-map-pin-add-line" aria-hidden="true"></i> Choose on map
+                </button>
+              </div>
             </div>
 
-            <!-- Swap button -->
-            <div class="swap-btn-wrap" style="display:flex;align-items:flex-end;padding-bottom:20px;">
+            <div class="swap-btn-wrap">
               <button
                 class="swap-btn"
                 id="swap-btn"
                 type="button"
-                title="Swap starting point and destination"
-                aria-label="Swap starting point and destination"
+                title="Swap From and To"
+                aria-label="Swap From and To"
               >
-                <i class="ri-arrow-left-right-line"></i>
+                <i class="ri-arrow-left-right-line" aria-hidden="true"></i>
               </button>
             </div>
 
-            <!-- Destination -->
             <div class="trip-picker-wrap">
-              <label for="destination">Destination</label>
+              <label for="destination">To</label>
               <div class="trip-picker-inner" data-location-picker id="dest-picker">
                 <i class="ri-map-pin-line trip-picker-icon" aria-hidden="true"></i>
                 <input
                   type="text"
                   id="destination"
                   data-location-input
-                  placeholder="Search barangay, landmark or city…"
+                  placeholder="Search a place…"
                   autocomplete="off"
-                  aria-label="Destination"
+                  aria-label="To"
                 />
                 <input type="hidden" id="dest-value" data-location-value />
               </div>
               <p class="loc-field-error" data-location-error id="dest-error" hidden></p>
+              <div class="trip-field-actions">
+                <button type="button" class="trip-mini-btn" data-use-location="dest-picker">
+                  <i class="ri-crosshair-2-line" aria-hidden="true"></i> Use my location
+                </button>
+                <button type="button" class="trip-mini-btn" data-map-pick="dest-picker">
+                  <i class="ri-map-pin-add-line" aria-hidden="true"></i> Choose on map
+                </button>
+              </div>
             </div>
+          </div>
 
-          </div><!-- /.trip-location-row -->
+          <div class="trip-prefs" aria-label="Route preferences">
+            <label class="rs-sort">
+              <span>Max transfers</span>
+              <select id="pref-max-transfers" aria-label="Maximum transfers">
+                <option value="0">0 (direct only)</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3" selected>3</option>
+              </select>
+            </label>
+            <label class="rs-sort">
+              <span>Max walk</span>
+              <select id="pref-max-walk" aria-label="Maximum walking distance">
+                <option value="800">800 m</option>
+                <option value="1200">1.2 km</option>
+                <option value="1800" selected>1.8 km</option>
+                <option value="2500">2.5 km</option>
+              </select>
+            </label>
+            <label class="rs-sort">
+              <span>Passenger</span>
+              <select id="pref-passenger" aria-label="Passenger type">
+                <option value="regular" selected>Regular</option>
+                <option value="student">Student</option>
+                <option value="senior">Senior</option>
+                <option value="pwd">PWD</option>
+              </select>
+            </label>
+            <label class="rs-sort">
+              <span>Sort</span>
+              <select id="route-sort" aria-label="Sort routes">
+                <option value="recommended" selected>Recommended</option>
+                <option value="fastest">Fastest</option>
+                <option value="fewest_transfers">Fewest transfers</option>
+                <option value="cheapest">Cheapest</option>
+              </select>
+            </label>
+          </div>
 
-          <button class="trip-commute-btn" type="button" id="find-routes-btn">
-            <i class="ri-search-line"></i> Find Routes
-          </button>
+          <div class="trip-field-actions" style="margin-top:12px;">
+            <button class="trip-commute-btn" type="button" id="find-routes-btn">
+              <i class="ri-search-line" aria-hidden="true"></i> Find Routes
+            </button>
+          </div>
 
-          <!-- Map -->
           <div class="trip-map-wrap">
             <div class="trip-map-wrap__header">
               <div>
                 <h3 class="trip-map-wrap__title">Route map</h3>
                 <p class="trip-map-wrap__status" id="trip-map-status">
-                  Search and select a starting point and destination, then click Find Routes.
+                  Search places, use your location, or pick on the map — then tap Find Routes.
                 </p>
               </div>
             </div>
-            <div id="trip-map" class="trip-map" role="img" aria-label="Map of the planned commute route"></div>
+            <div id="map-pick-banner" hidden>
+              <span id="map-pick-label">Tap the map to drop a pin.</span>
+              <span>
+                <button type="button" class="sm-btn sm-btn--orange" id="map-pick-confirm" disabled>Confirm location</button>
+                <button type="button" class="sm-btn sm-btn--glass" id="map-pick-cancel">Cancel</button>
+              </span>
+            </div>
+            <div id="trip-map" class="trip-map" role="application" aria-label="Map for routes and pin picking"></div>
           </div>
-
         </section>
 
-        <!-- Results injected here dynamically by plan-trip-map.js -->
         <section class="results-area" id="results-area" aria-labelledby="results-heading" aria-live="polite"></section>
-
-      </main>
-    </div>
+      </div>
+    </main>
   </div>
 
-  <script src="../js/user.js"></script>
+  <script src="../js/user-soft.js"></script>
   <script src="../api/leaflet/dist/leaflet.js"></script>
   <script src="../js/location-search.js"></script>
   <script src="../js/plan-trip-map.js"></script>

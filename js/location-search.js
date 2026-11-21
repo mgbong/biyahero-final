@@ -1,67 +1,117 @@
 /**
- * location-search.js  —  Searchable location picker
- * ===================================================
- * Initialises every [data-location-picker] wrapper on the page.
+ * location-search.js — Location autocomplete (data layer + UI)
+ * ============================================================
+ * Layers:
+ *   Data  → searchLocations(), reverseGeocode(), saveRecent(), getRecents()
+ *   UI    → initLocationPicker() for each [data-location-picker]
  *
- * Public API (returned by initLocationPicker and stored on the element):
- *   picker.getSelected()          → loc object | null
- *   picker.setValue(loc)          → programmatically select a location
- *   picker.clear()                → clear input + selection
- *   picker.setError(msg)          → show red border + message
- *   picker.clearError()           → remove error state
+ * Public API on each picker:
+ *   getSelected(), setValue(loc), clear(), setError(msg), clearError()
  *
- * Events fired on the wrapper element (bubble up):
- *   "location-selected"  detail: loc   — user picked a location
- *   "location-cleared"               — input was manually cleared
+ * Events (bubble): location-selected, location-cleared
  */
 
 const TYPE_ICONS = {
   landmark: "ri-map-pin-2-line",
   terminal: "ri-bus-line",
   barangay: "ri-community-line",
+  current: "ri-crosshair-2-line",
+  map: "ri-map-pin-add-line",
 };
 
 const TYPE_LABELS = {
   landmark: "Landmark",
   terminal: "Terminal",
   barangay: "Barangay",
+  current: "My location",
+  map: "Map pin",
 };
 
-// ── Cache ─────────────────────────────────────────────────────────────────────
+const DEBOUNCE_MS = 350;
+const RECENT_KEY = "biyahero_recent_places";
+const RECENT_MAX = 5;
+
 const _cache = {};
 
+/** Data: search local catalog */
 async function searchLocations(q) {
-  const key = q.trim().toLowerCase();
-  if (_cache[key] !== undefined) return _cache[key];
+  const key = (q || "").trim().toLowerCase();
+  if (_cache[key] !== undefined) return { ok: true, results: _cache[key], error: null };
+
   try {
-    const res  = await fetch(`/api/locations?q=${encodeURIComponent(key)}&limit=10`);
+    const res = await fetch(`/api/locations?q=${encodeURIComponent(key)}&limit=10`, {
+      credentials: "same-origin",
+    });
+    if (!res.ok) {
+      return { ok: false, results: [], error: "Could not search right now. Try again." };
+    }
     const data = await res.json();
-    _cache[key] = data.ok ? data.results : [];
+    const results = data.ok ? data.results : [];
+    _cache[key] = results;
+    return { ok: true, results, error: null };
   } catch (_) {
-    _cache[key] = [];
+    return { ok: false, results: [], error: "No internet. Check your connection and try again." };
   }
-  return _cache[key];
 }
 
-// ── Dropdown builder ──────────────────────────────────────────────────────────
-function buildDropdown(results, onSelect, highlightText) {
+/** Data: reverse geocode via our Flask proxy (Nominatim) */
+async function reverseGeocode(lat, lng) {
+  try {
+    const res = await fetch(
+      `/api/geocode/reverse?lat=${encodeURIComponent(lat)}&lng=${encodeURIComponent(lng)}`,
+      { credentials: "same-origin" }
+    );
+    const data = await res.json();
+    if (!data.ok) return null;
+    return data.place;
+  } catch (_) {
+    return null;
+  }
+}
+
+function getRecents() {
+  try {
+    return JSON.parse(localStorage.getItem(RECENT_KEY) || "[]");
+  } catch (_) {
+    return [];
+  }
+}
+
+function saveRecent(loc) {
+  if (!loc || !loc.name) return;
+  const list = getRecents().filter((r) => r.name !== loc.name);
+  list.unshift({
+    name: loc.name,
+    type: loc.type || "landmark",
+    city: loc.city || "",
+    barangay: loc.barangay || "",
+    lat: loc.lat,
+    lng: loc.lng,
+  });
+  localStorage.setItem(RECENT_KEY, JSON.stringify(list.slice(0, RECENT_MAX)));
+}
+
+function buildDropdown(results, onSelect, highlightText, emptyMsg) {
   const ul = document.createElement("ul");
   ul.className = "loc-dropdown";
   ul.setAttribute("role", "listbox");
 
-  if (results.length === 0) {
+  if (!results.length) {
     const li = document.createElement("li");
     li.className = "loc-dropdown__empty";
-    li.innerHTML = `<i class="ri-search-line"></i> No locations found for "<strong>${highlightText}</strong>"`;
+    li.innerHTML = `<i class="ri-search-line" aria-hidden="true"></i> ${emptyMsg || `No places found for "<strong></strong>"`}`;
+    if (highlightText && !emptyMsg) {
+      li.querySelector("strong").textContent = highlightText;
+    }
     ul.appendChild(li);
     return ul;
   }
 
-  // Group by city
   const grouped = {};
-  results.forEach(loc => {
-    if (!grouped[loc.city]) grouped[loc.city] = [];
-    grouped[loc.city].push(loc);
+  results.forEach((loc) => {
+    const city = loc.city || "Saved";
+    if (!grouped[city]) grouped[city] = [];
+    grouped[city].push(loc);
   });
 
   Object.entries(grouped).forEach(([city, locs]) => {
@@ -71,30 +121,29 @@ function buildDropdown(results, onSelect, highlightText) {
 
     const cityLabel = document.createElement("span");
     cityLabel.className = "loc-dropdown__city";
-    cityLabel.innerHTML = `<i class="ri-building-2-line"></i> ${city}`;
+    cityLabel.innerHTML = `<i class="ri-building-2-line" aria-hidden="true"></i> ${city}`;
     group.appendChild(cityLabel);
 
-    locs.forEach(loc => {
+    locs.forEach((loc) => {
       const item = document.createElement("button");
       item.type = "button";
       item.className = "loc-dropdown__item";
       item.setAttribute("role", "option");
-      item.setAttribute("data-name", loc.name);
 
-      // Highlight matched text
-      const hl = highlightText.trim();
+      const hl = (highlightText || "").trim();
       const re = hl ? new RegExp(`(${hl.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")})`, "gi") : null;
-      const displayName = re ? loc.name.replace(re, "<mark>$1</mark>") : loc.name;
+      const safeName = loc.name.replace(/</g, "&lt;");
+      const displayName = re ? safeName.replace(re, "<mark>$1</mark>") : safeName;
 
       item.innerHTML = `
-        <span class="loc-dropdown__icon"><i class="${TYPE_ICONS[loc.type] || "ri-map-pin-line"}"></i></span>
+        <span class="loc-dropdown__icon"><i class="${TYPE_ICONS[loc.type] || "ri-map-pin-line"}" aria-hidden="true"></i></span>
         <span class="loc-dropdown__text">
           <span class="loc-dropdown__name">${displayName}</span>
-          <span class="loc-dropdown__meta">${loc.barangay} · ${TYPE_LABELS[loc.type] || loc.type}</span>
+          <span class="loc-dropdown__meta">${loc.barangay || loc.address || ""} · ${TYPE_LABELS[loc.type] || loc.type || "Place"}</span>
         </span>
       `;
 
-      item.addEventListener("mousedown", e => {
+      item.addEventListener("mousedown", (e) => {
         e.preventDefault();
         onSelect(loc);
       });
@@ -108,57 +157,59 @@ function buildDropdown(results, onSelect, highlightText) {
   return ul;
 }
 
-// ── Main initialiser ──────────────────────────────────────────────────────────
 function initLocationPicker(wrapper) {
-  const input       = wrapper.querySelector("[data-location-input]");
+  const input = wrapper.querySelector("[data-location-input]");
   const hiddenInput = wrapper.querySelector("[data-location-value]");
-  // Error element may be a sibling of the wrapper (outside it), so search parent too
-  const errorEl     = wrapper.querySelector("[data-location-error]")
-                   || wrapper.parentElement?.querySelector("[data-location-error]");
+  const errorEl =
+    wrapper.querySelector("[data-location-error]") ||
+    wrapper.parentElement?.querySelector("[data-location-error]");
 
-  if (!input) return;
+  if (!input) return null;
 
-  let selectedLoc   = null;
-  let dropdown      = null;
+  let selectedLoc = null;
+  let dropdown = null;
   let debounceTimer = null;
 
-  // ── Error helpers ───────────────────────────────────────────────────────
   function setError(msg) {
     input.classList.add("loc-input--error");
-    if (errorEl) { errorEl.textContent = msg; errorEl.hidden = false; }
+    if (errorEl) {
+      errorEl.textContent = msg;
+      errorEl.hidden = false;
+    }
   }
 
   function clearError() {
     input.classList.remove("loc-input--error");
-    if (errorEl) { errorEl.textContent = ""; errorEl.hidden = true; }
+    if (errorEl) {
+      errorEl.textContent = "";
+      errorEl.hidden = true;
+    }
   }
 
-  // ── Dropdown helpers ────────────────────────────────────────────────────
   function closeDropdown() {
     dropdown?.remove();
     dropdown = null;
   }
 
-  function openDropdown(results) {
+  function openDropdown(results, emptyMsg) {
     closeDropdown();
-    dropdown = buildDropdown(results, selectLoc, input.value);
+    dropdown = buildDropdown(results, selectLoc, input.value, emptyMsg);
     wrapper.appendChild(dropdown);
   }
 
-  // ── Select a location ───────────────────────────────────────────────────
   function selectLoc(loc) {
     selectedLoc = loc;
     input.value = loc.name;
     if (hiddenInput) hiddenInput.value = loc.name;
-    wrapper.dataset.lat  = loc.lat;
-    wrapper.dataset.lng  = loc.lng;
+    wrapper.dataset.lat = loc.lat;
+    wrapper.dataset.lng = loc.lng;
     wrapper.dataset.name = loc.name;
     clearError();
     closeDropdown();
+    saveRecent(loc);
     wrapper.dispatchEvent(new CustomEvent("location-selected", { bubbles: true, detail: loc }));
   }
 
-  // ── Clear ───────────────────────────────────────────────────────────────
   function clearPicker() {
     selectedLoc = null;
     input.value = "";
@@ -171,12 +222,10 @@ function initLocationPicker(wrapper) {
     wrapper.dispatchEvent(new CustomEvent("location-cleared", { bubbles: true }));
   }
 
-  // ── Input events ────────────────────────────────────────────────────────
   input.addEventListener("input", () => {
     const q = input.value.trim();
     clearTimeout(debounceTimer);
 
-    // If user types after a selection, clear the selection (they're changing it)
     if (selectedLoc && input.value !== selectedLoc.name) {
       selectedLoc = null;
       if (hiddenInput) hiddenInput.value = "";
@@ -186,49 +235,75 @@ function initLocationPicker(wrapper) {
       wrapper.dispatchEvent(new CustomEvent("location-cleared", { bubbles: true }));
     }
 
-    if (q.length === 0) { closeDropdown(); return; }
+    if (q.length === 0) {
+      const recents = getRecents();
+      if (recents.length) openDropdown(recents);
+      else closeDropdown();
+      return;
+    }
 
     debounceTimer = setTimeout(async () => {
-      const results = await searchLocations(q);
-      openDropdown(results);
-    }, 160);
+      const { ok, results, error } = await searchLocations(q);
+      if (!ok) {
+        openDropdown([], error);
+        return;
+      }
+      openDropdown(
+        results,
+        results.length ? null : `No places found for "${q}". Try another name or pick on the map.`
+      );
+    }, DEBOUNCE_MS);
   });
 
   input.addEventListener("focus", async () => {
-    const results = await searchLocations(input.value.trim());
-    openDropdown(results);
+    const q = input.value.trim();
+    if (!q) {
+      const recents = getRecents();
+      if (recents.length) openDropdown(recents);
+      return;
+    }
+    const { ok, results, error } = await searchLocations(q);
+    openDropdown(ok ? results : [], ok ? null : error);
   });
 
   input.addEventListener("blur", () => {
     setTimeout(() => {
       closeDropdown();
-      // If the user typed something but never selected, clear it to avoid partial text
       if (input.value.trim() && !selectedLoc) {
         input.value = "";
         if (hiddenInput) hiddenInput.value = "";
       }
-    }, 160);
+    }, 180);
   });
 
-  // ── Keyboard navigation ─────────────────────────────────────────────────
-  input.addEventListener("keydown", e => {
-    if (e.key === "Escape") { closeDropdown(); input.blur(); return; }
+  input.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") {
+      closeDropdown();
+      input.blur();
+      return;
+    }
     if (!dropdown) return;
-
-    const items   = [...dropdown.querySelectorAll(".loc-dropdown__item")];
+    const items = [...dropdown.querySelectorAll(".loc-dropdown__item")];
     const focused = dropdown.querySelector(".loc-dropdown__item:focus");
-    const idx     = items.indexOf(focused);
-
-    if (e.key === "ArrowDown") { e.preventDefault(); (items[idx + 1] || items[0])?.focus(); }
-    if (e.key === "ArrowUp")   { e.preventDefault(); (items[idx - 1] || items[items.length - 1])?.focus(); }
-    if (e.key === "Enter" && focused) { e.preventDefault(); focused.dispatchEvent(new MouseEvent("mousedown")); }
+    const idx = items.indexOf(focused);
+    if (e.key === "ArrowDown") {
+      e.preventDefault();
+      (items[idx + 1] || items[0])?.focus();
+    }
+    if (e.key === "ArrowUp") {
+      e.preventDefault();
+      (items[idx - 1] || items[items.length - 1])?.focus();
+    }
+    if (e.key === "Enter" && focused) {
+      e.preventDefault();
+      focused.dispatchEvent(new MouseEvent("mousedown"));
+    }
   });
 
-  // ── Public API on the wrapper element ───────────────────────────────────
   const api = {
-    getSelected: ()    => selectedLoc,
-    setValue:    (loc) => selectLoc(loc),
-    clear:       ()    => clearPicker(),
+    getSelected: () => selectedLoc,
+    setValue: (loc) => selectLoc(loc),
+    clear: () => clearPicker(),
     setError,
     clearError,
   };
@@ -237,10 +312,16 @@ function initLocationPicker(wrapper) {
   return api;
 }
 
-// ── Auto-init all pickers on the page ─────────────────────────────────────────
+window.LocationSearch = {
+  searchLocations,
+  reverseGeocode,
+  getRecents,
+  saveRecent,
+};
+
 window.LocationPickers = {};
-document.querySelectorAll("[data-location-picker]").forEach(wrapper => {
-  const id  = wrapper.id || wrapper.dataset.locationPicker;
+document.querySelectorAll("[data-location-picker]").forEach((wrapper) => {
+  const id = wrapper.id || wrapper.dataset.locationPicker;
   const api = initLocationPicker(wrapper);
   if (id && api) window.LocationPickers[id] = api;
 });

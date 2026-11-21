@@ -1,184 +1,330 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Dashboard — Biyahero</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <meta name="theme-color" content="#FF7A00" />
+  <meta name="description" content="Your Biyahero home — plan trips, check updates, and see recent rides." />
+  <title>Home — Biyahero</title>
+
+  <link rel="preconnect" href="https://fonts.cdnfonts.com" />
+  <link href="https://fonts.cdnfonts.com/css/mona-sans" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.2.0/remixicon.min.css" />
-  <link rel="stylesheet" href="../css/shared.css" />
-  <link rel="stylesheet" href="../css/commuter.css" />
-  <link rel="stylesheet" href="../css/static-inline.css">
+  <link rel="stylesheet" href="../css/sm-shell.css" />
+  <link rel="stylesheet" href="../css/dashboard.css" />
 </head>
-<body>
+<body class="sm-body">
+  <a class="sm-skip" href="#main">Skip to content</a>
 
+  <div class="sm-page" id="app-shell">
+    <!-- Top bar: logo · pill nav · user -->
+    <header class="sm-header">
+      <a class="sm-logo" href="dashboard.html" aria-label="Biyahero home">Biyahero</a>
 
-
-
-  <div class="app-shell" id="app-shell">
-
-
-
-
-
-    <aside class="sidebar" role="navigation" aria-label="Commuter navigation">
-      <a class="sidebar-brand" href="dashboard.html">
-        <span class="sidebar-brand-mark" aria-hidden="true"><i class="ri-bus-line"></i></span>
-        Biyahero
-      </a>
-
-      <nav class="sidebar-nav">
-        <a href="dashboard.html" class="active">
-          <i class="ri-dashboard-line"></i> Dashboard
-        </a>
-        <a href="plan-trip.html">
-          <i class="ri-route-line"></i> Plan Trip
-        </a>
-        <a href="fare-guide.html">
-          <i class="ri-wallet-3-line"></i> Fare Guide
-        </a>
-        <a href="routes.html">
-          <i class="ri-map-2-line"></i> Routes
-        </a>
-        <a href="updates.html">
-          <i class="ri-traffic-light-line"></i> Traffic Updates
-        </a>
-        <a href="report.html">
-          <i class="ri-flag-line"></i> Report Issue
-        </a>
-        <a href="feedback.html">
-          <i class="ri-feedback-line"></i> Feedback
-        </a>
-        <a href="commuter-profile.html">
-          <i class="ri-user-line"></i> Profile
-        </a>
+      <nav class="sm-pillnav" aria-label="Main menu">
+        <a href="dashboard.html" class="sm-pillnav__item is-active" aria-current="page">Home</a>
+        <a href="plan-trip.html" class="sm-pillnav__item">Plan Trip</a>
+        <a href="routes.html" class="sm-pillnav__item">Routes</a>
+        <a href="fare-guide.html" class="sm-pillnav__item">Fares</a>
+        <a href="updates.html" class="sm-pillnav__item">Updates</a>
+        <a href="commuter-profile.html" class="sm-pillnav__item">Profile</a>
       </nav>
 
-      <div class="sidebar-footer">
-        <a class="btn-logout" href="#">
-          <i class="ri-logout-box-line"></i> Log Out
-        </a>
+      <div class="sm-header__right">
+        <div class="sm-user user-chip" title="Your account">
+          <div class="sm-user__avatar user-avatar" aria-hidden="true">??</div>
+          <span class="sm-user__name user-name">Loading…</span>
+        </div>
+        <button type="button" class="sm-iconbtn btn-logout" aria-label="Log out">
+          <i class="ri-logout-box-r-line" aria-hidden="true"></i>
+        </button>
       </div>
-    </aside>
+    </header>
 
+    <main class="sm-main" id="main">
+      <!-- Hero — SwiftMove style: full photo in big rounded frame -->
+      <section class="sm-hero" aria-labelledby="hero-title">
+        <div class="sm-hero__media" role="img" aria-label="Public transit on a city road at golden hour"></div>
 
-    <div class="main-content">
+        <div class="sm-hero__overlay">
+          <div class="sm-hero__copy">
+            <p class="sm-eyebrow">Cebu public transit</p>
+            <h1 class="sm-hero__title" id="hero-title">
+              Smart routes that move
+              <span class="sm-hero__inline-pic" role="img" aria-hidden="true"></span>
+              Cebu.
+            </h1>
+            <p class="sm-hero__sub greeting-card__name">Good day!</p>
+            <p class="sm-hero__lead">Find jeepneys and buses, see fare guesses, and get clear transfer tips.</p>
 
-
-      <header class="page-header">
-        <div class="page-header-left">
-          <span class="breadcrumb-current">Dashboard</span>
-        </div>
-        <div class="page-header-right">
-          <div class="user-chip">
-            <div class="user-avatar">??</div>
-            <span class="user-name">Loading…</span>
-          </div>
-        </div>
-      </header>
-
-
-      <main class="page-body">
-
-
-        <div class="greeting-card" id="greeting-card">
-          <div class="greeting-card__left">
-            <div class="greeting-card__name">Good morning, Maya!</div>
-            <div class="greeting-card__sub">Plan your next trip with Biyahero.</div>
-          </div>
-          <div class="greeting-card__icon" aria-hidden="true">🚌</div>
-        </div>
-
-
-        <section class="section" aria-labelledby="updates-heading">
-          <div class="section-head">
-            <div>
-              <h2 class="section-title" id="updates-heading">Route and Traffic Updates</h2>
+            <div class="sm-hero__actions">
+              <a class="sm-btn sm-btn--orange" href="plan-trip.html">
+                Plan a Trip <i class="ri-arrow-right-up-line" aria-hidden="true"></i>
+              </a>
+              <a class="sm-btn sm-btn--glass" href="routes.html">
+                Browse Routes <i class="ri-arrow-right-up-line" aria-hidden="true"></i>
+              </a>
             </div>
-            <a href="updates.html" class="btn btn-outline btn-sm">View All</a>
           </div>
 
-          <div class="card-grid">
-            <article class="status-card status-card--moderate">
-              <div class="status-card__title">Colon–Ayala · Route 10C</div>
-              <div class="status-card__meta"><i class="ri-map-pin-line"></i> Cebu City <span class="badge badge-muted">Jeepney</span> <span class="badge badge-moderate">Moderate Traffic</span></div>
-              <div class="status-card__desc">Slow traffic reported along Osmeña Boulevard. Allow extra travel time.</div>
-              <div class="status-card__footer"><i class="ri-time-line"></i> Sample update · October 15, 2026</div>
-            </article>
-            <article class="status-card status-card--normal">
-              <div class="status-card__title">IT Park–SM City · Route 13C</div>
-              <div class="status-card__meta"><i class="ri-map-pin-line"></i> Cebu City <span class="badge badge-muted">Jeepney</span> <span class="badge badge-normal">Normal</span></div>
-              <div class="status-card__desc">No reported route changes. Usual stops and schedules apply.</div>
-              <div class="status-card__footer"><i class="ri-time-line"></i> Sample update · October 15, 2026</div>
-            </article>
-            <article class="status-card status-card--obstruction">
-              <div class="status-card__title">Tabunok–Cebu South Bus Terminal</div>
-              <div class="status-card__meta"><i class="ri-map-pin-line"></i> Talisay City <span class="badge badge-info">Bus</span> <span class="badge badge-obstruction">Road Obstruction</span></div>
-              <div class="status-card__desc">Road works near Tabunok Market may cause a short delay.</div>
-              <div class="status-card__footer"><i class="ri-time-line"></i> Sample update · October 14, 2026</div>
-            </article>
-          </div>
-        </section>
-
-
-        <section class="section" aria-labelledby="history-heading">
-          <div class="section-head">
-            <div>
-              <h2 class="section-title" id="history-heading"><i class="ri-history-line" aria-hidden="true"></i> Trip History</h2>
+          <div class="sm-hero__floats">
+            <div class="sm-float sm-float--people">
+              <div class="sm-avatars" aria-hidden="true">
+                <span></span><span></span><span></span>
+              </div>
+              <p><strong>500+</strong> daily riders helped</p>
             </div>
-            <a href="plan-trip.html" class="btn btn-outline btn-sm">View Trip Planner</a>
-          </div>
-
-          <div class="table-wrap">
-            <table class="data-table">
-              <thead><tr><th scope="col">Date</th><th scope="col">Origin</th><th scope="col">Destination</th><th scope="col">Jeepney Number / Route</th><th scope="col">Estimated Fare</th><th scope="col">Status</th></tr></thead>
-              <tbody>
-                <tr class="trip-row"><td><i class="ri-calendar-line" aria-hidden="true"></i> October 15, 2026</td><td><i class="ri-map-pin-line" aria-hidden="true"></i> Colon Street, Cebu City</td><td><i class="ri-map-pin-2-line" aria-hidden="true"></i> SM City Cebu</td><td><span class="badge badge-teal"><i class="ri-bus-line" aria-hidden="true"></i> 01K</span></td><td>₱15.00</td><td><span class="badge badge-success"><i class="ri-checkbox-circle-line" aria-hidden="true"></i> Completed</span></td></tr>
-                <tr class="trip-row"><td><i class="ri-calendar-line" aria-hidden="true"></i> October 14, 2026</td><td><i class="ri-map-pin-line" aria-hidden="true"></i> Basak, Lapu-Lapu City</td><td><i class="ri-map-pin-2-line" aria-hidden="true"></i> Mactan-Cebu International Airport</td><td><span class="badge badge-teal"><i class="ri-truck-line" aria-hidden="true"></i> Modern Jeepney</span></td><td>₱20.00</td><td><span class="badge badge-success"><i class="ri-checkbox-circle-line" aria-hidden="true"></i> Completed</span></td></tr>
-                <tr class="trip-row"><td><i class="ri-calendar-line" aria-hidden="true"></i> October 13, 2026</td><td><i class="ri-map-pin-line" aria-hidden="true"></i> Tabunok, Talisay City</td><td><i class="ri-map-pin-2-line" aria-hidden="true"></i> Cebu South Bus Terminal</td><td><span class="badge badge-info"><i class="ri-bus-line" aria-hidden="true"></i> Bus</span></td><td>₱18.00</td><td><span class="badge badge-success"><i class="ri-checkbox-circle-line" aria-hidden="true"></i> Completed</span></td></tr>
-                <tr class="trip-row"><td><i class="ri-calendar-line" aria-hidden="true"></i> October 12, 2026</td><td><i class="ri-map-pin-line" aria-hidden="true"></i> Parkmall, Mandaue City</td><td><i class="ri-map-pin-2-line" aria-hidden="true"></i> IT Park, Cebu City</td><td><span class="badge badge-teal"><i class="ri-bus-line" aria-hidden="true"></i> 13C</span></td><td>₱15.00</td><td><span class="badge badge-success"><i class="ri-checkbox-circle-line" aria-hidden="true"></i> Completed</span></td></tr>
-                <tr class="trip-row"><td><i class="ri-calendar-line" aria-hidden="true"></i> October 11, 2026</td><td><i class="ri-map-pin-line" aria-hidden="true"></i> Minglanilla Public Market</td><td><i class="ri-map-pin-2-line" aria-hidden="true"></i> Cebu City</td><td><span class="badge badge-info"><i class="ri-bus-line" aria-hidden="true"></i> Bus</span></td><td>₱25.00</td><td><span class="badge badge-success"><i class="ri-checkbox-circle-line" aria-hidden="true"></i> Completed</span></td></tr>
-              </tbody>
-            </table>
-          </div>
-        </section>
-
-
-        <section class="section" aria-labelledby="popular-heading">
-          <div class="section-head">
-            <div>
-              <h2 class="section-title" id="popular-heading">Most Used Routes</h2>
-              <p class="section-subtitle">Popular routes in the coverage area.</p>
+            <div class="sm-float sm-float--stat">
+              <div class="sm-float__thumb" aria-hidden="true"></div>
+              <div>
+                <p class="sm-float__kicker">This week</p>
+                <p><strong>5 trips</strong> planned</p>
+              </div>
             </div>
-            <a href="routes.html" class="btn btn-outline btn-sm">Browse All Routes</a>
           </div>
+        </div>
+      </section>
 
-          <div class="card-grid">
-            <article class="route-card">
-              <div class="route-card__header"><div><span class="route-card__route-code">01K</span><div class="route-card__name static-inline-014">Colon – SM City Cebu</div></div><span class="badge badge-success">Active</span></div>
-              <div class="route-card__direction"><i class="ri-map-pin-2-line"></i>Colon Street <i class="ri-arrow-right-line"></i> <i class="ri-map-pin-line"></i>SM City Cebu</div>
-              <div class="route-card__meta"><span class="route-card__meta-item badge badge-teal">Jeepney</span><span class="route-card__meta-item"><i class="ri-money-peso-circle-line"></i> ₱15.00</span><span class="route-card__meta-item"><i class="ri-time-line"></i> ~25 min</span></div>
-            </article>
-            <article class="route-card">
-              <div class="route-card__header"><div><span class="route-card__route-code">13C</span><div class="route-card__name static-inline-014">Parkmall – IT Park</div></div><span class="badge badge-success">Active</span></div>
-              <div class="route-card__direction"><i class="ri-map-pin-2-line"></i>Parkmall, Mandaue <i class="ri-arrow-right-line"></i> <i class="ri-map-pin-line"></i>IT Park, Cebu City</div>
-              <div class="route-card__meta"><span class="route-card__meta-item badge badge-teal">Jeepney</span><span class="route-card__meta-item"><i class="ri-money-peso-circle-line"></i> ₱15.00</span><span class="route-card__meta-item"><i class="ri-time-line"></i> ~30 min</span></div>
-            </article>
-            <article class="route-card">
-              <div class="route-card__header"><div><span class="route-card__route-code">BUS-02</span><div class="route-card__name static-inline-014">Tabunok – Cebu South Bus Terminal</div></div><span class="badge badge-success">Active</span></div>
-              <div class="route-card__direction"><i class="ri-map-pin-2-line"></i>Tabunok, Talisay <i class="ri-arrow-right-line"></i> <i class="ri-map-pin-line"></i>Cebu South Bus Terminal</div>
-              <div class="route-card__meta"><span class="route-card__meta-item badge badge-info">Bus</span><span class="route-card__meta-item"><i class="ri-money-peso-circle-line"></i> ₱18.00</span><span class="route-card__meta-item"><i class="ri-time-line"></i> ~35 min</span></div>
-            </article>
+      <!-- Split: numbered services + quick plan -->
+      <section class="sm-split" aria-label="Shortcuts and quick plan">
+        <div class="sm-services">
+          <a class="sm-service" href="plan-trip.html">
+            <span class="sm-service__num">01.</span>
+            <span class="sm-service__name">Plan Trip</span>
+            <span class="sm-service__go" aria-hidden="true"><i class="ri-arrow-down-s-line"></i></span>
+          </a>
+          <a class="sm-service" href="fare-guide.html">
+            <span class="sm-service__num">02.</span>
+            <span class="sm-service__name">Fare Guide</span>
+            <span class="sm-service__go" aria-hidden="true"><i class="ri-arrow-down-s-line"></i></span>
+          </a>
+          <a class="sm-service is-open" href="updates.html">
+            <span class="sm-service__num">03.</span>
+            <span class="sm-service__name">Route Updates</span>
+            <span class="sm-service__go" aria-hidden="true"><i class="ri-arrow-down-s-line"></i></span>
+          </a>
+          <a class="sm-service" href="report.html">
+            <span class="sm-service__num">04.</span>
+            <span class="sm-service__name">Realtime Report</span>
+            <span class="sm-service__go" aria-hidden="true"><i class="ri-arrow-down-s-line"></i></span>
+          </a>
+        </div>
+
+        <aside class="sm-quickcard">
+          <p class="sm-chip-label">Quick plan</p>
+          <h2 class="sm-quickcard__title">Where are you going?</h2>
+          <form class="sm-quick" action="plan-trip.html" method="get">
+            <label class="sm-field">
+              <span>Start</span>
+              <select name="from">
+                <option>Colon Street</option>
+                <option>Carbon Market</option>
+                <option>Fuente Osmeña</option>
+                <option>Parkmall</option>
+                <option>IT Park</option>
+              </select>
+            </label>
+            <label class="sm-field">
+              <span>End</span>
+              <select name="to">
+                <option>SM City Cebu</option>
+                <option>Ayala Center</option>
+                <option>South Bus Terminal</option>
+                <option>MCIA Airport</option>
+                <option>IT Park</option>
+              </select>
+            </label>
+            <button type="submit" class="sm-btn sm-btn--orange sm-btn--block">
+              Find Routes <i class="ri-arrow-right-up-line" aria-hidden="true"></i>
+            </button>
+          </form>
+        </aside>
+      </section>
+
+      <!-- Why choose — 3 photo cards -->
+      <section class="sm-why" aria-labelledby="why-title">
+        <p class="sm-chip-label sm-chip-label--center">Why Biyahero</p>
+        <h2 class="sm-section-title" id="why-title">Clear trips through simple tools and real route help</h2>
+
+        <div class="sm-why__grid">
+          <article class="sm-feature">
+            <div class="sm-feature__img sm-feature__img--1" role="img" aria-label="Commuters waiting at a terminal"></div>
+            <div class="sm-feature__body">
+              <h3>Easy trip planning</h3>
+              <p>Pick start and end. See jeepney and bus options with simple steps.</p>
+            </div>
+          </article>
+
+          <article class="sm-feature sm-feature--raised">
+            <div class="sm-feature__icon" aria-hidden="true"><i class="ri-shield-check-line"></i></div>
+            <div class="sm-feature__img sm-feature__img--2" role="img" aria-label="Bus at a city stop"></div>
+            <div class="sm-feature__body">
+              <h3>Fair fare guesses</h3>
+              <p>See estimated fares per ride so you know what to bring before you board.</p>
+              <a class="sm-textlink" href="fare-guide.html">Open fare guide <i class="ri-arrow-right-up-line" aria-hidden="true"></i></a>
+            </div>
+          </article>
+
+          <article class="sm-feature">
+            <div class="sm-feature__img sm-feature__img--3" role="img" aria-label="Person checking a map on a phone"></div>
+            <div class="sm-feature__body">
+              <h3>Live route notes</h3>
+              <p>Check verified updates for slow roads, works, and route changes.</p>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- Updates -->
+      <section class="sm-panel" aria-labelledby="updates-heading">
+        <div class="sm-panel__head">
+          <div>
+            <p class="sm-chip-label">Route care</p>
+            <h2 class="sm-panel__title" id="updates-heading">Latest Updates</h2>
           </div>
-        </section>
+          <a class="sm-textlink" href="updates.html">See all <i class="ri-arrow-right-up-line" aria-hidden="true"></i></a>
+        </div>
 
-      </main>
-    </div>
+        <div class="sm-cards">
+          <article class="sm-card">
+            <span class="sm-pill sm-pill--warn">Slow</span>
+            <h3>Colon–Ayala · 10C</h3>
+            <p>Slow traffic on Osmeña Boulevard. Give yourself more time.</p>
+            <p class="sm-card__meta">Cebu City · Jeepney · Oct 15</p>
+          </article>
+          <article class="sm-card">
+            <span class="sm-pill sm-pill--ok">Normal</span>
+            <h3>IT Park–SM City · 13C</h3>
+            <p>No route change. Usual stops still apply.</p>
+            <p class="sm-card__meta">Cebu City · Jeepney · Oct 15</p>
+          </article>
+          <article class="sm-card">
+            <span class="sm-pill sm-pill--alert">Works</span>
+            <h3>Tabunok–South Terminal</h3>
+            <p>Road works near Tabunok Market may cause a short delay.</p>
+            <p class="sm-card__meta">Talisay · Bus · Oct 14</p>
+          </article>
+        </div>
+      </section>
+
+      <!-- Recent trips -->
+      <section class="sm-panel" aria-labelledby="history-heading">
+        <div class="sm-panel__head">
+          <div>
+            <p class="sm-chip-label">Your activity</p>
+            <h2 class="sm-panel__title" id="history-heading">Recent Trips</h2>
+          </div>
+          <a class="sm-textlink" href="plan-trip.html">Plan again <i class="ri-arrow-right-up-line" aria-hidden="true"></i></a>
+        </div>
+
+        <div class="sm-table-wrap" role="region" aria-label="Recent trips" tabindex="0">
+          <table class="sm-table">
+            <thead>
+              <tr>
+                <th scope="col">Date</th>
+                <th scope="col">From</th>
+                <th scope="col">To</th>
+                <th scope="col">Route</th>
+                <th scope="col">Fare</th>
+                <th scope="col">Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Oct 15</td>
+                <td>Colon Street</td>
+                <td>SM City Cebu</td>
+                <td><span class="sm-tag">01K</span></td>
+                <td>₱15</td>
+                <td><span class="sm-pill sm-pill--ok">Done</span></td>
+              </tr>
+              <tr>
+                <td>Oct 14</td>
+                <td>Basak, Lapu-Lapu</td>
+                <td>MCIA Airport</td>
+                <td><span class="sm-tag">Modern</span></td>
+                <td>₱20</td>
+                <td><span class="sm-pill sm-pill--ok">Done</span></td>
+              </tr>
+              <tr>
+                <td>Oct 13</td>
+                <td>Tabunok</td>
+                <td>South Bus Terminal</td>
+                <td><span class="sm-tag">Bus</span></td>
+                <td>₱18</td>
+                <td><span class="sm-pill sm-pill--ok">Done</span></td>
+              </tr>
+              <tr>
+                <td>Oct 12</td>
+                <td>Parkmall</td>
+                <td>IT Park</td>
+                <td><span class="sm-tag">13C</span></td>
+                <td>₱15</td>
+                <td><span class="sm-pill sm-pill--ok">Done</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Popular routes -->
+      <section class="sm-panel" aria-labelledby="popular-heading">
+        <div class="sm-panel__head">
+          <div>
+            <p class="sm-chip-label">Favorites</p>
+            <h2 class="sm-panel__title" id="popular-heading">Popular Routes</h2>
+          </div>
+          <a class="sm-textlink" href="routes.html">Browse all <i class="ri-arrow-right-up-line" aria-hidden="true"></i></a>
+        </div>
+
+        <div class="sm-cards">
+          <article class="sm-route">
+            <span class="sm-tag">01K</span>
+            <h3>Colon – SM City Cebu</h3>
+            <p>Jeepney · ₱15 · ~25 min</p>
+            <a class="sm-btn sm-btn--soft sm-btn--block" href="plan-trip.html?from=Colon&to=SM%20City%20Cebu">Use this route</a>
+          </article>
+          <article class="sm-route">
+            <span class="sm-tag">13C</span>
+            <h3>Parkmall – IT Park</h3>
+            <p>Jeepney · ₱15 · ~30 min</p>
+            <a class="sm-btn sm-btn--soft sm-btn--block" href="plan-trip.html?from=Parkmall&to=IT%20Park">Use this route</a>
+          </article>
+          <article class="sm-route">
+            <span class="sm-tag">BUS-02</span>
+            <h3>Tabunok – South Terminal</h3>
+            <p>Bus · ₱18 · ~35 min</p>
+            <a class="sm-btn sm-btn--soft sm-btn--block" href="plan-trip.html?from=Tabunok&to=South%20Bus%20Terminal">Use this route</a>
+          </article>
+        </div>
+      </section>
+
+      <footer class="sm-foot">
+        <p>Biyahero · Cebu public transit help</p>
+        <div class="sm-foot__links">
+          <a href="feedback.html">Feedback</a>
+          <a href="report.html">Report Issue</a>
+          <button type="button" class="sm-textlink btn-logout">Log Out</button>
+        </div>
+      </footer>
+    </main>
   </div>
 
-
-  <script src="../js/user.js"></script>
+  <script src="../js/user-soft.js"></script>
+  <script>
+    // Friendlier greeting under the hero title
+    (function () {
+      const el = document.querySelector(".greeting-card__name");
+      const patch = () => {
+        if (!el || !window.biyaheroUser) return;
+        const first = (window.biyaheroUser.fullname || "").split(" ")[0] || "friend";
+        const h = new Date().getHours();
+        const tod = h < 12 ? "morning" : h < 18 ? "afternoon" : "evening";
+        el.textContent = `Good ${tod}, ${first}!`;
+      };
+      patch();
+      setTimeout(patch, 400);
+    })();
+  </script>
 </body>
 </html>
