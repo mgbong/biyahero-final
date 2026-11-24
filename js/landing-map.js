@@ -283,7 +283,7 @@ window.addEventListener("resize", () => {
 });
 
 const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-const introDelay = reduceMotion ? 0 : 2400;
+const introDelay = reduceMotion ? 0 : 800;
 
 window.addEventListener("load", () => {
   window.setTimeout(revealLanding, introDelay);

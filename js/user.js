@@ -55,32 +55,11 @@
   // ── 3. Populate greeting card name ────────────────────────────────────
   const firstName = (user.fullname || "").split(" ")[0];
 
-  // Commuter greeting
   const commuterGreeting = document.querySelector(".greeting-card__name");
   if (commuterGreeting) {
     const hour = new Date().getHours();
     const tod  = hour < 12 ? "morning" : hour < 18 ? "afternoon" : "evening";
     commuterGreeting.textContent = `Good ${tod}, ${firstName}!`;
-  }
-
-  // Driver greeting:  "Good morning, Juan!"
-  const driverGreeting = document.querySelector(".driver-greeting-card__name");
-  if (driverGreeting) {
-    const hour = new Date().getHours();
-    const tod  = hour < 12 ? "morning" : hour < 18 ? "afternoon" : "evening";
-    driverGreeting.textContent = `Good ${tod}, ${firstName}!`;
-  }
-
-  // Operator greeting:  "Welcome, Alicia Reyes"
-  const operatorGreeting = document.querySelector(".operator-greeting-card__name");
-  if (operatorGreeting) {
-    operatorGreeting.textContent = `Welcome, ${user.fullname}`;
-  }
-
-  // Operator profile card on dashboard
-  const opProfileName = document.querySelector(".operator-profile-card strong");
-  if (opProfileName) {
-    opProfileName.textContent = user.fullname;
   }
 
   // ── 4. Expose user globally so other scripts can use it ───────────────

@@ -755,16 +755,6 @@ svg {
   color: var(--teal);
 }
 
-.role-card--driver .role-card__icon {
-  background: rgba(43,47,122,.1);
-  color: var(--navy);
-}
-
-.role-card--operator .role-card__icon {
-  background: rgba(17,26,65,.1);
-  color: var(--green);
-}
-
 .role-card__body {
   grid-column: 2;
   grid-row: 1;
@@ -806,28 +796,6 @@ svg {
 .role-card--commuter .btn:hover {
   background: var(--teal-dark);
   border-color: var(--teal-dark);
-}
-
-.role-card--driver .btn {
-  background: var(--navy);
-  border-color: var(--navy);
-  color: #fff;
-}
-
-.role-card--driver .btn:hover {
-  background: #20256a;
-  border-color: #20256a;
-}
-
-.role-card--operator .btn {
-  background: var(--green);
-  border-color: var(--green);
-  color: #fff;
-}
-
-.role-card--operator .btn:hover {
-  background: var(--green-dark);
-  border-color: var(--green-dark);
 }
 
 

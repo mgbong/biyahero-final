@@ -36,7 +36,7 @@
 
     <header class="site-header">
         <div class="header-inner">
-            <a class="brand" href="index.html" aria-label="Biyahero home">
+            <a class="brand" href="/" id="brand-replay" aria-label="Biyahero home">
                 <span class="brand-mark" aria-hidden="true">
                     <svg viewBox="0 0 24 24" fill="none">
                         <path d="M5 17.5V9.25C5 7.45 6.45 6 8.25 6h7.5C17.55 6 19 7.45 19 9.25v8.25H5Z"
@@ -147,6 +147,30 @@
     </main>
     <script src="api/leaflet/dist/leaflet.js"></script>
     <script src="js/landing-map.js"></script>
+    <script>
+      /* Brand logo click — replay the intro animation without a hard reload */
+      document.getElementById("brand-replay").addEventListener("click", function (e) {
+        e.preventDefault();
+        // Reset body to intro state
+        document.body.classList.remove("landing-ready");
+        document.body.classList.add("landing-intro");
+        // Show the overlay again
+        var overlay = document.querySelector(".landing-intro-overlay");
+        if (overlay) {
+          overlay.style.opacity = "";
+          overlay.style.transform = "";
+          overlay.style.visibility = "";
+          overlay.style.pointerEvents = "";
+        }
+        // Wait a frame then trigger the reveal again (same timing as page load)
+        var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        var delay = reduceMotion ? 0 : 800;
+        setTimeout(function () {
+          document.body.classList.remove("landing-intro");
+          document.body.classList.add("landing-ready");
+        }, delay);
+      });
+    </script>
 </body>
 
 </html>

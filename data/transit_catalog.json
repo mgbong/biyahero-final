@@ -23,7 +23,17 @@
     {"name": "Tabunok", "type": "barangay", "city": "Talisay City", "barangay": "Tabunok", "lat": 10.2420, "lng": 123.8470},
     {"name": "Bulacao", "type": "barangay", "city": "Talisay City", "barangay": "Bulacao", "lat": 10.2620, "lng": 123.8640},
     {"name": "Labangon", "type": "barangay", "city": "Cebu City", "barangay": "Labangon", "lat": 10.2950, "lng": 123.8800},
-    {"name": "Mambaling", "type": "barangay", "city": "Cebu City", "barangay": "Mambaling", "lat": 10.2800, "lng": 123.8730}
+    {"name": "Mambaling", "type": "barangay", "city": "Cebu City", "barangay": "Mambaling", "lat": 10.2800, "lng": 123.8730},
+    {"name": "City of Naga Proper", "type": "landmark", "city": "City of Naga", "barangay": "Poblacion North", "lat": 10.2200, "lng": 123.7567},
+    {"name": "Poblacion North Naga", "type": "barangay", "city": "City of Naga", "barangay": "Poblacion North", "lat": 10.2213, "lng": 123.7580},
+    {"name": "Poblacion South Naga", "type": "barangay", "city": "City of Naga", "barangay": "Poblacion South", "lat": 10.2175, "lng": 123.7555},
+    {"name": "Inayagan", "type": "barangay", "city": "City of Naga", "barangay": "Inayagan", "lat": 10.2347, "lng": 123.7716},
+    {"name": "Tuyan", "type": "barangay", "city": "City of Naga", "barangay": "Tuyan", "lat": 10.2160, "lng": 123.7620},
+    {"name": "Colon Naga", "type": "barangay", "city": "City of Naga", "barangay": "Colon", "lat": 10.2230, "lng": 123.7640},
+    {"name": "Tinaan", "type": "barangay", "city": "City of Naga", "barangay": "Tinaan", "lat": 10.2280, "lng": 123.7680},
+    {"name": "Lutac", "type": "barangay", "city": "City of Naga", "barangay": "Lutac", "lat": 10.2195, "lng": 123.7530},
+    {"name": "Uling", "type": "barangay", "city": "City of Naga", "barangay": "Uling", "lat": 10.2150, "lng": 123.7500},
+    {"name": "Naga City Hall", "type": "landmark", "city": "City of Naga", "barangay": "Poblacion North", "lat": 10.2205, "lng": 123.7572}
   ],
   "lines": [
     {
@@ -85,6 +95,26 @@
       "hours_from": "05:00",
       "hours_to": "20:00",
       "frequency_min": 15
+    },
+    {
+      "code": "BUS-03",
+      "name": "City of Naga – South Bus Terminal",
+      "mode": "bus",
+      "stops": ["City of Naga Proper", "Inayagan", "Tinaan", "Colon Naga", "Tabunok", "Bulacao", "Cebu South Bus Terminal"],
+      "base_fare": 22,
+      "hours_from": "05:00",
+      "hours_to": "20:00",
+      "frequency_min": 20
+    },
+    {
+      "code": "BUS-04",
+      "name": "Poblacion Naga – South Bus Terminal",
+      "mode": "bus",
+      "stops": ["Poblacion South Naga", "Poblacion North Naga", "Tuyan", "Lutac", "Uling", "Tabunok", "Bulacao", "Cebu South Bus Terminal"],
+      "base_fare": 22,
+      "hours_from": "05:00",
+      "hours_to": "20:00",
+      "frequency_min": 20
     },
     {
       "code": "AIR-01",

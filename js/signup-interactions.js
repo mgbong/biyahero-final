@@ -1,14 +1,11 @@
 /**
  * signup-interactions.js
  *
- * Handles all signup forms:
- *   - Front-end validation (password match, file size/type, operating days)
+ * Handles commuter signup form:
+ *   - Front-end validation (password match, file size/type)
  *   - Password show/hide toggles
  *   - API submission via fetch() to the endpoint declared in data-api=""
  *   - Redirect to data-redirect="" on success, or displays an error on failure
- *
- * For multi-step driver forms the server stores intermediate data in a
- * server-side session, so each step just POSTs its own fields.
  */
 
 document.querySelectorAll("[data-signup-form]").forEach((form) => {

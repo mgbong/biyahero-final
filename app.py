@@ -154,134 +154,6 @@ def commuter_signup():
 
 
 # ---------------------------------------------------------------------------
-# DRIVER SIGNUP  —  3-step wizard
-# ---------------------------------------------------------------------------
-@app.route("/api/driver/signup/step1", methods=["POST"])
-def driver_signup_step1():
-    data = request.get_json(silent=True) or request.form
-
-    fullname     = (data.get("fullname")     or "").strip()
-    contact      = (data.get("contact")      or "").strip()
-    email        = (data.get("email")        or "").strip().lower()
-    password     = (data.get("password")     or "").strip()
-    municipality = (data.get("municipality") or "").strip()
-
-    if not all([fullname, contact, email, password, municipality]):
-        return jsonify({"ok": False, "error": "All fields are required."}), 400
-    if len(password) < 8:
-        return jsonify({"ok": False, "error": "Password must be at least 8 characters."}), 400
-
-    db = get_db()
-    existing = db.execute("SELECT id FROM drivers WHERE email = ?", (email,)).fetchone()
-    db.close()
-    if existing:
-        return jsonify({"ok": False, "error": "An account with that email already exists."}), 409
-
-    session["driver_step1"] = {
-        "fullname": fullname, "contact": contact, "email": email,
-        "password": password, "municipality": municipality,
-    }
-    return jsonify({"ok": True, "message": "Step 1 saved. Proceed to step 2."})
-
-
-@app.route("/api/driver/signup/step2", methods=["POST"])
-def driver_signup_step2():
-    if "driver_step1" not in session:
-        return jsonify({"ok": False, "error": "Step 1 not completed."}), 400
-
-    data = request.get_json(silent=True) or request.form
-
-    vehicle_type     = (data.get("vehicle-type")     or "").strip()
-    plate_number     = (data.get("plate-number")     or "").strip()
-    franchise_number = (data.get("franchise-number") or "").strip() or None
-    route            = (data.get("route")            or "").strip()
-    terminal         = (data.get("terminal")         or "").strip()
-    seats            = str(data.get("seats", "")).strip()
-    hours_from       = (data.get("hours-from")       or "").strip()
-    hours_to         = (data.get("hours-to")         or "").strip()
-    days_raw         = request.form.getlist("days") or data.get("days") or []
-    if isinstance(days_raw, str):
-        days_raw = [d.strip() for d in days_raw.split(",") if d.strip()]
-    operating_days   = ",".join(days_raw)
-    wheelchair       = 1 if data.get("wheelchair-accessible") in ("on", "true", "1", True) else 0
-
-    if not all([vehicle_type, plate_number, route, terminal, seats, hours_from, hours_to, operating_days]):
-        return jsonify({"ok": False, "error": "All required fields must be filled."}), 400
-
-    try:
-        seats = int(seats)
-    except ValueError:
-        return jsonify({"ok": False, "error": "Seats must be a number."}), 400
-
-    session["driver_step2"] = {
-        "vehicle_type": vehicle_type, "plate_number": plate_number,
-        "franchise_number": franchise_number, "route": route,
-        "terminal": terminal, "seats": seats,
-        "operating_hours_from": hours_from, "operating_hours_to": hours_to,
-        "operating_days": operating_days, "wheelchair_accessible": wheelchair,
-    }
-    return jsonify({"ok": True, "message": "Step 2 saved. Proceed to step 3."})
-
-
-@app.route("/api/driver/signup/step3", methods=["POST"])
-def driver_signup_step3():
-    if "driver_step1" not in session or "driver_step2" not in session:
-        return jsonify({"ok": False, "error": "Previous steps not completed."}), 400
-
-    data      = request.form
-    id_type   = (data.get("id-type")   or "").strip()
-    id_number = (data.get("id-number") or "").strip()
-
-    if not id_type or not id_number:
-        return jsonify({"ok": False, "error": "ID type and ID number are required."}), 400
-
-    id_front_path = save_upload("id-front")
-    id_back_path  = save_upload("id-back")
-    or_cr_path    = save_upload("or-cr")
-    selfie_path   = save_upload("selfie")
-    vehicle_photo = save_upload("vehicle-photo")
-
-    missing = [f for f, v in [("ID front", id_front_path), ("ID back", id_back_path),
-                               ("OR/CR", or_cr_path), ("Selfie", selfie_path)] if not v]
-    if missing:
-        return jsonify({"ok": False, "error": f"Missing required files: {', '.join(missing)}."}), 400
-
-    s1 = session["driver_step1"]
-    s2 = session["driver_step2"]
-    pw_hash = generate_password_hash(s1["password"])
-
-    try:
-        db = get_db()
-        db.execute("""
-            INSERT INTO drivers (
-                fullname, contact, email, password_hash, municipality,
-                vehicle_type, plate_number, franchise_number,
-                route, terminal, seats,
-                operating_hours_from, operating_hours_to, operating_days, wheelchair_accessible,
-                id_type, id_number,
-                id_front_path, id_back_path, or_cr_path, selfie_path, vehicle_photo_path,
-                approval_status
-            ) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,'pending')
-        """, (
-            s1["fullname"], s1["contact"], s1["email"], pw_hash, s1["municipality"],
-            s2["vehicle_type"], s2["plate_number"], s2["franchise_number"],
-            s2["route"], s2["terminal"], s2["seats"],
-            s2["operating_hours_from"], s2["operating_hours_to"],
-            s2["operating_days"], s2["wheelchair_accessible"],
-            id_type, id_number,
-            id_front_path, id_back_path, or_cr_path, selfie_path, vehicle_photo,
-        ))
-        db.commit()
-        db.close()
-    except sqlite3.IntegrityError:
-        return jsonify({"ok": False, "error": "An account with that email already exists."}), 409
-
-    session.pop("driver_step1", None)
-    session.pop("driver_step2", None)
-    return jsonify({"ok": True, "message": "Application submitted! Redirecting to login…"})
-
-
-# ---------------------------------------------------------------------------
 # LOGIN  —  POST /api/login
 # Returns fullname, initials, email, role, id so the client can store them.
 # ---------------------------------------------------------------------------
@@ -294,58 +166,20 @@ def login():
     if not email or not password:
         return jsonify({"ok": False, "error": "Email and password are required."}), 400
 
-    db = get_db()
-
-    # 1. Commuters
+    db  = get_db()
     row = db.execute(
         "SELECT id, fullname, email, password_hash, created_at FROM commuters WHERE email = ?",
         (email,)
     ).fetchone()
+    db.close()
+
     if row and check_password_hash(row["password_hash"], password):
-        db.close()
         user = {"id": row["id"], "fullname": row["fullname"], "email": row["email"],
                 "role": "commuter", "initials": get_initials(row["fullname"]),
                 "created_at": row["created_at"]}
         session["user"] = user
         return jsonify({"ok": True, "redirect": "/html/dashboard.html", **user})
 
-    # 2. Drivers
-    row = db.execute(
-        "SELECT id, fullname, email, password_hash, approval_status, contact, "
-        "vehicle_type, route, municipality, created_at FROM drivers WHERE email = ?",
-        (email,)
-    ).fetchone()
-    if row and check_password_hash(row["password_hash"], password):
-        db.close()
-        status = row["approval_status"]
-        user = {"id": row["id"], "fullname": row["fullname"], "email": row["email"],
-                "role": "driver", "initials": get_initials(row["fullname"]),
-                "approval_status": status, "contact": row["contact"],
-                "vehicle_type": row["vehicle_type"], "route": row["route"],
-                "municipality": row["municipality"], "created_at": row["created_at"]}
-        session["user"] = user
-        if status == "pending":
-            return jsonify({"ok": True, "redirect": "/html/pending-approval.html", **user})
-        if status == "declined":
-            return jsonify({"ok": True, "redirect": "/html/declined.html", **user})
-        return jsonify({"ok": True, "redirect": "/html/driver-dashboard.html", **user})
-
-    # 3. Operators
-    row = db.execute(
-        "SELECT id, fullname, email, password_hash, company_name, contact, created_at "
-        "FROM operators WHERE email = ?",
-        (email,)
-    ).fetchone()
-    if row and check_password_hash(row["password_hash"], password):
-        db.close()
-        user = {"id": row["id"], "fullname": row["fullname"], "email": row["email"],
-                "role": "operator", "initials": get_initials(row["fullname"]),
-                "company_name": row["company_name"], "contact": row["contact"],
-                "created_at": row["created_at"]}
-        session["user"] = user
-        return jsonify({"ok": True, "redirect": "/html/operator-dashboard.html", **user})
-
-    db.close()
     return jsonify({"ok": False, "error": "Email address or password is incorrect."}), 401
 
 
@@ -369,63 +203,25 @@ def me():
         return jsonify({"ok": False, "error": "Not logged in."}), 401
 
     db  = get_db()
-    row = None
-
-    if user["role"] == "commuter":
-        row = db.execute(
-            "SELECT id, fullname, email, contact, created_at FROM commuters WHERE id = ?",
-            (user["id"],)
-        ).fetchone()
-        if row:
-            db.close()
-            return jsonify({"ok": True, "role": "commuter",
-                            "id": row["id"], "fullname": row["fullname"],
-                            "email": row["email"], "contact": row["contact"],
-                            "created_at": row["created_at"],
-                            "initials": get_initials(row["fullname"])})
-
-    elif user["role"] == "driver":
-        row = db.execute(
-            "SELECT id, fullname, email, contact, municipality, vehicle_type, "
-            "plate_number, route, terminal, operating_hours_from, operating_hours_to, "
-            "operating_days, approval_status, created_at FROM drivers WHERE id = ?",
-            (user["id"],)
-        ).fetchone()
-        if row:
-            db.close()
-            return jsonify({"ok": True, "role": "driver",
-                            "id": row["id"], "fullname": row["fullname"],
-                            "email": row["email"], "contact": row["contact"],
-                            "municipality": row["municipality"],
-                            "vehicle_type": row["vehicle_type"],
-                            "plate_number": row["plate_number"],
-                            "route": row["route"], "terminal": row["terminal"],
-                            "operating_hours_from": row["operating_hours_from"],
-                            "operating_hours_to": row["operating_hours_to"],
-                            "operating_days": row["operating_days"],
-                            "approval_status": row["approval_status"],
-                            "created_at": row["created_at"],
-                            "initials": get_initials(row["fullname"])})
-
-    elif user["role"] == "operator":
-        row = db.execute(
-            "SELECT id, fullname, email, contact, company_name, franchise_number, "
-            "municipality, created_at FROM operators WHERE id = ?",
-            (user["id"],)
-        ).fetchone()
-        if row:
-            db.close()
-            return jsonify({"ok": True, "role": "operator",
-                            "id": row["id"], "fullname": row["fullname"],
-                            "email": row["email"], "contact": row["contact"],
-                            "company_name": row["company_name"],
-                            "franchise_number": row["franchise_number"],
-                            "municipality": row["municipality"],
-                            "created_at": row["created_at"],
-                            "initials": get_initials(row["fullname"])})
-
+    row = db.execute(
+        "SELECT id, fullname, email, contact, created_at FROM commuters WHERE id = ?",
+        (user["id"],)
+    ).fetchone()
     db.close()
-    return jsonify({"ok": False, "error": "User not found."}), 404
+
+    if not row:
+        return jsonify({"ok": False, "error": "User not found."}), 404
+
+    return jsonify({
+        "ok":        True,
+        "role":      "commuter",
+        "id":        row["id"],
+        "fullname":  row["fullname"],
+        "email":     row["email"],
+        "contact":   row["contact"],
+        "created_at":row["created_at"],
+        "initials":  get_initials(row["fullname"]),
+    })
 
 
 # ---------------------------------------------------------------------------
@@ -440,95 +236,42 @@ def profile_update():
     if not user:
         return jsonify({"ok": False, "error": "Not logged in."}), 401
 
-    data        = request.get_json(silent=True) or request.form
-    fullname    = (data.get("fullname")     or "").strip()
-    new_password= (data.get("new_password") or "").strip()
-    current_pw  = (data.get("current_password") or "").strip()
+    data         = request.get_json(silent=True) or request.form
+    fullname     = (data.get("fullname")          or "").strip()
+    contact      = (data.get("contact")           or "").strip()
+    new_password = (data.get("new_password")      or "").strip()
+    current_pw   = (data.get("current_password")  or "").strip()
 
     if not fullname:
         return jsonify({"ok": False, "error": "Full name is required."}), 400
 
-    db = get_db()
+    db  = get_db()
+    row = db.execute("SELECT password_hash FROM commuters WHERE id=?", (user["id"],)).fetchone()
+    if not row:
+        db.close()
+        return jsonify({"ok": False, "error": "User not found."}), 404
 
-    if user["role"] == "commuter":
-        contact = (data.get("contact") or "").strip()
-        row = db.execute("SELECT password_hash FROM commuters WHERE id=?", (user["id"],)).fetchone()
-        if not row:
+    if new_password:
+        if not current_pw or not check_password_hash(row["password_hash"], current_pw):
             db.close()
-            return jsonify({"ok": False, "error": "User not found."}), 404
-
-        if new_password:
-            if not current_pw or not check_password_hash(row["password_hash"], current_pw):
-                db.close()
-                return jsonify({"ok": False, "error": "Current password is incorrect."}), 400
-            if len(new_password) < 8:
-                db.close()
-                return jsonify({"ok": False, "error": "New password must be at least 8 characters."}), 400
-            db.execute(
-                "UPDATE commuters SET fullname=?, contact=?, password_hash=?, updated_at=datetime('now') WHERE id=?",
-                (fullname, contact, generate_password_hash(new_password), user["id"])
-            )
-        else:
-            db.execute(
-                "UPDATE commuters SET fullname=?, contact=?, updated_at=datetime('now') WHERE id=?",
-                (fullname, contact, user["id"])
-            )
-
-    elif user["role"] == "driver":
-        contact = (data.get("contact") or "").strip()
-        row = db.execute("SELECT password_hash FROM drivers WHERE id=?", (user["id"],)).fetchone()
-        if not row:
+            return jsonify({"ok": False, "error": "Current password is incorrect."}), 400
+        if len(new_password) < 8:
             db.close()
-            return jsonify({"ok": False, "error": "User not found."}), 404
-
-        if new_password:
-            if not current_pw or not check_password_hash(row["password_hash"], current_pw):
-                db.close()
-                return jsonify({"ok": False, "error": "Current password is incorrect."}), 400
-            if len(new_password) < 8:
-                db.close()
-                return jsonify({"ok": False, "error": "New password must be at least 8 characters."}), 400
-            db.execute(
-                "UPDATE drivers SET fullname=?, contact=?, password_hash=?, updated_at=datetime('now') WHERE id=?",
-                (fullname, contact, generate_password_hash(new_password), user["id"])
-            )
-        else:
-            db.execute(
-                "UPDATE drivers SET fullname=?, contact=?, updated_at=datetime('now') WHERE id=?",
-                (fullname, contact, user["id"])
-            )
-
-    elif user["role"] == "operator":
-        contact      = (data.get("contact")      or "").strip()
-        company_name = (data.get("company_name") or "").strip()
-        row = db.execute("SELECT password_hash FROM operators WHERE id=?", (user["id"],)).fetchone()
-        if not row:
-            db.close()
-            return jsonify({"ok": False, "error": "User not found."}), 404
-
-        if new_password:
-            if not current_pw or not check_password_hash(row["password_hash"], current_pw):
-                db.close()
-                return jsonify({"ok": False, "error": "Current password is incorrect."}), 400
-            if len(new_password) < 8:
-                db.close()
-                return jsonify({"ok": False, "error": "New password must be at least 8 characters."}), 400
-            db.execute(
-                "UPDATE operators SET fullname=?, contact=?, company_name=?, password_hash=?, updated_at=datetime('now') WHERE id=?",
-                (fullname, contact, company_name, generate_password_hash(new_password), user["id"])
-            )
-        else:
-            db.execute(
-                "UPDATE operators SET fullname=?, contact=?, company_name=?, updated_at=datetime('now') WHERE id=?",
-                (fullname, contact, company_name, user["id"])
-            )
+            return jsonify({"ok": False, "error": "New password must be at least 8 characters."}), 400
+        db.execute(
+            "UPDATE commuters SET fullname=?, contact=?, password_hash=?, updated_at=datetime('now') WHERE id=?",
+            (fullname, contact, generate_password_hash(new_password), user["id"])
+        )
+    else:
+        db.execute(
+            "UPDATE commuters SET fullname=?, contact=?, updated_at=datetime('now') WHERE id=?",
+            (fullname, contact, user["id"])
+        )
 
     db.commit()
     db.close()
-
-    # Refresh session user data
     session["user"] = {**user, "fullname": fullname, "initials": get_initials(fullname)}
-    return jsonify({"ok": True, "message": "Profile updated successfully.",
+    return jsonify({"ok": True, "message": "Profile updated.",
                     "fullname": fullname, "initials": get_initials(fullname)})
 
 
@@ -1023,17 +766,7 @@ def api_staff_queue():
     return jsonify({"ok": True, **data, "is_admin": ri.is_admin(user)})
 
 
-@app.route("/api/staff/import/preview", methods=["POST"])
-def api_staff_import_preview():
-    from services import route_info as ri
-    user = current_user()
-    if not ri.is_staff(user):
-        return jsonify({"ok": False, "error": "Staff login required."}), 403
-    text = request.get_data(as_text=True) or ""
-    if request.is_json:
-        text = (request.get_json() or {}).get("csv") or text
-    rows, errors = ri.preview_csv_import(text)
-    return jsonify({"ok": len(errors) == 0, "rows": rows, "errors": errors})
+
 
 
 # ---------------------------------------------------------------------------
@@ -1146,19 +879,7 @@ def api_reports_status(report_id):
     return jsonify({"ok": True, "report": item})
 
 
-@app.route("/api/reports/<int:report_id>/note", methods=["POST"])
-def api_reports_note(report_id):
-    from services import reports as ur
-    user = current_user()
-    if not user:
-        return jsonify({"ok": False, "error": "Please log in."}), 401
-    body = request.get_json(silent=True) or {}
-    conn = get_db()
-    ok, msg = ur.add_user_note(conn, report_id, user, body.get("body") or "")
-    conn.close()
-    if not ok:
-        return jsonify({"ok": False, "error": msg}), 400
-    return jsonify({"ok": True, "message": msg})
+
 
 
 @app.route("/api/staff/reports", methods=["GET"])
@@ -1182,19 +903,7 @@ def api_staff_reports():
     return jsonify({"ok": True, "reports": items, "analytics": stats})
 
 
-@app.route("/api/staff/reports/<int:report_id>/apply", methods=["POST"])
-def api_staff_apply_report(report_id):
-    from services import reports as ur
-    from services import route_info as ri
-    user = current_user()
-    if not ri.is_staff(user):
-        return jsonify({"ok": False, "error": "Staff login required."}), 403
-    conn = get_db()
-    item, err = ur.apply_correction_draft(conn, report_id, user)
-    conn.close()
-    if err:
-        return jsonify({"ok": False, "error": err}), 400
-    return jsonify({"ok": True, "draft": item})
+
 
 
 # ---------------------------------------------------------------------------
@@ -1212,14 +921,15 @@ if __name__ == "__main__":
             local_ip = socket.gethostbyname(socket.gethostname())
         except Exception:
             local_ip = "<your-ip>"
-        print(f"  Local:   http://127.0.0.1:5000")
-        print(f"  Network: http://{local_ip}:5000")
+        print(f"  Local:   http://127.0.0.1:8080")
+        print(f"  Network: http://{local_ip}:8080")
         print("\n  Other devices on the same Wi-Fi can use the Network URL.")
     else:
-        print(f"  Open:    http://127.0.0.1:5000")
+        print(f"  Open:    http://127.0.0.1:8080")
         print("\n  Tip: run  python app.py --host  to share with other devices.")
     print("=" * 50)
     print("  Do NOT open HTML files with Live Server — use the URL above.")
     print("=" * 50 + "\n")
 
-    app.run(debug=False, host=host, port=5000)
+    app.run(debug=False, host=host, port=8080)
+80
